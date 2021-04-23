@@ -81,7 +81,7 @@ No any SEO defect found.
 
 #### Chaining any rules and config check options, or just to apply all rules by default
 
-Now supported and predefined SEO rules are `ImgTagWithAltAttritube`, `ATagWithRelAttritube`, `HeadTagWithTitleAndDescriptionsKeywordsMeta`, `NoTooManyStrongTags` and `NoMoreThanOneH1Tag`
+Now supported and predefined SEO rules are `ImgTagWithAltAttritube`, `ATagWithRelAttritube`, `HeadTagWithTitleAndDescriptionKeywordsMeta`, `NoTooManyStrongTags` and `NoMoreThanOneH1Tag`
 
 ```js
 ...

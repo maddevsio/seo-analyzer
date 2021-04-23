@@ -122,7 +122,7 @@ class SeoInspector {
       } else {
         contentStr = 'No any SEO defect found. \n'
       }
-      let type = this.output.constructor.name
+      let type = this.output && this.output.constructor.name
       switch (type) {
         case 'String':
           const filePath = this.output
@@ -141,6 +141,7 @@ class SeoInspector {
           break
         case 'Console':
         case null:
+        case undefined:
           console.log(contentStr)
           break
         default:

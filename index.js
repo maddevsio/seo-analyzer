@@ -6,4 +6,4 @@ new SeoInspector({
     }
   })
   .read(fs.createReadStream('index.html'))
-  .write(fs.createWriteStream('report.txt'));
+  .write();

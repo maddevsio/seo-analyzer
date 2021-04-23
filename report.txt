@@ -1,4 +1,3 @@
 SEO defects found: 
-This HTML without <meta name="descriptions"> tag
 This HTML without <meta name="keywords"> tag
 This HTML have more than one <h1> tag
