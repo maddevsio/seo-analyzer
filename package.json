@@ -1,0 +1,46 @@
+{
+  "name": "seo-analyzer",
+  "version": "1.0.1",
+  "description": "SEO Analyzer",
+  "main": "dist/seo-analyzer.js",
+  "module": "dist/seo-analyzer.mjs",
+  "browser": "dist/seo-analyzer.min.js",
+  "repository": "https://github.com/denisoed/seo-analyzer",
+  "homepage": "https://github.com/denisoed/seo-analyzer",
+  "bugs": "https://github.com/jasonday/printThis/issues",
+  "author": "Denisoed",
+  "license": "MIT",
+  "keywords": [
+    "es5",
+    "react",
+    "vue",
+    "angular",
+    "vanilla",
+    "jquery",
+    "plugins",
+    "print"
+  ],
+  "scripts": {
+    "make": "rimraf dist && rollup -c",
+    "build": "npm run make",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "iconv-lite": "^0.4.19",
+    "mocha": "^8.3.2",
+    "rimraf": "^3.0.0",
+    "rollup": "^2.45.2",
+    "rollup-plugin-dts": ">=1.1.12 <1.2",
+    "rollup-plugin-terser": "^5.3.1",
+    "rollup-plugin-ts": "^0.2.0",
+    "standard": "^10.0.3"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=4.0.0"
+  },
+  "dependencies": {
+    "jsdom": "^16.5.3"
+  }
+}
