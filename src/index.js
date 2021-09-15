@@ -5,11 +5,12 @@ import { JSDOM } from 'jsdom'
 import _ from 'lodash'
 import iconv from 'iconv-lite'
 import RuleFactory from './RuleFactory'
+import Input from './modules/input'
 
 class SeoInspector {
   constructor (options = {}) {
     this.done = (_.has(options, ['done'])) ? options.done : (err) => { if (err) throw err }
-    this.input = null
+    this.inputPages = null
     this.output = null
     this.ruleFactory = new RuleFactory()
     this.defaultRules = this.ruleFactory.getDefaultRules()
@@ -17,9 +18,21 @@ class SeoInspector {
     return this
   }
 
-  read (input) {
-    this.input = input
+  input(pages) {
+    this.inputPages = pages
     return this
+  }
+
+  inputFiles(files) {
+    new Input().files(files);
+  }
+
+  inputUrls(urls) {
+    new Input().urls(urls);
+  }
+
+  inputFolders(folders) {
+    new Input().folders(folders);
   }
 
   addRule (name, options) {
@@ -56,17 +69,17 @@ class SeoInspector {
 
   _getHtml () {
     return new Promise((resolve, reject) => {
-      const type = this.input.constructor.name
+      const type = this.inputPages.constructor.name
       switch (type) {
         case 'String':
-          const filePath = this.input
+          const filePath = this.inputPages
           fs.readFile(filePath, 'utf8', (err, html) => {
             if (err) return this.done(err)
             resolve(html)
           })
           break
         case 'ReadStream':
-          const readStream = this.input
+          const readStream = this.inputPages
           let chunks = []
           let size = 0
           readStream.on('data', (chunk) => {
