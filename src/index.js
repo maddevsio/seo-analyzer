@@ -14,7 +14,9 @@ class SeoInspector {
     this.output = null
     this.ruleFactory = new RuleFactory()
     this.defaultRules = this.ruleFactory.getDefaultRules()
-    this.rules = {}
+    
+    this.inputData = [];
+    this.rules = {};
     return this
   }
 
@@ -23,17 +25,39 @@ class SeoInspector {
     return this
   }
 
+  // ------- Input functions ------- // 
   inputFiles(files) {
-    new Input().files(files);
+    this.inputData = new Input().files(files);
   }
 
   inputUrls(urls) {
-    new Input().urls(urls);
+    this.inputData = new Input().urls(urls);
   }
 
   inputFolders(folders) {
-    new Input().folders(folders);
+    this.inputData = new Input().folders(folders);
   }
+  // ------------------------------ //
+  
+  // --------- Add Rule --------- //
+  addRule (func) {
+    this.rules[func.name] = func;
+  }
+  // ----------------------------- //
+  
+  // ------- Output functions ------- //
+  outputFile () {
+    new Output().file();
+  }
+
+  outputConsole () {
+    new Output().console();
+  }
+
+  outputJson () {
+    new Output().json();
+  }
+  // ------------------------------ //
 
   addRule (name, options) {
     if (_.has(this.defaultRules, name)) {
