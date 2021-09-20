@@ -6,6 +6,8 @@ import imgTagWithAltAttritubeRule from './ImgTagWithAltAttritubeRule'
 import headTagWithTitleAndDescriptionKeywordsMetaRule from './HeadTagWithTitleAndDescriptionKeywordsMetaRule'
 import aTagWithRelAttritubeRule from './ATagWithRelAttritubeRule'
 import canonicalLinkRule from './CanonicalLinkRule'
+import metaBaseRule from './MetaBaseRule'
+import metaSocialRule from './MetaSocialRule'
 
 const defaultRules = {
   titleLengthRule,
@@ -15,7 +17,9 @@ const defaultRules = {
   imgTagWithAltAttritubeRule,
   headTagWithTitleAndDescriptionKeywordsMetaRule,
   aTagWithRelAttritubeRule,
-  canonicalLinkRule
+  canonicalLinkRule,
+  metaBaseRule,
+  metaSocialRule
 };
 
 export default defaultRules;
