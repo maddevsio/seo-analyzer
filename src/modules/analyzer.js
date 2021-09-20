@@ -24,8 +24,11 @@ class Analyzer {
   _startAnalyzer(data, rules) {
     return new Promise(async (resolve, reject) => {
       const result = [];
-      for (const dom of data) {
-        result.push(await this._checkDOM(dom, rules));
+      for (const item of data) {
+        result.push({
+          file: item.file,
+          report: await this._checkDOM(item.dom, rules)
+        });
       }
       resolve(result);
     });

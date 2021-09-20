@@ -14,8 +14,8 @@ class Input {
         console.log('Input data is empty');
         reject();
       }
-      const listHTML = await this._getHtml(files);
-      const listDOM = await this._getDom(listHTML);
+      const listTexts = await this._getHtml(files);
+      const listDOM = await this._getDom(listTexts);
       resolve(listDOM);
     });
   }
@@ -27,26 +27,26 @@ class Input {
    */
   _getHtml(files) {
     return new Promise((resolve, reject) => {
-      const listHtml = [];
+      const listTexts = [];
       files.forEach((file) => {
-        const htmlText = fs.readFileSync(file, 'utf8');
-        listHtml.push(htmlText);
+        const text = fs.readFileSync(file, 'utf8');
+        listTexts.push({ file, text });
       });
-      resolve(listHtml);
+      resolve(listTexts);
     });
   }
 
   /**
-   * Transform the html to DOM
-   * @param {Array} listHtml [{<string>}, {<string>}, ...] 
-   * @returns {Promise.Array} [{<JSDOM>}, {<JSDOM>}, ...]
+   * Transform html to DOM
+   * @param {Array} list [{ <string>, <array> }, { <string>, <array> }, ...] 
+   * @returns {Promise.Array} [{  <string>, <JSDOM> }, { <string>, <JSDOM> }, ...]
    */
-  _getDom(listHtml) {
+  _getDom(list) {
     return new Promise((resolve, reject) => {
       const doms = [];
-      listHtml.forEach((html) => {
-        let dom = new JSDOM(html);
-        doms.push(dom);
+      list.forEach(item => {
+        let dom = new JSDOM(item.text);
+        doms.push({ file: item.file, dom });
       });
       resolve(doms);
     });

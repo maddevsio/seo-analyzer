@@ -26,12 +26,6 @@ new SeoAnalyzer({
   // Default rules
   .addRule('titleLengthRule', { min: 10, max: 50 })
   .addRule('noTooManyStrongTagsRule', { threshold: 2 })
-  .addRule('hTagsRule')
-  .addRule('noMoreThanOneH1TagRule')
-  .addRule('imgTagWithAltAttritubeRule')
-  .addRule('headTagWithTitleAndDescriptionKeywordsMetaRule')
-  .addRule('aTagWithRelAttritubeRule')
-  .addRule('canonicalLinkRule')
   .addRule('metaBaseRule', { list: ['description', 'viewport'] })
   .addRule('metaSocialRule', {
     properties: [
@@ -50,6 +44,12 @@ new SeoAnalyzer({
       'twitter:url'
     ], 
   })
+  .addRule('hTagsRule')
+  .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttritubeRule')
+  .addRule('headTagWithTitleAndDescriptionKeywordsMetaRule')
+  .addRule('aTagWithRelAttritubeRule')
+  .addRule('canonicalLinkRule')
   // Custom rules
   .addRule(customRule)
   .addRule(customRule2)
