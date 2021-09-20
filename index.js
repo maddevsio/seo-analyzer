@@ -23,8 +23,11 @@ new SeoAnalyzer({
     }
   })
   .inputFiles(['index.html'])
+  // Default rules
   .addRule('titleLengthRule', { min: 10, max: 50 })
   .addRule('hTagsRule')
+  .addRule('noTooManyStrongTagsRule', { threshold: 2 })
+  // Custom rules
   .addRule(customRule)
   .addRule(customRule2)
   .start();
