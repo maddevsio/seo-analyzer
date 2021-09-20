@@ -6,6 +6,7 @@ import _ from 'lodash'
 import iconv from 'iconv-lite'
 import RuleFactory from './RuleFactory'
 import Input from './modules/input'
+import Analyzer from './modules/analyzer'
 
 class SeoInspector {
   constructor (options = {}) {
@@ -16,59 +17,61 @@ class SeoInspector {
     this.defaultRules = this.ruleFactory.getDefaultRules()
     
     this.inputData = [];
-    this.rules = {};
-    return this
-  }
-
-  input(pages) {
-    this.inputPages = pages
+    this.rules = [];
     return this
   }
 
   // ------- Input functions ------- // 
   inputFiles(files) {
     this.inputData = new Input().files(files);
+    return this
   }
 
   inputUrls(urls) {
     this.inputData = new Input().urls(urls);
+    return this
   }
 
-  inputFolders(folders) {
+   inputFolders(folders) {
     this.inputData = new Input().folders(folders);
+    return this
   }
   // ------------------------------ //
   
   // --------- Add Rule --------- //
-  addRule (func) {
-    this.rules[func.name] = func;
+  addRule(func) {
+    this.rules.push(func);
+    return this
   }
   // ----------------------------- //
   
   // ------- Output functions ------- //
-  outputFile () {
+  outputFile() {
     new Output().file();
   }
 
-  outputConsole () {
-    new Output().console();
+  async outputConsole() {
+    const data = await this.inputData;
+    const report = await new Analyzer().run(data, this.rules);
+    // new Output().console();
+    console.log(report);
   }
 
-  outputJson () {
+  outputJson() {
     new Output().json();
   }
   // ------------------------------ //
 
-  addRule (name, options) {
-    if (_.has(this.defaultRules, name)) {
-      _.set(this.rules, name, options)
-    }
+  // addRule(name, options) {
+  //   if (_.has(this.defaultRules, name)) {
+  //     _.set(this.rules, name, options)
+  //   }
 
-    if (_.has(options, ['object'])) {
-      _.set(this.rules, name, options)
-    }
-    return this
-  }
+  //   if (_.has(options, ['object'])) {
+  //     _.set(this.rules, name, options)
+  //   }
+  //   return this
+  // }
 
   write (output) {
     this.output = output

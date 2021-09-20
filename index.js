@@ -1,7 +1,17 @@
 const SeoInspector = require('./dist/seo-analyzer.js')
 
 function rule() {
-  console.log('Hello world!'));
+  return new Promise(async (resolve, reject) => {
+    setTimeout(() => {
+      resolve('RULE 1 - passed');
+    }, 3000);
+  });
+}
+
+function rule2() {
+  return new Promise(async (resolve, reject) => {
+    resolve('RULE 1 - bad');
+  });
 }
 
 new SeoInspector({
@@ -11,6 +21,7 @@ new SeoInspector({
   })
   .inputFiles(['index.html'])
   .addRule(rule)
+  .addRule(rule2)
   .outputConsole();
   // .write();
 
