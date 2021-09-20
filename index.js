@@ -28,6 +28,7 @@ new SeoAnalyzer({
   .addRule('noTooManyStrongTagsRule', { threshold: 2 })
   .addRule('hTagsRule')
   .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttritubeRule')
   // Custom rules
   .addRule(customRule)
   .addRule(customRule2)

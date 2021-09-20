@@ -1,12 +1,5 @@
-'use strict'
-
-import BaseRule from './BaseRule'
-
-class ImgTagWithAltAttritubeRule extends BaseRule {
-  check (dom) {
-    if (this.options.enabled === 0) {
-      return
-    }
+function imgTagWithAltAttritubeRule(dom) {
+  return new Promise(async (resolve, reject) => {
     let report = ''
     let count = 0
     const elements = dom.window.document.querySelectorAll('img')
@@ -18,8 +11,8 @@ class ImgTagWithAltAttritubeRule extends BaseRule {
     if (count > 0) {
       report += 'There are ' + count + ' <img> tag without alt attribute'
     }
-    return report
-  }
-}
+    resolve(report);
+  });
+};
 
-export default ImgTagWithAltAttritubeRule
+export default imgTagWithAltAttritubeRule;
