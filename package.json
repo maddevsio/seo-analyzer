@@ -21,6 +21,7 @@
     "print"
   ],
   "scripts": {
+    "watch": "rollup -c -w",
     "make": "rimraf dist && rollup -c",
     "build": "npm run make",
     "prepublish": "npm run build"
