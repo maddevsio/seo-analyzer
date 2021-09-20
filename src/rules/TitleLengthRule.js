@@ -1,25 +1,18 @@
-'use strict'
-
-import BaseRule from './BaseRule'
-
-class TitleLengthRule extends BaseRule {
-  check (dom) {
-    if (this.options.enabled === 0) {
-      return
-    }
-    let report = ''
+function titleLengthRule(dom) {
+  return new Promise(async (resolve, reject) => {
+    let report = null
     if (!dom.window.document.title) {
       return report += 'This HTML without <title> tag'
     }
     const titleLength = dom.window.document.title.length
-    if (titleLength < this.options.min) {
-      report += `<title> too short(<${titleLength}). The minimum length should be ${this.options.min} characters.`
+    if (titleLength <= 1) {
+      report += `<title> too short(${titleLength}). The minimum length should be 2 characters.`
     }
-    if (titleLength > this.options.max) {
-      report += `<title> too long(>${titleLength}). The maximum length should be ${this.options.max} characters.`
+    if (titleLength > 60) {
+      report += `<title> too long(${titleLength}). The maximum length should be 60 characters.`
     }
-    return report
-  }
-}
+    resolve(report);
+  });
+};
 
-export default TitleLengthRule
+export default titleLengthRule;

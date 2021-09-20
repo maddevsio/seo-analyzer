@@ -5,11 +5,13 @@ import Input from './modules/input'
 import Analyzer from './modules/analyzer'
 import Output from './modules/output'
 
+import titleLengthRule from './rules/TitleLengthRule'
+
 class SeoAnalyzer {
   constructor (options = {}) {
     this.done = (_.has(options, ['done'])) ? options.done : (err) => { if (err) throw err }
     this.inputData = [];
-    this.rules = [];
+    this.rules = [titleLengthRule];
     return this
   }
 
