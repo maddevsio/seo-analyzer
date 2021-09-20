@@ -1,19 +1,12 @@
-'use strict'
-
-import BaseRule from './BaseRule'
-
-class NoMoreThanOneH1Tag extends BaseRule {
-  check (dom) {
-    if (this.options.enabled === 0) {
-      return
-    }
+function noMoreThanOneH1TagRule(dom) {
+  return new Promise(async (resolve, reject) => {
     let report = ''
     const elements = dom.window.document.querySelectorAll('h1')
     if (elements && elements.length > 1) {
       report += 'This HTML have more than one <h1> tag'
     }
-    return report
-  }
-}
+    resolve(report);
+  });
+};
 
-export default NoMoreThanOneH1Tag
+export default noMoreThanOneH1TagRule;
