@@ -1,45 +1,44 @@
-# SEO Checker
-> A library for scanning a HTML file to show all of the SEO defects 
+# SEO Analyzer
+> A library for analyze a HTML file to show all of the SEO defects 
 
 ## Usage
 
-Install with npm `npm install seo-inspector --save`
+Install with npm `npm install seo-analyzer --save`
 
 ### Getting started
 
 Require the library and then all the methods listed below will be made available to you.
 
 ```js
-new SeoInspector(<options>).read(<input>).addRule(<rule>).addRule(<rule>).write(<output>);
+new SeoAnalyzer(<options>).input(<input>).addRule(<rule>).addRule(<rule>).start();
 ```
 
 Usage:
 
 * options.done: callback function.
 * input: a HTML file path
-* output: a file path
+* output: a json 
 * rule: predefined rule name and settings.
 
 #### One way: read from a HTML file, write result to a file
 
 ```js
-import fs from 'fs';
-const SeoInspector = require('seo-inspector')
-new SeoInspector({ done:
-                    (err, data) => {
-                        if (err) throw err;
-                    }
-                })
-.read('source/target.html')
-.write('destination/report.txt');
+const SeoAnalyzer = require('seo-analyzer')
+new SeoAnalyzer({
+  done: (err, data) => {
+      if (err) throw err;
+    }
+  })
+  .read(['index.html'])
+  .start();
 ```
 
 #### Two way: read from a Node Readable Stream, write result to a Node Writable Stream
 
 ```js
 import fs from 'fs';
-const SeoInspector = require('seo-inspector')
-new SeoInspector({ done:
+const SeoAnalyzer = require('seo-inspector')
+new SeoAnalyzer({ done:
                     (err, data) => {
                         if (err) throw err;
                     }
@@ -52,8 +51,8 @@ new SeoInspector({ done:
 
 ```js
 import fs from 'fs';
-const SeoInspector = require('seo-inspector')
-new SeoInspector({ done:
+const SeoAnalyzer = require('seo-inspector')
+new SeoAnalyzer({ done:
                     (err, data) => {
                         if (err) throw err;
                     }

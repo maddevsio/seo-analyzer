@@ -17,8 +17,8 @@ class Analyzer {
   }
 
   /**
-   * @param {Array} data
-   * @param {Array} rules
+   * @param {Array} data - html doms
+   * @param {Array} rules - List rulers
    * @returns {Array}
    */
   _startAnalyzer(data, rules) {
