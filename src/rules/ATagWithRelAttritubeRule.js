@@ -1,12 +1,5 @@
-'use strict'
-
-import BaseRule from './BaseRule'
-
-class ATagWithRelAttritubeRule extends BaseRule {
-  check (dom) {
-    if (this.options.enabled === 0) {
-      return
-    }
+function aTagWithRelAttritubeRule(dom) {
+  return new Promise(async (resolve, reject) => {
     let report = ''
     let count = 0
     const elements = dom.window.document.querySelectorAll('a')
@@ -18,8 +11,8 @@ class ATagWithRelAttritubeRule extends BaseRule {
     if (count > 0) {
       report += 'There are ' + count + ' <a> tag without rel attribute'
     }
-    return report
-  }
-}
+    resolve(report);
+  });
+};
 
-export default ATagWithRelAttritubeRule
+export default aTagWithRelAttritubeRule;

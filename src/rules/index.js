@@ -4,6 +4,7 @@ import noTooManyStrongTagsRule from './NoTooManyStrongTagsRule'
 import noMoreThanOneH1TagRule from './NoMoreThanOneH1TagRule'
 import imgTagWithAltAttritubeRule from './ImgTagWithAltAttritubeRule'
 import headTagWithTitleAndDescriptionKeywordsMetaRule from './HeadTagWithTitleAndDescriptionKeywordsMetaRule'
+import aTagWithRelAttritubeRule from './ATagWithRelAttritubeRule'
 
 const defaultRules = {
   titleLengthRule,
@@ -11,7 +12,8 @@ const defaultRules = {
   noTooManyStrongTagsRule,
   noMoreThanOneH1TagRule,
   imgTagWithAltAttritubeRule,
-  headTagWithTitleAndDescriptionKeywordsMetaRule
+  headTagWithTitleAndDescriptionKeywordsMetaRule,
+  aTagWithRelAttritubeRule
 };
 
 export default defaultRules;

@@ -30,6 +30,7 @@ new SeoAnalyzer({
   .addRule('noMoreThanOneH1TagRule')
   .addRule('imgTagWithAltAttritubeRule')
   .addRule('headTagWithTitleAndDescriptionKeywordsMetaRule')
+  .addRule('aTagWithRelAttritubeRule')
   // Custom rules
   .addRule(customRule)
   .addRule(customRule2)
