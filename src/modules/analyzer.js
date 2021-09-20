@@ -40,8 +40,8 @@ class Analyzer {
   _checkDOM(dom, rules) {
     return new Promise(async (resolve, reject) => {
       const result = [];
-      for (const rule of rules) {
-        result.push(await rule(dom));
+      for (const item of rules) {
+        result.push(await item.rule(dom, item.options));
       }
       resolve(result);
     });

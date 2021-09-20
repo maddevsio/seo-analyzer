@@ -1,7 +1,7 @@
 const SeoAnalyzer = require('./dist/seo-analyzer.js')
 
 // --------- Custom rules ------------ //
-function custom_rule() {
+function customRule() {
   return new Promise(async (resolve, reject) => {
     setTimeout(() => {
       resolve('RULE 1 - passed');
@@ -9,7 +9,7 @@ function custom_rule() {
   });
 }
 
-function custom_rule2() {
+function customRule2() {
   return new Promise(async (resolve, reject) => {
     resolve('RULE 2 - bad');
   });
@@ -23,6 +23,7 @@ new SeoAnalyzer({
     }
   })
   .inputFiles(['index.html'])
-  .addRule(custom_rule)
-  .addRule(custom_rule2)
+  .addRule('titleLengthRule', { min: 10, max: 50 })
+  .addRule(customRule)
+  .addRule(customRule2)
   .start();

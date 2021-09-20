@@ -4,14 +4,13 @@ import _ from 'lodash'
 import Input from './modules/input'
 import Analyzer from './modules/analyzer'
 import Output from './modules/output'
-
-import titleLengthRule from './rules/TitleLengthRule'
+import defaultRules from './rules/index'
 
 class SeoAnalyzer {
   constructor (options = {}) {
     this.done = (_.has(options, ['done'])) ? options.done : (err) => { if (err) throw err }
     this.inputData = [];
-    this.rules = [titleLengthRule];
+    this.rules = [];
     return this
   }
 
@@ -33,8 +32,14 @@ class SeoAnalyzer {
   // ------------------------------ //
   
   // --------- Add Rule --------- //
-  addRule(func) {
-    this.rules.push(func);
+  addRule(func, options = {}) {
+    if (typeof func === 'string') {
+      if (func in defaultRules) {
+        this.rules.push({ 'rule': defaultRules[func], options });
+      }
+    } else {
+      this.rules.push({ 'rule': func, options });
+    }
     return this
   }
   // ----------------------------- //
