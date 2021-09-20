@@ -1,12 +1,5 @@
-'use strict'
-
-import BaseRule from './BaseRule'
-
-class HeadTagWithTitleAndDescriptionKeywordsMetaRule extends BaseRule {
-  check (dom) {
-    if (this.options.enabled === 0) {
-      return
-    }
+function headTagWithTitleAndDescriptionKeywordsMetaRule(dom) {
+  return new Promise(async (resolve, reject) => {
     let report = []
     const metaList = ['description', 'keywords']
     metaList.forEach((meta) => {
@@ -15,8 +8,8 @@ class HeadTagWithTitleAndDescriptionKeywordsMetaRule extends BaseRule {
         report.push('This HTML without <meta name="' + meta + '"> tag')
       }
     })
-    return report.join('\n')
-  }
-}
+    resolve(report.join('\n'));
+  });
+};
 
-export default HeadTagWithTitleAndDescriptionKeywordsMetaRule
+export default headTagWithTitleAndDescriptionKeywordsMetaRule;
