@@ -31,6 +31,7 @@ new SeoAnalyzer({
   .addRule('imgTagWithAltAttritubeRule')
   .addRule('headTagWithTitleAndDescriptionKeywordsMetaRule')
   .addRule('aTagWithRelAttritubeRule')
+  .addRule('canonicalLinkRule')
   // Custom rules
   .addRule(customRule)
   .addRule(customRule2)
