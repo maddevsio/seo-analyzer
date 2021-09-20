@@ -1,6 +1,6 @@
 function titleLengthRule(dom, options) {
   return new Promise(async (resolve, reject) => {
-    let report = null
+    let report = ''
     if (!dom.window.document.title) {
       return report += 'This HTML without <title> tag'
     }

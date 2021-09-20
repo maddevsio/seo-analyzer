@@ -24,6 +24,7 @@ new SeoAnalyzer({
   })
   .inputFiles(['index.html'])
   .addRule('titleLengthRule', { min: 10, max: 50 })
+  .addRule('hTagsRule')
   .addRule(customRule)
   .addRule(customRule2)
   .start();
