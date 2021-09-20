@@ -1,6 +1,7 @@
-const SeoInspector = require('./dist/seo-analyzer.js')
+const SeoAnalyzer = require('./dist/seo-analyzer.js')
 
-function rule() {
+// --------- Custom rules ------------ //
+function custom_rule() {
   return new Promise(async (resolve, reject) => {
     setTimeout(() => {
       resolve('RULE 1 - passed');
@@ -8,20 +9,20 @@ function rule() {
   });
 }
 
-function rule2() {
+function custom_rule2() {
   return new Promise(async (resolve, reject) => {
-    resolve('RULE 1 - bad');
+    resolve('RULE 2 - bad');
   });
 }
+// -------------------------------- //
 
-new SeoInspector({
+new SeoAnalyzer({
     done: (err, data) => {
       if (err) throw err;
       console.log('REPORT: ', data);
     }
   })
   .inputFiles(['index.html'])
-  .addRule(rule)
-  .addRule(rule2)
+  .addRule(custom_rule)
+  .addRule(custom_rule2)
   .start();
-

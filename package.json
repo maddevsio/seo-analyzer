@@ -7,18 +7,20 @@
   "browser": "dist/seo-analyzer.min.js",
   "repository": "https://github.com/denisoed/seo-analyzer",
   "homepage": "https://github.com/denisoed/seo-analyzer",
-  "bugs": "https://github.com/jasonday/printThis/issues",
+  "bugs": "https://github.com/denisoed/seo-analyzer/issues",
   "author": "Denisoed",
   "license": "MIT",
   "keywords": [
     "es5",
     "react",
     "vue",
+    "svelte",
+    "nuxt",
+    "next",
     "angular",
     "vanilla",
     "jquery",
-    "plugins",
-    "print"
+    "plugins"
   ],
   "scripts": {
     "watch": "rollup -c -w",
