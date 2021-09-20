@@ -7,6 +7,7 @@ import iconv from 'iconv-lite'
 import RuleFactory from './RuleFactory'
 import Input from './modules/input'
 import Analyzer from './modules/analyzer'
+import Output from './modules/output'
 
 class SeoInspector {
   constructor (options = {}) {
@@ -45,20 +46,13 @@ class SeoInspector {
   }
   // ----------------------------- //
   
-  // ------- Output functions ------- //
-  outputFile() {
-    new Output().file();
-  }
-
-  async outputConsole() {
-    const data = await this.inputData;
-    const report = await new Analyzer().run(data, this.rules);
-    // new Output().console();
-    console.log(report);
-  }
-
-  outputJson() {
-    new Output().json();
+  start() {
+    return new Promise(async (resolve, reject) => {
+      const data = await this.inputData;
+      const report = await new Analyzer().run(data, this.rules);
+      const json = await new Output().run(report);
+      resolve(this.done(null, json));
+    });
   }
   // ------------------------------ //
 

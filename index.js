@@ -17,11 +17,11 @@ function rule2() {
 new SeoInspector({
     done: (err, data) => {
       if (err) throw err;
+      console.log('REPORT: ', data);
     }
   })
   .inputFiles(['index.html'])
   .addRule(rule)
   .addRule(rule2)
-  .outputConsole();
-  // .write();
+  .start();
 
