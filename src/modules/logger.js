@@ -15,10 +15,10 @@ class Analyzer {
     const red = '\x1b[31m'
     const yellow = '\x1b[33m%s\x1b[0m'
 
-    if (!result.some(r => !r.report.length)) return console.log(`\n %s${successMessage}`, green)
+    if (!result.some(r => r.report.length)) return console.log(`\n %s${successMessage}`, green)
 
     for (const item of result) {
-      console.log(yellow, `File: ${item.file.trim()}`)
+      console.log(yellow, `\nFile: ${item.file.trim()}`)
       console.log(`%s${item.report.join('\n')}\n`, red)
     }
 

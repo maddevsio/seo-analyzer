@@ -21,7 +21,7 @@ new SeoAnalyzer({
       if (err) throw err;
     }
   })
-  .inputFiles(['about.html'])
+  .inputFiles(['about.html', 'index.html'])
   // Default rules
   .addRule('titleLengthRule', { min: 10, max: 50 })
   .addRule('noTooManyStrongTagsRule', { threshold: 2 })
