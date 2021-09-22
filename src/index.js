@@ -1,10 +1,10 @@
-'use strict'
-
 import _ from 'lodash'
+import defaultRules from './rules/index'
+
 import Input from './modules/input'
 import Analyzer from './modules/analyzer'
 import Output from './modules/output'
-import defaultRules from './rules/index'
+import Logger from './modules/logger'
 
 class SeoAnalyzer {
   constructor (options = {}) {
@@ -50,6 +50,7 @@ class SeoAnalyzer {
       const data = await this.inputData;
       const report = await new Analyzer().run(data, this.rules);
       const json = await new Output().run(report);
+      new Logger().result(json);
       resolve(this.done(null, json));
     });
   }

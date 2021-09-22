@@ -19,10 +19,9 @@ function customRule2(dom) {
 new SeoAnalyzer({
     done: (err, data) => {
       if (err) throw err;
-      console.log('REPORT: ', data);
     }
   })
-  .inputFiles(['index.html', 'about.html'])
+  .inputFiles(['about.html'])
   // Default rules
   .addRule('titleLengthRule', { min: 10, max: 50 })
   .addRule('noTooManyStrongTagsRule', { threshold: 2 })
@@ -51,6 +50,6 @@ new SeoAnalyzer({
   .addRule('aTagWithRelAttritubeRule')
   .addRule('canonicalLinkRule')
   // Custom rules
-  .addRule(customRule)
-  .addRule(customRule2)
+  // .addRule(customRule)
+  // .addRule(customRule2)
   .start();

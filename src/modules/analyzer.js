@@ -21,7 +21,7 @@ class Analyzer {
   /**
    * @param {Array} data - html doms
    * @param {Array} rules - List rulers
-   * @returns {Array}
+   * @returns {Array} - Array of reports
    */
   _startAnalyzer(dataList, rules) {
     return new Promise(async (resolve, reject) => {
@@ -35,7 +35,7 @@ class Analyzer {
         const report = await this._checkDOM(item.dom, rules)
         
         // Update the progress bar
-        consoleProgressBar.increment()
+        consoleProgressBar.increment();
         
         if (report && report.length) {
           result.push({
