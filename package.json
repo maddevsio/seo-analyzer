@@ -44,6 +44,7 @@
     "npm": ">=4.0.0"
   },
   "dependencies": {
+    "cli-progress": "^3.9.1",
     "jsdom": "^16.5.3"
   }
 }

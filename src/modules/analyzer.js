@@ -1,3 +1,5 @@
+const cliProgress = require('cli-progress')
+
 class Analyzer {
   constructor() {}
 
@@ -21,11 +23,20 @@ class Analyzer {
    * @param {Array} rules - List rulers
    * @returns {Array}
    */
-  _startAnalyzer(data, rules) {
+  _startAnalyzer(dataList, rules) {
     return new Promise(async (resolve, reject) => {
+      const consoleProgressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic)
       const result = [];
-      for (const item of data) {
+      
+      // Start the progress bar
+      consoleProgressBar.start(dataList.length, 0);
+      
+      for (const item of dataList) {
         const report = await this._checkDOM(item.dom, rules)
+        
+        // Update the progress bar
+        consoleProgressBar.increment()
+        
         if (report && report.length) {
           result.push({
             file: item.file,
@@ -33,6 +44,10 @@ class Analyzer {
           });
         }
       }
+
+      // Stop the progress bar
+      consoleProgressBar.stop();
+
       resolve(result);
     });
   }
