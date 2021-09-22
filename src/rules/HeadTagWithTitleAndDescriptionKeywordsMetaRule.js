@@ -8,7 +8,7 @@ function headTagWithTitleAndDescriptionKeywordsMetaRule(dom) {
         report.push('This HTML without <meta name="' + meta + '"> tag')
       }
     })
-    resolve(report.join('\n'));
+    resolve(report);
   });
 };
 

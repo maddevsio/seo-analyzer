@@ -12,7 +12,7 @@ function metaBaseRule(dom, options = { list: [] }) {
         }
       })
     }
-    resolve(report.join('\n'));
+    resolve(report);
   });
 };
 

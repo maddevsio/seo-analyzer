@@ -1,7 +1,7 @@
 const SeoAnalyzer = require('./dist/seo-analyzer.js')
 
 // --------- Custom rules ------------ //
-function customRule() {
+function customRule(dom) {
   return new Promise(async (resolve, reject) => {
     setTimeout(() => {
       resolve('RULE 1 - passed');
@@ -9,7 +9,7 @@ function customRule() {
   });
 }
 
-function customRule2() {
+function customRule2(dom) {
   return new Promise(async (resolve, reject) => {
     resolve('RULE 2 - bad');
   });

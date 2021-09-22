@@ -12,7 +12,7 @@ function metaSocialRule(dom, options = { properties: [] }) {
         }
       })
     }
-    resolve(report.join('\n'));
+    resolve(report);
   });
 };
 
