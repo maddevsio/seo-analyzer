@@ -25,10 +25,13 @@ class Analyzer {
     return new Promise(async (resolve, reject) => {
       const result = [];
       for (const item of data) {
-        result.push({
-          file: item.file,
-          report: await this._checkDOM(item.dom, rules)
-        });
+        const report = await this._checkDOM(item.dom, rules)
+        if (report && report.length) {
+          result.push({
+            file: item.file,
+            report
+          });
+        }
       }
       resolve(result);
     });
@@ -48,7 +51,9 @@ class Analyzer {
         if (Array.isArray(report)) {
           result.push(...report);
         } else {
-          result.push(report);
+          if (report) {
+            result.push(report);
+          }
         }
       }
       resolve(result);

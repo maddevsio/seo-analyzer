@@ -22,7 +22,7 @@ new SeoAnalyzer({
       console.log('REPORT: ', data);
     }
   })
-  .inputFiles(['index.html'])
+  .inputFiles(['index.html', 'about.html'])
   // Default rules
   .addRule('titleLengthRule', { min: 10, max: 50 })
   .addRule('noTooManyStrongTagsRule', { threshold: 2 })
