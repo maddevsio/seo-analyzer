@@ -112,8 +112,12 @@ class Input {
     return new Promise((resolve, reject) => {
       const listTexts = [];
       files.forEach((file) => {
-        const text = fs.readFileSync(file, 'utf8');
-        listTexts.push({ file, text });
+        try {
+          const text = fs.readFileSync(file, 'utf8');
+          listTexts.push({ file, text });
+        } catch (error) {
+          this.logger.error(`File "${file}" not found`);
+        }
       });
       resolve(listTexts);
     });
