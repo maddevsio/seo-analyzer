@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "cli-progress": "^3.9.1",
+    "glob": "^7.2.0",
     "jsdom": "^16.5.3"
   }
 }

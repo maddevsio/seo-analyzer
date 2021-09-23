@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import { JSDOM } from 'jsdom';
 import Logger from './logger';
 
@@ -21,6 +22,43 @@ class Input {
       const listDOM = await this._getDom(listTexts);
       resolve(listDOM);
     });
+  }
+  
+  folders(folders) {
+    return new Promise(async (resolve, reject) => {
+      const files = await this._getFilesFromFolders(folders);
+      console.log(files);
+    });
+  }
+
+  async _getFilesFromFolders(folders) {
+    return new Promise(async (resolve, reject) => {
+      const files = [];
+      for (const folder of folders) {
+        const result = await this._getFilesFromFolder(folder);
+        files.push(...result);
+      }
+      resolve(files);
+    });
+  }
+
+  _getFilesFromFolder(folder) {
+    const result = [];
+
+    const files = [folder];
+    do {
+      const filepath = files.pop();
+      const stat = fs.lstatSync(filepath);
+      if (stat.isDirectory()) {
+        fs
+          .readdirSync(filepath)
+          .forEach(f => files.push(path.join(filepath, f)));
+      } else if (stat.isFile()) {
+        result.push(`${folder}/${path.relative(folder, filepath)}`);
+      }
+    } while (files.length !== 0);
+
+    return result;
   }
 
   /**
