@@ -1,6 +1,6 @@
 {
-  "name": "@maddevs/seo-analyzer",
-  "version": "1.0.0",
+  "name": "seo-analyzer",
+  "version": "1.0.1",
   "description": "SEO Analyzer",
   "main": "dist/seo-analyzer.js",
   "module": "dist/seo-analyzer.mjs",

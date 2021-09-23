@@ -19,7 +19,7 @@
 
 ## Usage
 
-Install with npm `npm install @maddevs/seo-analyzer --save`
+Install with npm `npm install seo-analyzer --save`
 
 ### Getting started
 
