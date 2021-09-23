@@ -62,13 +62,17 @@ class Analyzer {
     return new Promise(async (resolve, reject) => {
       const result = [];
       for (const item of rules) {
-        const report = await item.rule(dom, item.options)
-        if (Array.isArray(report)) {
-          result.push(...report);
-        } else {
-          if (report) {
-            result.push(report);
+        try {
+          const report = await item.rule(dom, item.options)
+          if (Array.isArray(report)) {
+            result.push(...report);
+          } else {
+            if (report) {
+              result.push(report);
+            }
           }
+        } catch(error) {
+          result.push(error);
         }
       }
       resolve(result);
