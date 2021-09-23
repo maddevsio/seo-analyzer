@@ -10,6 +10,13 @@ class Input {
     this.emptyList = 'You need to pass an array to the inputFiles function ["index.html", "...", "..."]';
   }
 
+  /**
+   * Get the html from files
+   * @param {Array} files [<string>, <string>, ...]
+   * @returns {Promise.Array} [<JSDOM>, <JSDOM>, ...]
+   * @memberof Input
+   * @example ['index.html', 'about.html', ...]
+   */
   files(files = []) {
     return new Promise(async (resolve, reject) => {
       if (files.length === 0) {
@@ -24,13 +31,26 @@ class Input {
     });
   }
   
+  /**
+   * Get the html from files in folders
+   * @param {string} folders [<string>, <string>, ...]
+   * @returns {Promise.Array} [<JSDOM>, <JSDOM>, ...]
+   * @memberof Input
+   * @private
+   */
   folders(folders) {
     return new Promise(async (resolve, reject) => {
       const files = await this._getFilesFromFolders(folders);
-      console.log(files);
     });
   }
 
+  /**
+   * Get all files from folders
+   * @param {Array} folders [<string>, <string>, ...]
+   * @returns {Promise.Array} [<string>, <string>, ...]
+   * @private
+   * @example ['html', 'dist', 'src']
+   */
   async _getFilesFromFolders(folders) {
     return new Promise(async (resolve, reject) => {
       const files = [];
@@ -42,23 +62,19 @@ class Input {
     });
   }
 
+  /**
+   * Get files from folder
+   * @param {string} folder
+   * @returns {Promise.Array} [<string>, <string>, ...]
+   * @private
+   * @memberof Input
+   */
   _getFilesFromFolder(folder) {
-    const result = [];
-
-    const files = [folder];
-    do {
-      const filepath = files.pop();
-      const stat = fs.lstatSync(filepath);
-      if (stat.isDirectory()) {
-        fs
-          .readdirSync(filepath)
-          .forEach(f => files.push(path.join(filepath, f)));
-      } else if (stat.isFile()) {
-        result.push(`${folder}/${path.relative(folder, filepath)}`);
-      }
-    } while (files.length !== 0);
-
-    return result;
+    const entryPaths = fs.readdirSync(folder).map(entry => path.join(folder, entry));
+    const filePaths = entryPaths.filter(entryPath => fs.statSync(entryPath).isFile());
+    const dirPaths = entryPaths.filter(entryPath => !filePaths.includes(entryPath));
+    const dirFiles = dirPaths.reduce((prev, curr) => prev.concat(this._getFilesFromFolder(curr)), []);
+    return [...filePaths, ...dirFiles];
   }
 
   /**
