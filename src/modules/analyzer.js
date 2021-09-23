@@ -1,7 +1,9 @@
 const cliProgress = require('cli-progress')
 
 class Analyzer {
-  constructor() {}
+  constructor() {
+    this.consoleProgressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
+  }
 
   run(inputData, rules) {
     return new Promise(async (resolve, reject) => {
@@ -13,29 +15,28 @@ class Analyzer {
         console.log('Input data is empty');
         reject();
       }
+
+      // Start the progress bar
+      this.consoleProgressBar.start(inputData.length, 0);
+
       const report = await this._startAnalyzer(inputData, rules);
       resolve(report);
     });
   }
 
   /**
-   * @param {Array} data - html doms
+   * @param {Array} dataList - html doms
    * @param {Array} rules - List rulers
-   * @returns {Array} - Array of reports
+   * @returns {Array} - Array of reports [{file: file, report: report}]
    */
   _startAnalyzer(dataList, rules) {
     return new Promise(async (resolve, reject) => {
-      const consoleProgressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic)
       const result = [];
-      
-      // Start the progress bar
-      consoleProgressBar.start(dataList.length, 0);
-      
       for (const item of dataList) {
-        const report = await this._checkDOM(item.dom, rules)
+        const report = await this._analyzeDOM(item.dom, rules)
         
         // Update the progress bar
-        consoleProgressBar.increment();
+        this.consoleProgressBar.increment();
         
         if (report && report.length) {
           result.push({
@@ -46,19 +47,19 @@ class Analyzer {
       }
 
       // Stop the progress bar
-      consoleProgressBar.stop();
+      this.consoleProgressBar.stop();
 
       resolve(result);
     });
   }
 
   /**
-   * Run the rule on the data
+   * Run analyzer for a single dom
    * @param {*} dom - The html dom element to run the rule on
-   * @param {*} rule - The rule to run
-   * @returns {Array} - Array of result
+   * @param {*} rules - The rules to run
+   * @returns {Array} - Array of error result ['error', 'error', 'error']
    */
-  _checkDOM(dom, rules) {
+  _analyzeDOM(dom, rules) {
     return new Promise(async (resolve, reject) => {
       const result = [];
       for (const item of rules) {
