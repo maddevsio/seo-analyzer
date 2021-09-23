@@ -4,7 +4,7 @@ import _colors from 'colors';
 class Analyzer {
   constructor() {
     this.consoleProgressBar = new cliProgress.Bar({
-      format: 'Progress |' + _colors.green('{bar}') + '| {percentage}% || {value}/{total} Files',
+      format: 'File analysis |' + _colors.green('{bar}') + '| {percentage}% || {value}/{total} Files',
       barCompleteChar: '\u2588',
       barIncompleteChar: '\u2591',
       hideCursor: true

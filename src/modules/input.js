@@ -1,11 +1,19 @@
 import fs from 'fs';
 import path from 'path';
 import { JSDOM, VirtualConsole } from 'jsdom';
+import cliProgress from 'cli-progress';
+import _colors from 'colors';
 import Logger from './logger';
 
 class Input {
   constructor() {
     this.logger = new Logger();
+    this.consoleProgressBar = new cliProgress.Bar({
+      format: 'Processing folders |' + _colors.green('{bar}') + '| {percentage}% || {value}/{total} Folders',
+      barCompleteChar: '\u2588',
+      barIncompleteChar: '\u2591',
+      hideCursor: true
+    });
     this.badType = 'The inputFiles function takes an array only ["index.html", "...", "..."]';
     this.emptyList = 'You need to pass an array to the inputFiles function ["index.html", "...", "..."]';
   }
@@ -38,6 +46,9 @@ class Input {
    */
   folders(folders) {
     return new Promise(async (resolve, reject) => {
+      // Start the progress bar
+      this.consoleProgressBar.start(folders.length, 0);
+
       const files = await this._getFilesFromFolders(folders);
       const listDOM = await this.files(files);
       resolve(listDOM);
@@ -56,8 +67,16 @@ class Input {
       const files = [];
       for (const folder of folders) {
         const result = await this._getFilesFromFolder(folder);
+
+        // Update the progress bar
+        this.consoleProgressBar.increment();
+
         files.push(...result);
       }
+
+      // Stop the progress bar
+      this.consoleProgressBar.stop();
+
       resolve(files);
     });
   }

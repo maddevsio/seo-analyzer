@@ -41,6 +41,7 @@
     "npm": ">=4.0.0"
   },
   "dependencies": {
+    "cfonts": "^2.10.0",
     "cli-progress": "^3.9.1",
     "colors": "^1.4.0",
     "jsdom": "^16.5.3"
