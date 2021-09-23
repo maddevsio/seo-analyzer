@@ -58,6 +58,7 @@ class Input {
         const result = await this._getFilesFromFolder(folder);
         files.push(...result);
       }
+      console.log(files);
       resolve(files);
     });
   }
@@ -71,8 +72,8 @@ class Input {
    */
   _getFilesFromFolder(folder) {
     const entryPaths = fs.readdirSync(folder).map(entry => path.join(folder, entry));
-    const filePaths = entryPaths.filter(entryPath => fs.statSync(entryPath).isFile());
-    const dirPaths = entryPaths.filter(entryPath => !filePaths.includes(entryPath));
+    const filePaths = entryPaths.filter(entryPath => fs.statSync(entryPath).isFile() && path.extname(entryPath) === '.html');
+    const dirPaths = entryPaths.filter(entryPath => !filePaths.includes(entryPath) && fs.statSync(entryPath).isDirectory());
     const dirFiles = dirPaths.reduce((prev, curr) => prev.concat(this._getFilesFromFolder(curr)), []);
     return [...filePaths, ...dirFiles];
   }
