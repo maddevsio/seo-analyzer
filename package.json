@@ -1,5 +1,5 @@
 {
-  "name": "seo-analyzer",
+  "name": "@maddevs/seo-analyzer",
   "version": "1.0.0",
   "description": "SEO Analyzer",
   "main": "dist/seo-analyzer.js",
@@ -8,7 +8,10 @@
   "repository": "https://github.com/maddevsio/seo-analyzer",
   "homepage": "https://github.com/maddevsio/seo-analyzer",
   "bugs": "https://github.com/maddevsio/seo-analyzer/issues",
-  "author": "Mad Devs",
+  "author": {
+    "name": "Denisoed",
+    "email": "denisoed@gmail.com"
+  },
   "license": "MIT",
   "keywords": [
     "es5",
@@ -37,8 +40,8 @@
     "rollup-plugin-terser": "^5.3.1"
   },
   "engines": {
-    "node": ">=8.0.0",
-    "npm": ">=4.0.0"
+    "node": ">=14.0.0",
+    "npm": ">=7.0.0"
   },
   "dependencies": {
     "cfonts": "^2.10.0",
