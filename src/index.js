@@ -2,7 +2,6 @@ import _ from 'lodash'
 import defaultRules from './rules/index'
 
 import Input from './modules/input'
-import Analyzer from './modules/analyzer'
 import Output from './modules/output'
 import Logger from './modules/logger'
 
@@ -10,6 +9,7 @@ class SeoAnalyzer {
   constructor () {
     this.logger = new Logger();
     this.input = new Input();
+    this.output = new Output();
     this.inputData = [];
     this.rules = [];
     return this;
@@ -48,7 +48,7 @@ class SeoAnalyzer {
   // ------- Output functions ------- //
   outputConsole() {
     return (async() => {
-      const json = await this._output();
+      const json = await this.output.json(await this.inputData, this.rules);
       this.logger.result(json);
       return this;
     })();
@@ -56,18 +56,9 @@ class SeoAnalyzer {
 
   outputJson(callback) {
     return (async() => {
-      const json = await this._output();
+      const json = await this.output.json(await this.inputData, this.rules);
       callback(json);
       return this;
-    })();
-  }
-
-  _output() {
-    return (async() => {
-      const data = await this.inputData;
-      const report = await new Analyzer().run(data, this.rules);
-      const json = await new Output().run(report);
-      return json;
     })();
   }
 }

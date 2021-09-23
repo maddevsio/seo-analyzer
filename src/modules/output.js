@@ -1,9 +1,13 @@
-class Analyzer {
-  constructor() {}
+import Analyzer from './analyzer'
 
-  run(inputData) {
+class Output {
+  constructor() {
+    this.analyzer = new Analyzer();
+  }
+
+  json(inputData, rules) {
     return new Promise(async (resolve, reject) => {
-      const report = await this._generateJson(inputData);
+      const report = await this._generateJson(inputData, rules);
       resolve(report);
     });
   }
@@ -12,11 +16,12 @@ class Analyzer {
    * @param {Array} data
    * @returns {Object}
    */
-  _generateJson(data) {
+  _generateJson(data, rules) {
     return new Promise(async (resolve, reject) => {
-      resolve(data);
+      const report = await this.analyzer.run(data, rules);
+      resolve(report);
     });
   }
 }
 
-export default Analyzer;
+export default Output;
