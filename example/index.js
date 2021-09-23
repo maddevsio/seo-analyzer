@@ -13,14 +13,9 @@ function customRule(dom) {
 }
 // -------------------------------- //
 
-new SeoAnalyzer({
-    done: (err, data) => {
-      if (err) throw err;
-      console.log(data);
-    }
-  })
+new SeoAnalyzer()
   // ------- Input methods -------- //
-  .inputFolders(['example/html', 'example/html2'])
+  .inputFolders(['example/html', 'example/html2', 'example/dist'])
   // .inputFiles(['example/index.html', 'example/html/team.html'])
   // Default rules
 

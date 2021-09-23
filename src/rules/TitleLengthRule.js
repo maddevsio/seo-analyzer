@@ -1,10 +1,10 @@
 function titleLengthRule(dom, options) {
   return new Promise(async (resolve, reject) => {
+    const titleLength = dom.window.document.title.length
     let report = ''
     if (!dom.window.document.title) {
-      return report += 'This HTML without <title> tag'
+      report += 'This HTML without <title> tag'
     }
-    const titleLength = dom.window.document.title.length
     if (titleLength < options.min) {
       report += `<title> too short(${titleLength}). The minimum length should be ${options.min} characters.`
     }

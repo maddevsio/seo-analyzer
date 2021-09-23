@@ -33,7 +33,7 @@ class Analyzer {
     return new Promise(async (resolve, reject) => {
       const result = [];
       for (const item of dataList) {
-        const report = await this._analyzeDOM(item.dom, rules)
+        const report = await this._analyzeDOM(item.dom, rules);
         
         // Update the progress bar
         this.consoleProgressBar.increment();
