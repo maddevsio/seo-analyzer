@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "cli-progress": "^3.9.1",
+    "colors": "^1.4.0",
     "jsdom": "^16.5.3"
   }
 }

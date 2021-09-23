@@ -42,7 +42,6 @@ class Analyzer {
    */
   _logError(error) {
     console.error(`\n%s${error}\n`, this.red);
-    return process.exit(1); // Stop process in terminal
   }
 }
 

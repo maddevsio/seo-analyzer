@@ -70,11 +70,16 @@ class Input {
    * @memberof Input
    */
   _getFilesFromFolder(folder) {
-    const entryPaths = fs.readdirSync(folder).map(entry => path.join(folder, entry));
-    const filePaths = entryPaths.filter(entryPath => fs.statSync(entryPath).isFile() && path.extname(entryPath) === '.html');
-    const dirPaths = entryPaths.filter(entryPath => !filePaths.includes(entryPath) && fs.statSync(entryPath).isDirectory());
-    const dirFiles = dirPaths.reduce((prev, curr) => prev.concat(this._getFilesFromFolder(curr)), []);
-    return [...filePaths, ...dirFiles];
+    try {
+      const entryPaths = fs.readdirSync(folder).map(entry => path.join(folder, entry));
+      const filePaths = entryPaths.filter(entryPath => fs.statSync(entryPath).isFile() && path.extname(entryPath) === '.html');
+      const dirPaths = entryPaths.filter(entryPath => !filePaths.includes(entryPath) && fs.statSync(entryPath).isDirectory());
+      const dirFiles = dirPaths.reduce((prev, curr) => prev.concat(this._getFilesFromFolder(curr)), []);
+      return [...filePaths, ...dirFiles];
+    } catch (error) {
+      this.logger.error(`Folder "${folder}" not found`);
+      return [];
+    }
   }
 
   /**
