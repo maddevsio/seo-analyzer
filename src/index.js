@@ -7,29 +7,28 @@ import Output from './modules/output'
 import Logger from './modules/logger'
 
 class SeoAnalyzer {
-  constructor (options = {}) {
+  constructor () {
     this.logger = new Logger();
     this.input = new Input();
-    this.done = (_.has(options, ['done'])) ? options.done : (err) => { if (err) throw err }
     this.inputData = [];
     this.rules = [];
-    return this
+    return this;
   }
 
   // ------- Input functions ------- // 
   inputFiles(files) {
     this.inputData = this.input.files(files);
-    return this
+    return this;
   }
 
   inputUrls(urls) {
     this.inputData = this.input.urls(urls);
-    return this
+    return this;
   }
 
    inputFolders(folders) {
     this.inputData = this.input.folders(folders);
-    return this
+    return this;
   }
   // ------------------------------ //
   
@@ -42,19 +41,34 @@ class SeoAnalyzer {
     } else {
       this.rules.push({ 'rule': func, options });
     }
-    return this
+    return this;
   }
   // ----------------------------- //
   
-  // ------- This is method run analyzer ------- //
-  start() {
-    return new Promise(async (resolve, reject) => {
+  // ------- Output functions ------- //
+  outputConsole() {
+    return (async() => {
+      const json = await this._output();
+      this.logger.result(json);
+      return this;
+    })();
+  }
+
+  outputJson(callback) {
+    return (async() => {
+      const json = await this._output();
+      callback(json);
+      return this;
+    })();
+  }
+
+  _output() {
+    return (async() => {
       const data = await this.inputData;
       const report = await new Analyzer().run(data, this.rules);
       const json = await new Output().run(report);
-      this.logger.result(json);
-      resolve(this.done(null, json));
-    });
+      return json;
+    })();
   }
 }
 

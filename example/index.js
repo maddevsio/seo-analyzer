@@ -1,9 +1,9 @@
-const SeoAnalyzer = require('./dist/seo-analyzer.js')
+const SeoAnalyzer = require('../dist/seo-analyzer.js');
 
 // --------- Custom rules ------------ //
 function customRule(dom) {
   return new Promise(async (resolve, reject) => {
-    const paragraph = dom.window.document.querySelector('p')
+    const paragraph = dom.window.document.querySelector('p');
     if (paragraph) {
       resolve('');
     } else {
@@ -16,10 +16,15 @@ function customRule(dom) {
 new SeoAnalyzer({
     done: (err, data) => {
       if (err) throw err;
+      console.log(data);
     }
   })
-  .inputFolders(['html', 'html2'])
+  // ------- Input methods -------- //
+  .inputFolders(['example/html', 'example/html2'])
+  // .inputFiles(['example/index.html', 'example/html/team.html'])
   // Default rules
+
+  // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })
   .addRule('noTooManyStrongTagsRule', { threshold: 2 })
   .addRule('metaBaseRule', { list: ['description', 'viewport'] })
@@ -48,4 +53,7 @@ new SeoAnalyzer({
   .addRule('canonicalLinkRule')
   // Custom rules
   .addRule(customRule)
-  .start();
+
+  // ------- Output methods ------- //
+  // .outputJson((json) => console.log(json))
+  .outputConsole();

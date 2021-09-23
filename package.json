@@ -24,7 +24,7 @@
   ],
   "scripts": {
     "watch": "rollup -c -w",
-    "make": "rimraf dist && rollup -c",
+    "make": "rimraf dist && rollup -c && node ./example/index.js",
     "build": "npm run make",
     "prepublish": "npm run build"
   },

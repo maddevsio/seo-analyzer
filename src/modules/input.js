@@ -13,9 +13,8 @@ class Input {
   /**
    * Get the html from files
    * @param {Array} files [<string>, <string>, ...]
-   * @returns {Promise.Array} [<JSDOM>, <JSDOM>, ...]
+   * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @memberof Input
-   * @example ['index.html', 'about.html', ...]
    */
   files(files = []) {
     return new Promise(async (resolve, reject) => {
@@ -34,9 +33,8 @@ class Input {
   /**
    * Get the html from files in folders
    * @param {string} folders [<string>, <string>, ...]
-   * @returns {Promise.Array} [<JSDOM>, <JSDOM>, ...]
+   * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @memberof Input
-   * @private
    */
   folders(folders) {
     return new Promise(async (resolve, reject) => {
@@ -81,8 +79,10 @@ class Input {
 
   /**
    * Get the html from file
-   * @param {*} files [path, path, ...]
-   * @returns {Promise.Array} ['<string>', '<string>', ...]
+   * @param {*} files [<string>, <string>, ...]
+   * @returns {Promise.Array} ['<html><body>...</body></html>', '<html><body>...</body></html>', ...]
+   * @private
+   * @memberof Input
    */
   _getHtml(files) {
     return new Promise((resolve, reject) => {
@@ -97,8 +97,9 @@ class Input {
 
   /**
    * Transform html to DOM
-   * @param {Array} list [{ <string>, <array> }, { <string>, <array> }, ...] 
-   * @returns {Promise.Array} [{  <string>, <JSDOM> }, { <string>, <JSDOM> }, ...]
+   * @param {Array} list [<string>, <string>, ...] 
+   * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
+   * 
    */
   _getDom(list) {
     return new Promise((resolve, reject) => {
