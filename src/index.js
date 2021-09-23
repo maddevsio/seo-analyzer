@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import defaultRules from './rules/index'
 
 import Input from './modules/input'

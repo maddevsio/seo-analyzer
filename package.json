@@ -25,13 +25,10 @@
   "scripts": {
     "watch": "rollup -c -w",
     "make": "rimraf dist && rollup -c && node ./example/index.js",
-    "build": "npm run make",
+    "build": "rimraf dist && rollup -c",
     "prepublish": "npm run build"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "iconv-lite": "^0.4.19",
-    "mocha": "^8.3.2",
     "rimraf": "^3.0.0",
     "rollup": "^2.45.2",
     "rollup-plugin-dts": ">=1.1.12 <1.2",
@@ -45,7 +42,6 @@
   },
   "dependencies": {
     "cli-progress": "^3.9.1",
-    "glob": "^7.2.0",
     "jsdom": "^16.5.3"
   }
 }
