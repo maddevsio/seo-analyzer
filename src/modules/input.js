@@ -41,6 +41,8 @@ class Input {
   folders(folders) {
     return new Promise(async (resolve, reject) => {
       const files = await this._getFilesFromFolders(folders);
+      const listDOM = await this.files(files);
+      resolve(listDOM);
     });
   }
 
