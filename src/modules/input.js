@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { JSDOM } from 'jsdom';
+import { JSDOM, VirtualConsole } from 'jsdom';
 import Logger from './logger';
 
 class Input {
@@ -58,7 +58,6 @@ class Input {
         const result = await this._getFilesFromFolder(folder);
         files.push(...result);
       }
-      console.log(files);
       resolve(files);
     });
   }
@@ -106,7 +105,9 @@ class Input {
     return new Promise((resolve, reject) => {
       const doms = [];
       list.forEach(item => {
-        let dom = new JSDOM(item.text);
+        // NOTE: https://github.com/jsdom/jsdom/issues/2177#issuecomment-379212964
+        const virtualConsole = new VirtualConsole();
+        let dom = new JSDOM(item.text, { virtualConsole });
         doms.push({ file: item.file, dom });
       });
       resolve(doms);
