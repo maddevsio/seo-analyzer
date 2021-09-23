@@ -8,6 +8,7 @@ import Logger from './modules/logger'
 
 class SeoAnalyzer {
   constructor (options = {}) {
+    this.logger = new Logger();
     this.done = (_.has(options, ['done'])) ? options.done : (err) => { if (err) throw err }
     this.inputData = [];
     this.rules = [];
@@ -50,7 +51,7 @@ class SeoAnalyzer {
       const data = await this.inputData;
       const report = await new Analyzer().run(data, this.rules);
       const json = await new Output().run(report);
-      new Logger().result(json);
+      this.logger.result(json);
       resolve(this.done(null, json));
     });
   }

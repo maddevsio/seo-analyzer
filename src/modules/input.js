@@ -1,18 +1,21 @@
 import fs from 'fs';
 import { JSDOM } from 'jsdom';
+import Logger from './logger';
 
 class Input {
-  constructor() {}
+  constructor() {
+    this.logger = new Logger();
+    this.badType = 'The inputFiles function takes an array only ["index.html", "...", "..."]';
+    this.emptyList = 'You need to pass an array to the inputFiles function ["index.html", "...", "..."]';
+  }
 
-  files(files) {
+  files(files = []) {
     return new Promise(async (resolve, reject) => {
-      if (!Array.isArray(files)) {
-        console.log('Input data is not a array');
-        reject();
-      }
       if (files.length === 0) {
-        console.log('Input data is empty');
-        reject();
+        this.logger.error(this.emptyList);
+      }
+      if (!Array.isArray(files)) {
+        this.logger.error(this.badType);
       }
       const listTexts = await this._getHtml(files);
       const listDOM = await this._getDom(listTexts);
