@@ -1,5 +1,19 @@
 # SEO Analyzer
-> A library for analyze a HTML file to show all of the SEO defects 
+> A library for analyze a HTML file to show all of the SEO defects
+
+ ███████╗ ███████╗  ██████╗  
+ ██╔════╝ ██╔════╝ ██╔═══██╗ 
+ ███████╗ █████╗   ██║   ██║ 
+ ╚════██║ ██╔══╝   ██║   ██║ 
+ ███████║ ███████╗ ╚██████╔╝ 
+ ╚══════╝ ╚══════╝  ╚═════╝  
+
+  █████╗  ███╗   ██╗  █████╗  ██╗      ██╗   ██╗ ███████╗ ███████╗ ██████╗  
+ ██╔══██╗ ████╗  ██║ ██╔══██╗ ██║      ╚██╗ ██╔╝ ╚══███╔╝ ██╔════╝ ██╔══██╗ 
+ ███████║ ██╔██╗ ██║ ███████║ ██║       ╚████╔╝    ███╔╝  █████╗   ██████╔╝ 
+ ██╔══██║ ██║╚██╗██║ ██╔══██║ ██║        ╚██╔╝    ███╔╝   ██╔══╝   ██╔══██╗ 
+ ██║  ██║ ██║ ╚████║ ██║  ██║ ███████╗    ██║    ███████╗ ███████╗ ██║  ██║ 
+ ╚═╝  ╚═╝ ╚═╝  ╚═══╝ ╚═╝  ╚═╝ ╚══════╝    ╚═╝    ╚══════╝ ╚══════╝ ╚═╝  ╚═╝ 
 
 ## Usage
 
@@ -7,119 +21,155 @@ Install with npm `npm install seo-analyzer --save`
 
 ### Getting started
 
-Require the library and then all the methods listed below will be made available to you.
-
 ```js
-new SeoAnalyzer(<options>).input(<input>).addRule(<rule>).addRule(<rule>).start();
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer().inputFiles(<array>).addRule(<function>).addRule(<function>).outputConsole(<console>);
 ```
 
 Usage:
 
-* options.done: callback function.
-* input: a HTML file path
-* output: a json 
-* rule: predefined rule name and settings.
+* .inputFiles(): accepts a list htmls files
+* .inputFolders(): accepts a list folders with html files
+* .addRule(): accepts a name function 
+* .outputJson(): return json result 
+* .outputConsole(): show seo defects in console
 
-#### One way: read from a HTML file, write result to a file
+#### One way: read a list HTML files and log report to console
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .inputFiles(['index.html', 'about.html'])
+  .addRule('noMoreThanOneH1TagRule')
+  .outputConsole();
+```
+
+#### Two way: read a folders with HTML files and log report to console
 
 ```js
-const SeoAnalyzer = require('seo-analyzer')
-new SeoAnalyzer({
-  done: (err, data) => {
-      if (err) throw err;
-    }
-  })
-  .read(['index.html'])
-  .start();
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .inputFolders(['dist', 'src'])
+  .addRule('noMoreThanOneH1TagRule')
+  .outputConsole();
 ```
 
-#### Two way: read from a Node Readable Stream, write result to a Node Writable Stream
+#### Three way: read a folders with HTML files and return json
 
 ```js
-import fs from 'fs';
-const SeoAnalyzer = require('seo-inspector')
-new SeoAnalyzer({ done:
-                    (err, data) => {
-                        if (err) throw err;
-                    }
-                })
-.read(fs.createReadStream('source/target.html'))
-.write(fs.createWriteStream('destination/report.txt'));
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .inputFolders(['dist', 'src'])
+  .addRule('noMoreThanOneH1TagRule')
+  .outputJson(json => console.log(json));
 ```
 
-#### Three way: read from a HTML file, write result to console
+#### Example of the output of all SEO defects in the console.
 
-```js
-import fs from 'fs';
-const SeoAnalyzer = require('seo-inspector')
-new SeoAnalyzer({ done:
-                    (err, data) => {
-                        if (err) throw err;
-                    }
-                })
-.read('source/target.html')
-.write(console);
-```
+```bash
 
-#### Example output to show all SEO defects
+ ███████╗ ███████╗  ██████╗  
+ ██╔════╝ ██╔════╝ ██╔═══██╗ 
+ ███████╗ █████╗   ██║   ██║ 
+ ╚════██║ ██╔══╝   ██║   ██║ 
+ ███████║ ███████╗ ╚██████╔╝ 
+ ╚══════╝ ╚══════╝  ╚═════╝  
 
-```
-SEO defects found:
-There are 2 <img> tag without alt attribute
-There are 2 <a> tag without rel attribute
-This HTML without <title> tag
-This HTML without <meta name="descriptions"> tag
+  █████╗  ███╗   ██╗  █████╗  ██╗      ██╗   ██╗ ███████╗ ███████╗ ██████╗  
+ ██╔══██╗ ████╗  ██║ ██╔══██╗ ██║      ╚██╗ ██╔╝ ╚══███╔╝ ██╔════╝ ██╔══██╗ 
+ ███████║ ██╔██╗ ██║ ███████║ ██║       ╚████╔╝    ███╔╝  █████╗   ██████╔╝ 
+ ██╔══██║ ██║╚██╗██║ ██╔══██║ ██║        ╚██╔╝    ███╔╝   ██╔══╝   ██╔══██╗ 
+ ██║  ██║ ██║ ╚████║ ██║  ██║ ███████╗    ██║    ███████╗ ███████╗ ██║  ██║ 
+ ╚═╝  ╚═╝ ╚═╝  ╚═══╝ ╚═╝  ╚═╝ ╚══════╝    ╚═╝    ╚══════╝ ╚══════╝ ╚═╝  ╚═╝ 
+
+
+Processing folders |████████████████████████████████████████| 100% || 2/2 Folders
+File analysis |████████████████████████████████████████| 100% || 64/64 Files
+
+File: example/html/about.html
+Not found <p> tags
+
+File: example/html/team.html
+<title> too short(8). The minimum length should be 10 characters.
+This HTML without <meta name="description"> tag
+This HTML without <meta property="og:url"> tag
+This HTML without <meta property="og:type"> tag
+This HTML without <meta property="og:site_name"> tag
+This HTML without <meta property="og:title"> tag
+This HTML without <meta property="og:description"> tag
+This HTML without <meta property="og:image"> tag
+This HTML without <meta property="og:image:width"> tag
+This HTML without <meta property="og:image:height"> tag
+This HTML without <meta property="twitter:card"> tag
+This HTML without <meta property="twitter:text:title"> tag
+This HTML without <meta property="twitter:description"> tag
+This HTML without <meta property="twitter:image:src"> tag
+This HTML without <meta property="twitter:url"> tag
+This HTML without <meta name="description"> tag
 This HTML without <meta name="keywords"> tag
-This HTML have more than 15 <strong> tags
-This HTML have more than one <h1> tag
+This HTML without <link rel="canonical" href="..."> link
+Not found <p> tags
 ```
+
 or
-```
-No any SEO defect found.
+
+```bash
+SEO defects were not detected.
 ```
 
-#### Chaining any rules and config check options, or just to apply all rules by default
-
-Now supported and predefined SEO rules are `ImgTagWithAltAttritube`, `ATagWithRelAttritube`, `HeadTagWithTitleAndDescriptionKeywordsMeta`, `NoTooManyStrongTags` and `NoMoreThanOneH1Tag`
+#### A list of rules that are available by default
 
 ```js
 ...
-.addRule('ImgTagWithAltAttritube')
-.addRule('NoTooManyStrongTags', { threshold: 20 })
+.addRule('titleLengthRule', { min: 10, max: 50 })
+.addRule('noTooManyStrongTagsRule', { threshold: 2 })
+.addRule('metaBaseRule', { list: ['description', 'viewport'] })
+.addRule('metaSocialRule', {
+  properties: [
+    'og:url',
+    'og:type',
+    'og:site_name',
+    'og:title',
+    'og:description',
+    'og:image',
+    'og:image:width',
+    'og:image:height',
+    'twitter:card',
+    'twitter:text:title',
+    'twitter:description',
+    'twitter:image:src',
+    'twitter:url'
+  ], 
+})
+.addRule('hTagsRule')
+.addRule('noMoreThanOneH1TagRule')
+.addRule('imgTagWithAltAttritubeRule')
+.addRule('headTagWithTitleAndDescriptionKeywordsMetaRule')
+.addRule('aTagWithRelAttritubeRule')
+.addRule('canonicalLinkRule')
 ...
 ```
 
-#### Add custom rule by creating a class to extend base rule and implement check method.
+#### Add custom rule
 
-The `object` key is required setting for check options : 
-
-```js
-import UserCustomRule from './UserCustomRule';
-...
-.addRule('UserCustom', { object: new UserCustomRule({ threshold: 5 }) })
-...
-```
-
-Implement your custom rule checker class, extend base rule class is mandatory :
+A custom rule is just a function that takes a DOM tree
 
 ```js
-'use strict'
-
-import BaseRule from './BaseRule'
-
-class NoTooManyStrongTagsRule extends BaseRule {
-  check (dom) {
-    if (this.options.enabled === 0) {
-      return
+function customRule(dom) {
+  return new Promise(async (resolve, reject) => {
+    const paragraph = dom.window.document.querySelector('p');
+    if (paragraph) {
+      resolve('');
+    } else {
+      reject('Not found <p> tags');
     }
-    let report = ''
-    const elements = dom.window.document.querySelectorAll('strong')
-    if (elements && elements.length > this.options.threshold) {
-      report += 'This HTML have more than ' + this.options.threshold + ' <strong> tags'
-    }
-    return report
-  }
+  });
 }
 
-export default NoTooManyStrongTagsRule
+...
+.addRule(customRule)
+...
 ```

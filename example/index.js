@@ -15,7 +15,7 @@ function customRule(dom) {
 
 new SeoAnalyzer()
   // ------- Input methods -------- //
-  .inputFiles(['example/index.html'])
+  .inputFolders(['example/html', 'example/html2'])
   // .inputFiles(['example/index.html', 'example/html/team.html'])
   // Default rules
 
