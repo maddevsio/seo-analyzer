@@ -1,4 +1,4 @@
-import defaultRules from './rules/index';
+import defaultRules from './rules';
 
 import Input from './modules/input'
 import Output from './modules/output'
