@@ -1,5 +1,5 @@
 # SEO Analyzer
-> A library for analyze a HTML file to show all of the SEO defects
+> A library for analyze a HTML files to show all of the SEO defects
 
 ```bash
  ███████╗ ███████╗  ██████╗  
@@ -31,6 +31,8 @@ new SeoAnalyzer().inputFiles(<array>).addRule(<function>).addRule(<function>).ou
 
 Usage:
 
+* .ignoreFiles(): accepts a list htmls files
+* .ignoreFolders(): accepts a list folders with files
 * .inputFiles(): accepts a list htmls files
 * .inputFolders(): accepts a list folders with html files
 * .addRule(): accepts a name function 
@@ -64,6 +66,19 @@ new SeoAnalyzer()
 const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
+  .inputFolders(['dist', 'src'])
+  .addRule('noMoreThanOneH1TagRule')
+  .outputJson(json => console.log(json));
+```
+
+#### Fourth way: ignore subfolder "test" and 404.html in folder "src"
+
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .ignoreFolders(['src/test'])
+  .ignoreFiles(['src/404.html'])
   .inputFolders(['dist', 'src'])
   .addRule('noMoreThanOneH1TagRule')
   .outputJson(json => console.log(json));

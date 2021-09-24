@@ -17,6 +17,7 @@ class Input {
     this.badType = 'The inputFiles function takes an array only ["index.html", "...", "..."]';
     this.emptyList = 'You need to pass an array to the inputFiles function ["index.html", "...", "..."]';
     this.ignoreFolders = [];
+    this.ignoreFiles = [];
   }
 
   /**
@@ -25,7 +26,7 @@ class Input {
    * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @memberof Input
    */
-  files(files = []) {
+  files(files = [], ignoreFiles = []) {
     return new Promise(async (resolve, reject) => {
       if (files.length === 0) {
         this.logger.error(this.emptyList);
@@ -33,6 +34,7 @@ class Input {
       if (!Array.isArray(files)) {
         this.logger.error(this.badType);
       }
+      this.ignoreFiles = ignoreFiles;
       const listTexts = await this._getHtml(files);
       const listDOM = await this._getDom(listTexts);
       resolve(listDOM);
@@ -45,14 +47,15 @@ class Input {
    * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @memberof Input
    */
-  folders(folders = [], ignoreFolders = []) {
+  folders(folders = [], ignoreFolders = [], ignoreFiles = []) {
     return new Promise(async (resolve, reject) => {
       // Start the progress bar
       this.consoleProgressBar.start(folders.length, 0);
       this.ignoreFolders = ignoreFolders;
+      this.ignoreFiles = ignoreFiles;
 
       const files = await this._getFilesFromFolders(folders);
-      const listDOM = await this.files(files);
+      const listDOM = await this.files(files, ignoreFiles);
       resolve(listDOM);
     });
   }
@@ -116,6 +119,7 @@ class Input {
     return new Promise((resolve, reject) => {
       const listTexts = [];
       files.forEach((file) => {
+        if (this.ignoreFiles.includes(file)) return;
         try {
           const text = fs.readFileSync(file, 'utf8');
           listTexts.push({ file, text });

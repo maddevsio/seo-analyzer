@@ -32,7 +32,7 @@ class SeoAnalyzer {
   // ------- Input functions ------- // 
   inputFiles(files) {
     this._showLogo();
-    this.inputData = this.input.files(files);
+    this.inputData = this.input.files(files, this._ignoreFiles);
     return this;
   }
   
@@ -44,7 +44,7 @@ class SeoAnalyzer {
   
   inputFolders(folders) {
     this._showLogo();
-    this.inputData = this.input.folders(folders, this._ignoreFolders);
+    this.inputData = this.input.folders(folders, this._ignoreFolders, this._ignoreFiles);
     return this;
   }
   // ------------------------------ //
