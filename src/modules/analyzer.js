@@ -4,7 +4,10 @@ import _colors from 'colors';
 class Analyzer {
   constructor() {
     this.consoleProgressBar = new cliProgress.Bar({
-      format: 'Handling files by rules |' + _colors.green('{bar}') + '| {percentage}% || {value}/{total} Rules',
+      format:
+        'Handling files by rules |' +
+        _colors.green('{bar}') +
+        '| {percentage}% || {value}/{total} Rules',
       barCompleteChar: '\u2588',
       barIncompleteChar: '\u2591',
       hideCursor: true
@@ -42,11 +45,12 @@ class Analyzer {
     return new Promise(async (resolve, reject) => {
       const result = [];
       for (const item of dataList) {
-
-        console.log(`\n${_colors.blue('==>')} Analysis ${_colors.white(item.file)}`);
+        console.log(
+          `\n${_colors.blue('==>')} Analysis ${_colors.white(item.file)}`
+        );
 
         const report = await this._analyzeDOM(item.dom, rules);
-        
+
         if (report && report.length) {
           result.push({
             file: item.file,
@@ -75,7 +79,7 @@ class Analyzer {
         let report = null;
         try {
           report = await item.rule(dom, item.options);
-        } catch(error) {
+        } catch (error) {
           report = error;
         }
         if (Array.isArray(report)) {
@@ -88,7 +92,6 @@ class Analyzer {
 
         // Update the progress bar
         this.consoleProgressBar.increment();
-
       }
 
       // Stop the progress bar

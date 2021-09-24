@@ -1,18 +1,18 @@
 function imgTagWithAltAttritubeRule(dom) {
   return new Promise(async (resolve, reject) => {
-    let report = ''
-    let count = 0
-    const elements = dom.window.document.querySelectorAll('img')
-    elements.forEach((element) => {
+    let report = '';
+    let count = 0;
+    const elements = dom.window.document.querySelectorAll('img');
+    elements.forEach(element => {
       if (!element.alt) {
-        count++
+        count++;
       }
-    })
+    });
     if (count > 0) {
-      report += 'There are ' + count + ' <img> tag without alt attribute'
+      report += 'There are ' + count + ' <img> tag without alt attribute';
     }
     resolve(report);
   });
-};
+}
 
 export default imgTagWithAltAttritubeRule;

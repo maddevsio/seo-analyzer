@@ -9,13 +9,18 @@ class Input {
   constructor() {
     this.logger = new Logger();
     this.consoleProgressBar = new cliProgress.Bar({
-      format: 'File Searching |' + _colors.green('{bar}') + '| {percentage}% || {value}/{total} Folders',
+      format:
+        'File Searching |' +
+        _colors.green('{bar}') +
+        '| {percentage}% || {value}/{total} Folders',
       barCompleteChar: '\u2588',
       barIncompleteChar: '\u2591',
       hideCursor: true
     });
-    this.badType = 'The inputFiles function takes an array only ["index.html", "...", "..."]';
-    this.emptyList = 'You need to pass an array to the inputFiles function ["index.html", "...", "..."]';
+    this.badType =
+      'The inputFiles function takes an array only ["index.html", "...", "..."]';
+    this.emptyList =
+      'You need to pass an array to the inputFiles function ["index.html", "...", "..."]';
     this.ignoreFolders = [];
     this.ignoreFiles = [];
   }
@@ -40,7 +45,7 @@ class Input {
       resolve(listDOM);
     });
   }
-  
+
   /**
    * Get the html from files in folders
    * @param {string} folders [<string>, <string>, ...]
@@ -95,12 +100,23 @@ class Input {
    */
   _getFilesFromFolder(folder = []) {
     try {
-      const entryPaths = fs.readdirSync(folder).map(entry => path.join(folder, entry));
-      const filePaths = entryPaths.filter(entryPath => fs.statSync(entryPath).isFile() && path.extname(entryPath) === '.html');
-      const dirPaths = entryPaths.filter(entryPath => !filePaths.includes(entryPath) && fs.statSync(entryPath).isDirectory());
+      const entryPaths = fs
+        .readdirSync(folder)
+        .map(entry => path.join(folder, entry));
+      const filePaths = entryPaths.filter(
+        entryPath =>
+          fs.statSync(entryPath).isFile() && path.extname(entryPath) === '.html'
+      );
+      const dirPaths = entryPaths.filter(
+        entryPath =>
+          !filePaths.includes(entryPath) && fs.statSync(entryPath).isDirectory()
+      );
       const dirFiles = dirPaths
         .filter(path => !this.ignoreFolders.includes(path))
-        .reduce((prev, curr) => prev.concat(this._getFilesFromFolder(curr)), []);
+        .reduce(
+          (prev, curr) => prev.concat(this._getFilesFromFolder(curr)),
+          []
+        );
       return [...filePaths, ...dirFiles];
     } catch (error) {
       this.logger.error(`Folder "${folder}" not found`);
@@ -118,7 +134,7 @@ class Input {
   _getHtml(files) {
     return new Promise((resolve, reject) => {
       const listTexts = [];
-      files.forEach((file) => {
+      files.forEach(file => {
         if (this.ignoreFiles.includes(file)) return;
         try {
           const text = fs.readFileSync(file, 'utf8');
@@ -133,9 +149,9 @@ class Input {
 
   /**
    * Transform html to DOM
-   * @param {Array} list [<string>, <string>, ...] 
+   * @param {Array} list [<string>, <string>, ...]
    * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
-   * 
+   *
    */
   _getDom(list) {
     return new Promise((resolve, reject) => {

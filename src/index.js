@@ -1,11 +1,11 @@
-import defaultRules from './rules';
+import defaultRules from './rules/index';
 
-import Input from './modules/input'
-import Output from './modules/output'
-import Logger from './modules/logger'
+import Input from './modules/input';
+import Output from './modules/output';
+import Logger from './modules/logger';
 
 class SeoAnalyzer {
-  constructor () {
+  constructor() {
     this.logger = new Logger();
     this.input = new Input();
     this.output = new Output();
@@ -15,7 +15,7 @@ class SeoAnalyzer {
     this._ignoreFiles = [];
     return this;
   }
-  
+
   //--------- Ignore methods ---------//
   ignoreFolders(folders) {
     this._ignoreFolders = folders;
@@ -28,42 +28,46 @@ class SeoAnalyzer {
   }
   // -------------------------------//
 
-  // ------- Input methods ------- // 
+  // ------- Input methods ------- //
   inputFiles(files) {
     this.logger.printTextToConsole('Seo Analyzer');
     this.inputData = this.input.files(files, this._ignoreFiles);
     return this;
   }
-  
+
   inputUrls(urls) {
     this.logger.printTextToConsole('Seo Analyzer');
     this.inputData = this.input.urls(urls);
     return this;
   }
-  
+
   inputFolders(folders) {
     this.logger.printTextToConsole('Seo Analyzer');
-    this.inputData = this.input.folders(folders, this._ignoreFolders, this._ignoreFiles);
+    this.inputData = this.input.folders(
+      folders,
+      this._ignoreFolders,
+      this._ignoreFiles
+    );
     return this;
   }
   // ------------------------------ //
-  
+
   // --------- Add Rule --------- //
   addRule(func, options = {}) {
     if (typeof func === 'string') {
       if (func in defaultRules) {
-        this.rules.push({ 'rule': defaultRules[func], options });
+        this.rules.push({ rule: defaultRules[func], options });
       }
     } else {
-      this.rules.push({ 'rule': func, options });
+      this.rules.push({ rule: func, options });
     }
     return this;
   }
   // ----------------------------- //
-  
+
   // ------- Output methods ------- //
   outputConsole() {
-    (async() => {
+    (async () => {
       const json = await this.output.object(await this.inputData, this.rules);
       this.logger.result(json);
     })();
@@ -71,7 +75,7 @@ class SeoAnalyzer {
   }
 
   outputJson(callback) {
-    (async() => {
+    (async () => {
       const json = await this.output.json(await this.inputData, this.rules);
       callback(json);
     })();
@@ -79,7 +83,7 @@ class SeoAnalyzer {
   }
 
   outputObject(callback) {
-    (async() => {
+    (async () => {
       const obj = await this.output.object(await this.inputData, this.rules);
       callback(obj);
     })();
@@ -87,4 +91,4 @@ class SeoAnalyzer {
   }
 }
 
-export default SeoAnalyzer
+export default SeoAnalyzer;
