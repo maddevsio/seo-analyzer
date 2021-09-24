@@ -11,6 +11,12 @@ class Analyzer {
     });
   }
 
+  /**
+   * Run analyzer for a list of doms
+   * @param {JSDOM<array>} doms - The html dom list to run the rule on
+   * @param {Array} rules - The rules to run
+   * @returns {Array} - Array of error result [{ file, report }, { file, report }, { file, report }]
+   */
   run(inputData, rules) {
     return new Promise(async (resolve, reject) => {
       if (!Array.isArray(inputData)) {
@@ -33,7 +39,7 @@ class Analyzer {
   /**
    * @param {Array} dataList - html doms
    * @param {Array} rules - List rulers
-   * @returns {Array} - Array of reports [{file: file, report: report}]
+   * @returns {Array} - Array of reports [{file, report}, {file, report}, {file, report}]
    */
   _startAnalyzer(dataList, rules) {
     return new Promise(async (resolve, reject) => {

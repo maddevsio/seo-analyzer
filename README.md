@@ -29,13 +29,14 @@ const SeoAnalyzer = require('seo-analyzer');
 new SeoAnalyzer().inputFiles(<array>).addRule(<function>).addRule(<function>).outputConsole(<console>);
 ```
 
-Usage:
+Available methods:
 
 * .ignoreFiles(): accepts a list htmls files
 * .ignoreFolders(): accepts a list folders with files
 * .inputFiles(): accepts a list htmls files
 * .inputFolders(): accepts a list folders with html files
 * .addRule(): accepts a name function 
+* .outputObject(): return js object result 
 * .outputJson(): return json result 
 * .outputConsole(): show seo defects in console
 
@@ -71,7 +72,7 @@ new SeoAnalyzer()
   .outputJson(json => console.log(json));
 ```
 
-#### Fourth way: ignore subfolder "test" and 404.html in folder "src"
+#### Fourth way: ignore subfolder "test" and 404.html in folder "src" and return js object
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -81,7 +82,7 @@ new SeoAnalyzer()
   .ignoreFiles(['src/404.html'])
   .inputFolders(['dist', 'src'])
   .addRule('noMoreThanOneH1TagRule')
-  .outputJson(json => console.log(json));
+  .outputObject(json => console.log(json));
 ```
 
 #### Example of the output of all SEO defects in the console.

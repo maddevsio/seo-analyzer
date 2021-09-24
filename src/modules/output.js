@@ -1,25 +1,31 @@
-import Analyzer from './analyzer'
+import Analyzer from './analyzer';
 
 class Output {
   constructor() {
     this.analyzer = new Analyzer();
   }
 
-  json(inputData, rules) {
+  /**
+   * @param {Array} data - List of files and folders
+   * @param {Array} rules - List of rules
+   * @returns {Promise} - Returns js object [{file, report}, ...]
+   */
+  object(inputData, rules) {
     return new Promise(async (resolve, reject) => {
-      const report = await this._generateJson(inputData, rules);
+      const report = await this.analyzer.run(inputData, rules);
       resolve(report);
     });
   }
 
   /**
-   * @param {Array} data
-   * @returns {Object}
+   * @param {Array} data - List of files and folders
+   * @param {Array} rules - List of rules
+   * @returns {JSON} - Returns json [{"file", "report"}, ...]
    */
-  _generateJson(data, rules) {
+  json(inputData, rules) {
     return new Promise(async (resolve, reject) => {
-      const report = await this.analyzer.run(data, rules);
-      resolve(report);
+      const report = await this.analyzer.run(inputData, rules);
+      resolve(JSON.stringify(report, null, 2));
     });
   }
 }

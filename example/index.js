@@ -53,5 +53,6 @@ new SeoAnalyzer()
   .addRule(customRule)
 
   // ------- Output methods ------- //
-  // .outputJson((json) => console.log(json))
+  .outputObject(obj => console.log(obj))
+  .outputJson(json => console.log(json))
   .outputConsole();

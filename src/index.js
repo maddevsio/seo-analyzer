@@ -28,7 +28,7 @@ class SeoAnalyzer {
   }
   // -------------------------------//
 
-  // ------- Input functions ------- // 
+  // ------- Input methods ------- // 
   inputFiles(files) {
     this.logger.printTextToConsole('Seo Analyzer');
     this.inputData = this.input.files(files, this._ignoreFiles);
@@ -61,21 +61,29 @@ class SeoAnalyzer {
   }
   // ----------------------------- //
   
-  // ------- Output functions ------- //
+  // ------- Output methods ------- //
   outputConsole() {
-    return (async() => {
-      const json = await this.output.json(await this.inputData, this.rules);
+    (async() => {
+      const json = await this.output.object(await this.inputData, this.rules);
       this.logger.result(json);
-      return this;
     })();
+    return this;
   }
 
   outputJson(callback) {
-    return (async() => {
+    (async() => {
       const json = await this.output.json(await this.inputData, this.rules);
       callback(json);
-      return this;
     })();
+    return this;
+  }
+
+  outputObject(callback) {
+    (async() => {
+      const obj = await this.output.object(await this.inputData, this.rules);
+      callback(obj);
+    })();
+    return this;
   }
 }
 
