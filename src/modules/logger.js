@@ -70,7 +70,7 @@ class Analyzer {
       return console.log(`\n %s${this.successMessage}`, this.green);
 
     for (const item of result) {
-      console.log(this.yellow, `\nFile: ${item.file.trim()}`);
+      console.log(this.yellow, `\nSource: ${item.source.trim()}`);
       console.log(`%s${item.report.join('\n')}`, this.red);
     }
 

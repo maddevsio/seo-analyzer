@@ -5,7 +5,7 @@ class Analyzer {
   constructor() {
     this.consoleProgressBar = new cliProgress.Bar({
       format:
-        'Handling files by rules |' +
+        'Ranning rules |' +
         _colors.green('{bar}') +
         '| {percentage}% || {value}/{total} Rules',
       barCompleteChar: '\u2588',
@@ -44,14 +44,14 @@ class Analyzer {
     const result = [];
     for (const item of dataList) {
       console.log(
-        `\n${_colors.blue('==>')} Analysis ${_colors.white(item.file)}`
+        `\n${_colors.blue('==>')} Analysis ${_colors.white(item.source)}`
       );
 
       const report = await this._analyzeDOM(item.dom, rules);
 
       if (report && report.length) {
         result.push({
-          file: item.file,
+          source: item.source,
           report
         });
       }

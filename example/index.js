@@ -2,14 +2,11 @@ const SeoAnalyzer = require('../dist/seo-analyzer.js');
 
 // --------- Custom rules ------------ //
 function customRule(dom) {
-  return new Promise(async (resolve, reject) => {
-    const paragraph = dom.window.document.querySelector('p');
-    if (paragraph) {
-      resolve('');
-    } else {
-      reject('Not found <p> tags');
-    }
-  });
+  const paragraph = dom.window.document.querySelector('p');
+  if (paragraph) {
+    return null;
+  }
+  return 'Not found <p> tags';
 }
 // -------------------------------- //
 
@@ -21,7 +18,7 @@ new SeoAnalyzer()
   // ------- Input methods -------- //
   // .inputFolders(['example/html', 'example/html2'])
   // .inputFiles(['example/index.html', 'example/html/team.html'])
-  .inputUrls(['https://maddevs.co'])
+  .inputUrls(['https://maddevs.io'])
 
   // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })
@@ -42,7 +39,7 @@ new SeoAnalyzer()
       'twitter:description',
       'twitter:image:src',
       'twitter:url'
-    ], 
+    ]
   })
   .addRule('hTagsRule')
   .addRule('noMoreThanOneH1TagRule')

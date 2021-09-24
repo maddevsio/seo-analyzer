@@ -1,12 +1,25 @@
 import axios from 'axios';
 import sitemaps from 'sitemap-stream-parser';
+import cliProgress from 'cli-progress';
+import _colors from 'colors';
 
 class Scanner {
+  constructor() {
+    this.consoleProgressBar = new cliProgress.Bar({
+      format:
+        'Parsing pages |' +
+        _colors.green('{bar}') +
+        '| {percentage}% || {value}/{total} Pages',
+      barCompleteChar: '\u2588',
+      barIncompleteChar: '\u2591',
+      hideCursor: true
+    });
+  }
+
   async scan(urls) {
     const links = await this._getLinksFromSitemap(urls);
     const htmlDoms = await this._getHtmlDomFromLinks(links);
-    console.log('links', links.length);
-    console.log('DOMS', htmlDoms.length);
+    return htmlDoms;
   }
 
   _getLinksFromSitemap(urls) {
@@ -24,17 +37,31 @@ class Scanner {
   }
 
   async _getHtmlDomFromLinks(links) {
-    let htmlDoms = [];
+    const htmlDoms = [];
+    const promises = [];
+
+    // Start the progress bar
+    this.consoleProgressBar.start(links.length, 0);
+
     for (const link of links) {
-      try {
-        const response = await axios.get(link);
-        console.log(link);
-        htmlDoms.push(response.data);
-      } catch (error) {
-        console.log(error);
-      }
+      promises.push(axios.post(link)
+        .then(res => {
+          this.consoleProgressBar.increment();
+          htmlDoms.push({ source: link, text: res.data });
+        }).catch(error => {
+          this.consoleProgressBar.increment();
+          console.log(
+            `\n${_colors.yellow('==>')} ${_colors.white(link)} ${_colors.red(error.response.status)}`
+          );
+        })
+      );
     }
-    return htmlDoms;
+
+    return Promise.all(promises).then(() => {
+      // // Stop the progress bar
+      this.consoleProgressBar.stop();
+      return htmlDoms;
+    });
   }
 }
 

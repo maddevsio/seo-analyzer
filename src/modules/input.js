@@ -63,15 +63,16 @@ class Input {
     return listDOM;
   }
 
-  urls(urls = []) {
+  async urls(urls = []) {
     if (urls.length === 0) {
       this.logger.error(this.emptyList);
     }
     if (!Array.isArray(urls)) {
       this.logger.error(this.badType);
     }
-
-    this.scanner.scan(urls);
+    const listTexts = await this.scanner.scan(urls);
+    const htmlDoms = await this._getDom(listTexts);
+    return htmlDoms;
   }
 
   /**
@@ -144,7 +145,7 @@ class Input {
       if (this.ignoreFiles.includes(file)) return;
       try {
         const text = fs.readFileSync(file, 'utf8');
-        listTexts.push({ file, text });
+        listTexts.push({ source: file, text });
       } catch (error) {
         this.logger.error(`File "${file}" not found`);
       }
@@ -160,12 +161,22 @@ class Input {
    */
   _getDom(list) {
     const doms = [];
-    list.forEach(item => {
-      // NOTE: https://github.com/jsdom/jsdom/issues/2177#issuecomment-379212964
-      const virtualConsole = new VirtualConsole();
-      let dom = new JSDOM(item.text, { virtualConsole });
-      doms.push({ file: item.file, dom });
+    const proccess = new cliProgress.Bar({
+      format:
+        'Handling html |' +
+        _colors.green('{bar}') +
+        '| {percentage}% || {value}/{total} Sources'
     });
+    proccess.start(list.length, 0);
+    // NOTE: https://github.com/jsdom/jsdom/issues/2177#issuecomment-379212964
+    const virtualConsole = new VirtualConsole();
+    list.forEach(item => {
+      let dom = new JSDOM(item.text, { virtualConsole });
+      doms.push({ source: item.source, dom });
+      proccess.increment();
+    });
+
+    proccess.stop();
     return doms;
   }
 }
