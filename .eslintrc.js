@@ -12,6 +12,7 @@ module.exports = {
     "ecmaVersion": 12,
     "sourceType": "module"
   },
+  "plugins": ["import"],
   "rules": {
     'no-console': 'off',
     'no-debugger': 'off',
