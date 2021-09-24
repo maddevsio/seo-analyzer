@@ -1,5 +1,5 @@
 function metaSocialRule(dom, options = { properties: [] }) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(resolve => {
     const report = [];
     if (options && options.properties && options.properties.length) {
       options.properties.forEach(property => {

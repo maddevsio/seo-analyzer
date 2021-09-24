@@ -1,5 +1,5 @@
 function noTooManyStrongTagsRule(dom, options) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(resolve => {
     let report = '';
     const elements = dom.window.document.querySelectorAll('strong');
     if (elements && elements.length > options.threshold) {

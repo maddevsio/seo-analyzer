@@ -1,5 +1,5 @@
 function imgTagWithAltAttritubeRule(dom) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(resolve => {
     let report = '';
     let count = 0;
     const elements = dom.window.document.querySelectorAll('img');

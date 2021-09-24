@@ -1,5 +1,5 @@
 function noMoreThanOneH1TagRule(dom) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(resolve => {
     let report = '';
     const elements = dom.window.document.querySelectorAll('h1');
     if (elements && elements.length > 1) {

@@ -1,5 +1,5 @@
 function headTagWithTitleAndDescriptionKeywordsMetaRule(dom) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(resolve => {
     let report = [];
     const metaList = ['description', 'keywords'];
     metaList.forEach(meta => {

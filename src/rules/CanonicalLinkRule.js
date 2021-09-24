@@ -1,5 +1,5 @@
 function canonicalLinkRule(dom) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(resolve => {
     let report = '';
     const element = dom.window.document.querySelector(
       'head > link[rel="canonical"]'

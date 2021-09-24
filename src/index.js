@@ -16,7 +16,7 @@ class SeoAnalyzer {
     return this;
   }
 
-  //--------- Ignore methods ---------//
+  // --------- Ignore methods --------- //
   ignoreFolders(folders) {
     this._ignoreFolders = folders;
     return this;
@@ -26,7 +26,7 @@ class SeoAnalyzer {
     this._ignoreFiles = files;
     return this;
   }
-  // -------------------------------//
+  // ------------------------------- //
 
   // ------- Input methods ------- //
   inputFiles(files) {

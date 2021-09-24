@@ -1,23 +1,23 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "es2021": true
+  'env': {
+    'browser': true,
+    'es2021': true
   },
-  "extends": [
-    "eslint:recommended",
-    "airbnb-base/legacy",
-    "prettier"
+  'extends': [
+    'eslint:recommended',
+    'airbnb-base/legacy',
+    'prettier'
   ],
-  "parserOptions": {
-    "ecmaVersion": 12,
-    "sourceType": "module"
+  'parserOptions': {
+    'ecmaVersion': 12,
+    'sourceType': 'module'
   },
-  "plugins": ["import"],
-  "rules": {
+  'plugins': ['import'],
+  'rules': {
     'no-console': 'off',
     'no-debugger': 'off',
-    "no-param-reassign": 0,
-    "no-lonely-if": 0,
+    'no-param-reassign': 0,
+    'no-lonely-if': 0,
     'no-new': 0,
     'linebreak-style': 0,
     'no-bitwise': 0,
@@ -27,7 +27,7 @@ module.exports = {
     'max-len': 'off',
     'no-plusplus': 'off',
     'prefer-destructuring': 'off',
-    "import/no-unresolved": 'off',
+    'import/no-unresolved': 'off',
     'import/extensions': ['error', 'never', {
       'packages': 'never',
       'json': 'always'

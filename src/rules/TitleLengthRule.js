@@ -1,5 +1,5 @@
 function titleLengthRule(dom, options) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(resolve => {
     const titleLength = dom.window.document.title.length;
     let report = '';
     if (!dom.window.document.title) {

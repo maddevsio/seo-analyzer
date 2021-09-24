@@ -1,5 +1,5 @@
 function HTagsRule(dom) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(resolve => {
     let report = '';
     const hTags = dom.window.document.querySelectorAll(
       'h1, h2, h3, h4, h5, h6'
