@@ -12,8 +12,22 @@ class SeoAnalyzer {
     this.output = new Output();
     this.inputData = [];
     this.rules = [];
+    this._ignoreFolders = [];
+    this._ignoreFiles = [];
     return this;
   }
+  
+  //--------- Ignore methods ---------//
+  ignoreFolders(folders) {
+    this._ignoreFolders = folders;
+    return this;
+  }
+
+  ignoreFiles(files) {
+    this._ignoreFiles = files;
+    return this;
+  }
+  // -------------------------------//
 
   // ------- Input functions ------- // 
   inputFiles(files) {
@@ -30,7 +44,7 @@ class SeoAnalyzer {
   
   inputFolders(folders) {
     this._showLogo();
-    this.inputData = this.input.folders(folders);
+    this.inputData = this.input.folders(folders, this._ignoreFolders);
     return this;
   }
   // ------------------------------ //

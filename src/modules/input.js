@@ -16,6 +16,7 @@ class Input {
     });
     this.badType = 'The inputFiles function takes an array only ["index.html", "...", "..."]';
     this.emptyList = 'You need to pass an array to the inputFiles function ["index.html", "...", "..."]';
+    this.ignoreFolders = [];
   }
 
   /**
@@ -44,10 +45,11 @@ class Input {
    * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @memberof Input
    */
-  folders(folders) {
+  folders(folders = [], ignoreFolders = []) {
     return new Promise(async (resolve, reject) => {
       // Start the progress bar
       this.consoleProgressBar.start(folders.length, 0);
+      this.ignoreFolders = ignoreFolders;
 
       const files = await this._getFilesFromFolders(folders);
       const listDOM = await this.files(files);
@@ -62,14 +64,14 @@ class Input {
    * @private
    * @example ['html', 'dist', 'src']
    */
-  async _getFilesFromFolders(folders) {
+  async _getFilesFromFolders(folders = []) {
     return new Promise(async (resolve, reject) => {
       const files = [];
       for (const folder of folders) {
-        const result = await this._getFilesFromFolder(folder);
-
         // Update the progress bar
         this.consoleProgressBar.increment();
+
+        const result = await this._getFilesFromFolder(folder);
 
         files.push(...result);
       }
@@ -88,12 +90,14 @@ class Input {
    * @private
    * @memberof Input
    */
-  _getFilesFromFolder(folder) {
+  _getFilesFromFolder(folder = []) {
     try {
       const entryPaths = fs.readdirSync(folder).map(entry => path.join(folder, entry));
       const filePaths = entryPaths.filter(entryPath => fs.statSync(entryPath).isFile() && path.extname(entryPath) === '.html');
       const dirPaths = entryPaths.filter(entryPath => !filePaths.includes(entryPath) && fs.statSync(entryPath).isDirectory());
-      const dirFiles = dirPaths.reduce((prev, curr) => prev.concat(this._getFilesFromFolder(curr)), []);
+      const dirFiles = dirPaths
+        .filter(path => !this.ignoreFolders.includes(path))
+        .reduce((prev, curr) => prev.concat(this._getFilesFromFolder(curr)), []);
       return [...filePaths, ...dirFiles];
     } catch (error) {
       this.logger.error(`Folder "${folder}" not found`);

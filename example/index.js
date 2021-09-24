@@ -14,10 +14,13 @@ function customRule(dom) {
 // -------------------------------- //
 
 new SeoAnalyzer()
+  // ------- Ignore methods ------- //
+  .ignoreFolders(['example/html/contact'])
+  // .ignoreFiles(['example/html/team.html'])
+
   // ------- Input methods -------- //
   .inputFolders(['example/html', 'example/html2'])
   // .inputFiles(['example/index.html', 'example/html/team.html'])
-  // Default rules
 
   // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })
