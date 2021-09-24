@@ -41,6 +41,8 @@
   },
   "devDependencies": {
     "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
     "rimraf": "^3.0.0",
     "rollup": "^2.45.2",
     "rollup-plugin-terser": "^5.3.1"
