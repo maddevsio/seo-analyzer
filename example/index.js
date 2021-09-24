@@ -19,8 +19,9 @@ new SeoAnalyzer()
   .ignoreFiles(['example/html/team.html'])
 
   // ------- Input methods -------- //
-  .inputFolders(['example/html', 'example/html2'])
+  // .inputFolders(['example/html', 'example/html2'])
   // .inputFiles(['example/index.html', 'example/html/team.html'])
+  .inputUrls(['https://maddevs.io'])
 
   // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })

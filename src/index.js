@@ -26,7 +26,6 @@ class SeoAnalyzer {
     this._ignoreFiles = files;
     return this;
   }
-  // ------------------------------- //
 
   // ------- Input methods ------- //
   inputFiles(files) {
@@ -50,7 +49,6 @@ class SeoAnalyzer {
     );
     return this;
   }
-  // ------------------------------ //
 
   // --------- Add Rule --------- //
   addRule(func, options = {}) {
@@ -63,7 +61,6 @@ class SeoAnalyzer {
     }
     return this;
   }
-  // ----------------------------- //
 
   // ------- Output methods ------- //
   outputConsole() {

@@ -4,10 +4,12 @@ import { JSDOM, VirtualConsole } from 'jsdom';
 import cliProgress from 'cli-progress';
 import _colors from 'colors';
 import Logger from './logger';
+import Scanner from './scanner';
 
 class Input {
   constructor() {
     this.logger = new Logger();
+    this.scanner = new Scanner();
     this.consoleProgressBar = new cliProgress.Bar({
       format:
         'File Searching |' +
@@ -59,6 +61,17 @@ class Input {
     const files = await this._getFilesFromFolders(folders);
     const listDOM = await this.files(files, ignoreFiles);
     return listDOM;
+  }
+
+  urls(urls = []) {
+    if (urls.length === 0) {
+      this.logger.error(this.emptyList);
+    }
+    if (!Array.isArray(urls)) {
+      this.logger.error(this.badType);
+    }
+
+    this.scanner.scan(urls);
   }
 
   /**
