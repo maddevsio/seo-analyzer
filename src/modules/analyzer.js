@@ -12,6 +12,10 @@ class Analyzer {
       barIncompleteChar: '\u2591',
       hideCursor: true
     });
+    this.badType =
+      'The inputFiles function takes an array only ["index.html", "...", "..."]';
+    this.emptyList =
+      'You need to pass an array to the inputFiles function ["index.html", "...", "..."]';
   }
 
   /**
@@ -20,20 +24,15 @@ class Analyzer {
    * @param {Array} rules - The rules to run
    * @returns {Array} - Array of error result [{ file, report }, { file, report }, { file, report }]
    */
-  run(inputData, rules) {
-    return new Promise(async (resolve, reject) => {
-      if (!Array.isArray(inputData)) {
-        console.log('Input data is not a array');
-        reject();
-      }
-      if (inputData.length === 0) {
-        console.log('Input data is empty');
-        reject();
-      }
-
-      const report = await this._startAnalyzer(inputData, rules);
-      resolve(report);
-    });
+  async run(inputData, rules) {
+    if (inputData.length === 0) {
+      this.logger.error(this.emptyList);
+    }
+    if (!Array.isArray(inputData)) {
+      this.logger.error(this.badType);
+    }
+    const report = await this._startAnalyzer(inputData, rules);
+    return report;
   }
 
   /**
@@ -41,26 +40,24 @@ class Analyzer {
    * @param {Array} rules - List rulers
    * @returns {Array} - Array of reports [{file, report}, {file, report}, {file, report}]
    */
-  _startAnalyzer(dataList, rules) {
-    return new Promise(async (resolve, reject) => {
-      const result = [];
-      for (const item of dataList) {
-        console.log(
-          `\n${_colors.blue('==>')} Analysis ${_colors.white(item.file)}`
-        );
+  async _startAnalyzer(dataList, rules) {
+    const result = [];
+    for (const item of dataList) {
+      console.log(
+        `\n${_colors.blue('==>')} Analysis ${_colors.white(item.file)}`
+      );
 
-        const report = await this._analyzeDOM(item.dom, rules);
+      const report = await this._analyzeDOM(item.dom, rules);
 
-        if (report && report.length) {
-          result.push({
-            file: item.file,
-            report
-          });
-        }
+      if (report && report.length) {
+        result.push({
+          file: item.file,
+          report
+        });
       }
+    }
 
-      resolve(result);
-    });
+    return result;
   }
 
   /**
@@ -69,36 +66,34 @@ class Analyzer {
    * @param {*} rules - The rules to run
    * @returns {Array} - Array of error result ['error', 'error', 'error']
    */
-  _analyzeDOM(dom, rules) {
-    return new Promise(async (resolve, reject) => {
-      const result = [];
-      // Start the progress bar
-      this.consoleProgressBar.start(rules.length, 0);
+  async _analyzeDOM(dom, rules) {
+    const result = [];
+    // Start the progress bar
+    this.consoleProgressBar.start(rules.length, 0);
 
-      for (const item of rules) {
-        let report = null;
-        try {
-          report = await item.rule(dom, item.options);
-        } catch (error) {
-          report = error;
+    for (const item of rules) {
+      let report = null;
+      try {
+        report = await item.rule(dom, item.options);
+      } catch (error) {
+        report = error;
+      }
+      if (Array.isArray(report)) {
+        result.push(...report);
+      } else {
+        if (report) {
+          result.push(report);
         }
-        if (Array.isArray(report)) {
-          result.push(...report);
-        } else {
-          if (report) {
-            result.push(report);
-          }
-        }
-
-        // Update the progress bar
-        this.consoleProgressBar.increment();
       }
 
-      // Stop the progress bar
-      this.consoleProgressBar.stop();
+      // Update the progress bar
+      this.consoleProgressBar.increment();
+    }
 
-      resolve(result);
-    });
+    // Stop the progress bar
+    this.consoleProgressBar.stop();
+
+    return result;
   }
 }
 

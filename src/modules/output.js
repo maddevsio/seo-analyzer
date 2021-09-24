@@ -10,11 +10,9 @@ class Output {
    * @param {Array} rules - List of rules
    * @returns {Promise} - Returns js object [{file, report}, ...]
    */
-  object(inputData, rules) {
-    return new Promise(async (resolve, reject) => {
-      const report = await this.analyzer.run(inputData, rules);
-      resolve(report);
-    });
+  async object(inputData, rules) {
+    const report = await this.analyzer.run(inputData, rules);
+    return report;
   }
 
   /**
@@ -22,11 +20,9 @@ class Output {
    * @param {Array} rules - List of rules
    * @returns {JSON} - Returns json [{"file", "report"}, ...]
    */
-  json(inputData, rules) {
-    return new Promise(async (resolve, reject) => {
-      const report = await this.analyzer.run(inputData, rules);
-      resolve(JSON.stringify(report, null, 2));
-    });
+  async json(inputData, rules) {
+    const report = await this.analyzer.run(inputData, rules);
+    return JSON.stringify(report, null, 2);
   }
 }
 
