@@ -4,7 +4,7 @@ import _colors from 'colors';
 class Analyzer {
   constructor() {
     this.consoleProgressBar = new cliProgress.Bar({
-      format: 'File analysis |' + _colors.green('{bar}') + '| {percentage}% || {value}/{total} Files',
+      format: 'Handling files by rules |' + _colors.green('{bar}') + '| {percentage}% || {value}/{total} Rules',
       barCompleteChar: '\u2588',
       barIncompleteChar: '\u2591',
       hideCursor: true
@@ -28,9 +28,6 @@ class Analyzer {
         reject();
       }
 
-      // Start the progress bar
-      this.consoleProgressBar.start(inputData.length, 0);
-
       const report = await this._startAnalyzer(inputData, rules);
       resolve(report);
     });
@@ -45,10 +42,10 @@ class Analyzer {
     return new Promise(async (resolve, reject) => {
       const result = [];
       for (const item of dataList) {
+
+        console.log(`\n${_colors.blue('==>')} Analysis ${_colors.white(item.file)}`);
+
         const report = await this._analyzeDOM(item.dom, rules);
-        
-        // Update the progress bar
-        this.consoleProgressBar.increment();
         
         if (report && report.length) {
           result.push({
@@ -57,9 +54,6 @@ class Analyzer {
           });
         }
       }
-
-      // Stop the progress bar
-      this.consoleProgressBar.stop();
 
       resolve(result);
     });
@@ -74,6 +68,9 @@ class Analyzer {
   _analyzeDOM(dom, rules) {
     return new Promise(async (resolve, reject) => {
       const result = [];
+      // Start the progress bar
+      this.consoleProgressBar.start(rules.length, 0);
+
       for (const item of rules) {
         let report = null;
         try {
@@ -88,7 +85,15 @@ class Analyzer {
             result.push(report);
           }
         }
+
+        // Update the progress bar
+        this.consoleProgressBar.increment();
+
       }
+
+      // Stop the progress bar
+      this.consoleProgressBar.stop();
+
       resolve(result);
     });
   }

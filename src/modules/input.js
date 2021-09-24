@@ -9,7 +9,7 @@ class Input {
   constructor() {
     this.logger = new Logger();
     this.consoleProgressBar = new cliProgress.Bar({
-      format: 'Processing folders |' + _colors.green('{bar}') + '| {percentage}% || {value}/{total} Folders',
+      format: 'File Searching |' + _colors.green('{bar}') + '| {percentage}% || {value}/{total} Folders',
       barCompleteChar: '\u2588',
       barIncompleteChar: '\u2591',
       hideCursor: true

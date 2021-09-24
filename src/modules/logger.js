@@ -27,6 +27,15 @@ class Analyzer {
   }
 
   /**
+   * Print success message to console
+   * @param {String} - Message
+   * @returns {String} - Print formatted message to console
+   */
+  success(success) {
+    this._logSuccess(success);
+  }
+
+  /**
    * Print beautiful message to console
    * @param {String} - Result message
    * @returns {String} - Print CFonts message to console
@@ -77,6 +86,16 @@ class Analyzer {
    */
   _logError(error) {
     console.error(`\n%s${error}\n`, this.red);
+  }
+
+  /**
+   * @param {String} - Message
+   * @returns {String} - Print formatted message to console
+   * @private
+   * @memberof Analyzer
+   */
+  _logSuccess(success) {
+    console.log(`%s${success}`, this.green);
   }
 }
 
