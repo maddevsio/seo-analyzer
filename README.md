@@ -34,13 +34,13 @@ new SeoAnalyzer().inputFiles(<array>).addRule(<function>).addRule(<function>).ou
 
 | Method        | Params                                | Description                                                                                             |
 |---------------|---------------------------------------|---------------------------------------------------------------------------------------------------------|
-| ignoreFiles   | ['dist/about.html', 'src/404.html']   | This method expects an array of files to ignore before analysis.                                        |
-| ignoreFolders | ['dist/ignore', 'dist/src']           | This method expects an array of folders to ignore before analysis.                                      |
-| inputFiles    | ['dist/index.html', 'dist/team.html'] | This method expects an array of html files to analyze.                                                  |
+| ignoreFiles   | ['dist/about.html']                   | This method expects an array of files to ignore before analysis.                                        |
+| ignoreFolders | ['dist/ignore']                       | This method expects an array of folders to ignore before analysis.                                      |
+| inputFiles    | ['dist/index.html']                   | This method expects an array of html files to analyze.                                                  |
 | inputFolders  | ['dist', 'src']                       | This method expects an array of folders with html files to analyze.                                     |
-| addRule       | function(dom) { return <Promise> }    | This method adds a custom rule to check incoming HTML files.                                            |
-| outputObject  | function(obj) { handleObj(obj) }      | This method will return the report as a javascript object.                                              |
-| outputJson    | function(json) { handleJson(json) }   | This method will return the report in JSON format.                                                      |
+| addRule       | function(dom) {}                      | This method adds a custom rule to check incoming HTML files.                                            |
+| outputObject  | function(obj) {}                      | This method will return the report as a javascript object.                                              |
+| outputJson    | function(json) {}                     | This method will return the report in JSON format.                                                      |
 | outputConsole | null                                  | This method must be used at the very end of the chain, because it completes the process in the console. |
 
 #### One way: read a list HTML files and log report to console
