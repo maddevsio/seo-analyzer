@@ -26,7 +26,7 @@ class Scanner {
   }
 
   _getLinksFromSitemap(url) {
-    this.logger.info(`🚀  Get sitemaps from ${url}\n`);
+    this.logger.info(`🚀  Get sitemap from ${url}\n`);
     this.inputUrl = url;
     return new Promise(resolve => {
       const formatttedUrl = `${url}/sitemap.xml`;
@@ -34,17 +34,22 @@ class Scanner {
       sitemaps.parseSitemaps(formatttedUrl, link => { links.push(this._formatLink(link)); }, err => {
         if (err) {
           this.logger.error('❌  Sitemap not found\n');
-          resolve([]);
+          process.exit(1);
         } else {
-          this.logger.success('✅  Done\n');
-          resolve(links);
+          if (links.length === 0) {
+            this.logger.error('❌  Links not found\n');
+            process.exit(1);
+          } else {
+            this.logger.success('✅  Done\n');
+            resolve(links);
+          }
         }
       });
     });
   }
 
   _formatLink(link) {
-    const result = link.replace(/^.*\/\/[^\/]+/, this.inputUrl);
+    const result = link.replace(/^.*\/\/[^/]+/, this.inputUrl);
     return result;
   } 
 
