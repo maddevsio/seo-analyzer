@@ -7,7 +7,7 @@ function customRule(dom) {
     if (paragraph) {
       resolve('');
     } else {
-      reject('Not found <p> tags');
+      reject(new Error('Not found <p> tags'));
     }
   });
 }
@@ -20,7 +20,7 @@ new SeoAnalyzer()
 
   // ------- Input methods -------- //
   .inputFolders(['example/html', 'example/html2'])
-  // .inputFiles(['example/index.html', 'example/html/team.html'])
+  .inputFiles(['example/index.html', 'example/html/team.html'])
 
   // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })
