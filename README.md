@@ -1,4 +1,4 @@
-# SEO Analyzer
+# Seo Analyzer
 
 > A library for analyze a HTML files to show all of the SEO defects
 
@@ -20,7 +20,7 @@
 
 ## Usage
 
-Install with npm `npm install seo-analyzer --save`
+Install with npm `npm install -D seo-analyzer`
 
 ### Getting started
 

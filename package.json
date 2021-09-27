@@ -38,7 +38,7 @@
     "build": "rimraf dist && rollup -c",
     "prepublish": "npm run build",
     "lint": "eslint src --ext .js",
-    "prettier": "prettier \"src/**/*.js\" --write --config .prettierrc"
+    "format": "prettier \"src/**/*.js\" --write --config .prettierrc"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

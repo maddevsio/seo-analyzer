@@ -10,7 +10,7 @@ class Input {
     this.logger = new Logger();
     this.consoleProgressBar = new cliProgress.Bar({
       format:
-        'File Searching |' +
+        'Processing... |' +
         _colors.green('{bar}') +
         '| {percentage}% || {value}/{total} Folders',
       barCompleteChar: '\u2588',
@@ -32,6 +32,7 @@ class Input {
    * @memberof Input
    */
   async files(files = [], ignoreFiles = []) {
+    this.logger.info('\n🚀  Analysis of files');
     if (files.length === 0) {
       this.logger.error(this.emptyList);
     }
@@ -51,6 +52,8 @@ class Input {
    * @memberof Input
    */
   async folders(folders = [], ignoreFolders = [], ignoreFiles = []) {
+    this.logger.info('🚀  Parsing folders\n');
+
     // Start the progress bar
     this.consoleProgressBar.start(folders.length, 0);
     this.ignoreFolders = ignoreFolders;
@@ -71,10 +74,10 @@ class Input {
   async _getFilesFromFolders(folders = []) {
     const files = [];
     for (const folder of folders) {
+      const result = await this._getFilesFromFolder(folder);
+
       // Update the progress bar
       this.consoleProgressBar.increment();
-
-      const result = await this._getFilesFromFolder(folder);
 
       files.push(...result);
     }

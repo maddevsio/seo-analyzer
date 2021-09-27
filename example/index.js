@@ -2,7 +2,7 @@ const SeoAnalyzer = require('../dist/seo-analyzer.js');
 
 // --------- Custom rules ------------ //
 function customRule(dom) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const paragraph = dom.window.document.querySelector('p');
     if (paragraph) {
       resolve('');
