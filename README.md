@@ -1,4 +1,4 @@
-# SEO Analyzer
+# Seo Analyzer
 
 > A library for analyze a HTML files to show all of the SEO defects
 
@@ -83,7 +83,7 @@ new SeoAnalyzer()
   .ignoreFiles(['src/404.html'])
   .inputFolders(['dist', 'src'])
   .addRule('noMoreThanOneH1TagRule')
-  .outputObject(json => console.log(json));
+  .outputObject(obj => console.log(obj));
 ```
 
 #### Example of the output of all SEO defects in the console.

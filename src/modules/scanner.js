@@ -44,15 +44,21 @@ class Scanner {
     this.consoleProgressBar.start(links.length, 0);
 
     for (const link of links) {
-      promises.push(axios.post(link)
+      promises.push(axios.get(link)
         .then(res => {
-          this.consoleProgressBar.increment();
-          htmlDoms.push({ source: link, text: res.data });
-        }).catch(error => {
-          this.consoleProgressBar.increment();
+          if (res && res.status === 200) {
+            htmlDoms.push({ source: link, text: res.data });
+          }
+        })
+        .catch(error => {
+          const err = error && error.response && error.response.status || 500;
+          console.log(`Error: ${error} - ${link}`);
           console.log(
-            `\n${_colors.yellow('==>')} ${_colors.white(link)} ${_colors.red(error.response.status)}`
+            `\n${_colors.yellow('==>')} ${_colors.white(link)} ${_colors.red(err)}`
           );
+        })
+        .finally(() => {
+          this.consoleProgressBar.increment();
         })
       );
     }
