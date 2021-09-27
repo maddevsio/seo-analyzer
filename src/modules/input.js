@@ -66,14 +66,11 @@ class Input {
     return listDOM;
   }
 
-  async urls(urls = []) {
-    if (urls.length === 0) {
-      this.logger.error(this.emptyList);
+  async url(url) {
+    if (!url) {
+      this.logger.error('Url is required');
     }
-    if (!Array.isArray(urls)) {
-      this.logger.error(this.badType);
-    }
-    const listTexts = await this.scanner.scan(urls);
+    const listTexts = await this.scanner.scan(url);
     const htmlDoms = await this._getDom(listTexts);
     return htmlDoms;
   }
@@ -168,8 +165,12 @@ class Input {
       format:
         'Handling html |' +
         _colors.green('{bar}') +
-        '| {percentage}% || {value}/{total} Sources'
+        '| {percentage}% || {value}/{total} Sources',
+      barCompleteChar: '\u2588',
+      barIncompleteChar: '\u2591',
+      hideCursor: true
     });
+    this.logger.info('\n🚀  Get DOM from HTML\n');
     proccess.start(list.length, 0);
     // NOTE: https://github.com/jsdom/jsdom/issues/2177#issuecomment-379212964
     const virtualConsole = new VirtualConsole();

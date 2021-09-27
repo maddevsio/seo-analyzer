@@ -35,10 +35,10 @@ class SeoAnalyzer {
     return this;
   }
 
-  inputUrls(urls) {
-    if (this.inputData.length !== 0) return this;
+  inputUrl(url) {
+    if (!this.inputData) return this;
     this.logger.printTextToConsole('Seo Analyzer');
-    this.inputData = this.input.urls(urls);
+    this.inputData = this.input.url(url);
     return this;
   }
 

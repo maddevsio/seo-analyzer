@@ -2,43 +2,65 @@ import axios from 'axios';
 import sitemaps from 'sitemap-stream-parser';
 import cliProgress from 'cli-progress';
 import _colors from 'colors';
+import Logger from './logger';
 
 class Scanner {
   constructor() {
     this.consoleProgressBar = new cliProgress.Bar({
       format:
-        'Parsing pages |' +
+        'Processing... |' +
         _colors.green('{bar}') +
         '| {percentage}% || {value}/{total} Pages',
       barCompleteChar: '\u2588',
       barIncompleteChar: '\u2591',
       hideCursor: true
     });
+    this.logger = new Logger();
+    this.inputUrl = '';
   }
 
-  async scan(urls) {
-    const links = await this._getLinksFromSitemap(urls);
+  async scan(url) {
+    const links = await this._getLinksFromSitemap(url);
     const htmlDoms = await this._getHtmlDomFromLinks(links);
     return htmlDoms;
   }
 
-  _getLinksFromSitemap(urls) {
+  _getLinksFromSitemap(url) {
+    this.logger.info(`🚀  Get sitemaps from ${url}\n`);
+    this.inputUrl = url;
     return new Promise(resolve => {
-      const formatttedUrls = this._concatSitemapTuUrls(urls);
-      const allUrls = [];
-      sitemaps.parseSitemaps(formatttedUrls, url => { allUrls.push(url); }, () => {
-        resolve(allUrls);
+      const formatttedUrl = `${url}/sitemap.xml`;
+      const links = [];
+      sitemaps.parseSitemaps(formatttedUrl, link => { links.push(this._formatLink(link)); }, err => {
+        if (err) {
+          this.logger.error('❌  Sitemap not found\n');
+          resolve([]);
+        } else {
+          this.logger.success('✅  Done\n');
+          resolve(links);
+        }
       });
     });
   }
 
-  _concatSitemapTuUrls(urls) {
-    return urls.map(url => `${url}/sitemap.xml`);
+  _formatLink(link) {
+    const result = link.replace(/^.*\/\/[^\/]+/, this.inputUrl);
+    return result;
+  } 
+
+  /**
+   * Sleep for the given time in milliseconds
+   * @param {Number} ms 
+   * @returns {Promise}
+   */
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   async _getHtmlDomFromLinks(links) {
     const htmlDoms = [];
     const promises = [];
+    this.logger.info('🚀  Parsing HTML\n');
 
     // Start the progress bar
     this.consoleProgressBar.start(links.length, 0);
@@ -61,6 +83,7 @@ class Scanner {
           this.consoleProgressBar.increment();
         })
       );
+      await this.sleep(500);
     }
 
     return Promise.all(promises).then(() => {
