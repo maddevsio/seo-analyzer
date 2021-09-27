@@ -2,11 +2,14 @@ const SeoAnalyzer = require('../dist/seo-analyzer.js');
 
 // --------- Custom rules ------------ //
 function customRule(dom) {
-  const paragraph = dom.window.document.querySelector('p');
-  if (paragraph) {
-    return null;
-  }
-  return 'Not found <p> tags';
+  return new Promise((resolve, reject) => {
+    const paragraph = dom.window.document.querySelector('p');
+    if (paragraph) {
+      resolve('');
+    } else {
+      reject(new Error('Not found <p> tags'));
+    }
+  });
 }
 // -------------------------------- //
 
@@ -17,8 +20,7 @@ new SeoAnalyzer()
 
   // ------- Input methods -------- //
   // .inputFolders(['example/html', 'example/html2'])
-  // .inputFiles(['example/index.html', 'example/html/team.html'])
-  .inputUrls(['https://maddevs.io'])
+  .inputFiles(['example/index.html', 'example/html/team.html'])
 
   // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })

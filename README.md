@@ -1,45 +1,36 @@
 # Seo Analyzer
 
-> A library for analyze a HTML files to show all of the SEO defects
+[![Developed by Mad Devs](https://maddevs.io/badge-dark.svg)](https://maddevs.io?utm_source=github&utm_medium=madboiler)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-```bash
- ███████╗ ███████╗  ██████╗  
- ██╔════╝ ██╔════╝ ██╔═══██╗ 
- ███████╗ █████╗   ██║   ██║ 
- ╚════██║ ██╔══╝   ██║   ██║ 
- ███████║ ███████╗ ╚██████╔╝ 
- ╚══════╝ ╚══════╝  ╚═════╝  
+![Preview](preview.jpg)
 
-  █████╗  ███╗   ██╗  █████╗  ██╗     ██╗   ██╗ ███████╗ ███████╗ ██████╗  
- ██╔══██╗ ████╗  ██║ ██╔══██╗ ██║     ╚██╗ ██╔╝ ╚══███╔╝ ██╔════╝ ██╔══██╗ 
- ███████║ ██╔██╗ ██║ ███████║ ██║      ╚████╔╝    ███╔╝  █████╗   ██████╔╝ 
- ██╔══██║ ██║╚██╗██║ ██╔══██║ ██║       ╚██╔╝    ███╔╝   ██╔══╝   ██╔══██╗ 
- ██║  ██║ ██║ ╚████║ ██║  ██║ ███████╗   ██║    ███████╗ ███████╗ ██║  ██║ 
- ╚═╝  ╚═╝ ╚═╝  ╚═══╝ ╚═╝  ╚═╝ ╚══════╝   ╚═╝    ╚══════╝ ╚══════╝ ╚═╝  ╚═╝ 
-```
+A library for analyze a HTML files to show all of the SEO defects.
+
+## Advantages of this plugin
+
+* Easy setup.
+* Adding custom rules.
+* Multiple options for outputting the result.
+* Running the seo-analyzer in pipelines(github, gitlab, ...) or pre-push or anywhere else. 
+
+## Why you should use Seo Analyzer
+
+* **Saves time:** will save you from manually searching for seo problems.
+* **Seo Friendly:** will save your project from problems with search engines.
+* **It’s free:** we’re happy to share the results of our work.
 
 ## Usage
 
-Install with npm `npm install seo-analyzer --save`
+Install with npm `npm install -D seo-analyzer`
 
 ### Getting started
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
 
-new SeoAnalyzer().inputFiles(<array>).addRule(<function>).addRule(<function>).outputConsole(<console>);
+new SeoAnalyzer().inputFiles(<array>).addRule(<function>).addRule(<function>).outputConsole();
 ```
-
-Available methods:
-
-* .ignoreFiles(): accepts a list htmls files
-* .ignoreFolders(): accepts a list folders with files
-* .inputFiles(): accepts a list htmls files
-* .inputFolders(): accepts a list folders with html files
-* .addRule(): accepts a name function 
-* .outputObject(): return js object result 
-* .outputJson(): return json result 
-* .outputConsole(): show seo defects in console
 
 #### One way: read a list HTML files and log report to console
 ```js
@@ -90,30 +81,32 @@ new SeoAnalyzer()
 
 ```bash
 
- ███████╗ ███████╗  ██████╗  
- ██╔════╝ ██╔════╝ ██╔═══██╗ 
- ███████╗ █████╗   ██║   ██║ 
- ╚════██║ ██╔══╝   ██║   ██║ 
- ███████║ ███████╗ ╚██████╔╝ 
- ╚══════╝ ╚══════╝  ╚═════╝  
+ ███████╗ ███████╗  ██████╗
+ ██╔════╝ ██╔════╝ ██╔═══██╗
+ ███████╗ █████╗   ██║   ██║
+ ╚════██║ ██╔══╝   ██║   ██║
+ ███████║ ███████╗ ╚██████╔╝
+ ╚══════╝ ╚══════╝  ╚═════╝
 
-  █████╗  ███╗   ██╗  █████╗  ██╗      ██╗   ██╗ ███████╗ ███████╗ ██████╗  
- ██╔══██╗ ████╗  ██║ ██╔══██╗ ██║      ╚██╗ ██╔╝ ╚══███╔╝ ██╔════╝ ██╔══██╗ 
- ███████║ ██╔██╗ ██║ ███████║ ██║       ╚████╔╝    ███╔╝  █████╗   ██████╔╝ 
- ██╔══██║ ██║╚██╗██║ ██╔══██║ ██║        ╚██╔╝    ███╔╝   ██╔══╝   ██╔══██╗ 
- ██║  ██║ ██║ ╚████║ ██║  ██║ ███████╗    ██║    ███████╗ ███████╗ ██║  ██║ 
- ╚═╝  ╚═╝ ╚═╝  ╚═══╝ ╚═╝  ╚═╝ ╚══════╝    ╚═╝    ╚══════╝ ╚══════╝ ╚═╝  ╚═╝ 
+  █████╗  ███╗   ██╗  █████╗  ██╗      ██╗   ██╗ ███████╗ ███████╗ ██████╗
+ ██╔══██╗ ████╗  ██║ ██╔══██╗ ██║      ╚██╗ ██╔╝ ╚══███╔╝ ██╔════╝ ██╔══██╗
+ ███████║ ██╔██╗ ██║ ███████║ ██║       ╚████╔╝    ███╔╝  █████╗   ██████╔╝
+ ██╔══██║ ██║╚██╗██║ ██╔══██║ ██║        ╚██╔╝    ███╔╝   ██╔══╝   ██╔══██╗
+ ██║  ██║ ██║ ╚████║ ██║  ██║ ███████╗    ██║    ███████╗ ███████╗ ██║  ██║
+ ╚═╝  ╚═╝ ╚═╝  ╚═══╝ ╚═╝  ╚═╝ ╚══════╝    ╚═╝    ╚══════╝ ╚══════╝ ╚═╝  ╚═╝
 
 
-Processing folders |████████████████████████████████████████| 100% || 2/2 Folders
-File analysis |████████████████████████████████████████| 100% || 64/64 Files
 
-File: example/html/about.html
-Not found <p> tags
+🚀  Analysis of files
 
-File: example/html/team.html
-<title> too short(8). The minimum length should be 10 characters.
-This HTML without <meta name="description"> tag
+==> Analysis example/index.html
+Handling files by rules |████████████████████████████████████████| 100% || 11/11 Rules
+
+🚀  Report of errors
+
+File: example/index.html
+%s<title> too short(1). The minimum length should be 10 characters.
+This HTML have more than 2 <strong> tags
 This HTML without <meta property="og:url"> tag
 This HTML without <meta property="og:type"> tag
 This HTML without <meta property="og:site_name"> tag
@@ -127,17 +120,35 @@ This HTML without <meta property="twitter:text:title"> tag
 This HTML without <meta property="twitter:description"> tag
 This HTML without <meta property="twitter:image:src"> tag
 This HTML without <meta property="twitter:url"> tag
-This HTML without <meta name="description"> tag
+Tag <h3>Title 3</h3> should be </h2>
+This HTML have more than one <h1> tag
+There are 1 <img> tag without alt attribute
 This HTML without <meta name="keywords"> tag
-This HTML without <link rel="canonical" href="..."> link
-Not found <p> tags
+There are 1 <a> tag without rel attribute
+The canonical link without href attribute
+
+-------- 🚀 Finished! --------
+Thanks for using Seo Analyzer!
 ```
 
 or
 
 ```bash
-SEO defects were not detected.
+👍 SEO defects were not detected.
 ```
+
+#### Available methods:
+
+| Method        | Params                                | Description                                                                                             |
+|---------------|---------------------------------------|---------------------------------------------------------------------------------------------------------|
+| ignoreFiles   | ['dist/about.html']                   | This method expects an array of files to ignore before analysis.                                        |
+| ignoreFolders | ['dist/ignore']                       | This method expects an array of folders to ignore before analysis.                                      |
+| inputFiles    | ['dist/index.html']                   | This method expects an array of html files to analyze.                                                  |
+| inputFolders  | ['dist', 'src']                       | This method expects an array of folders with html files to analyze.                                     |
+| addRule       | function(dom) {}                      | This method adds a custom rule to check incoming HTML files.                                            |
+| outputObject  | function(obj) {}                      | This method will return the report as a javascript object.                                              |
+| outputJson    | function(json) {}                     | This method will return the report in JSON format.                                                      |
+| outputConsole | null                                  | This method must be used at the very end of the chain, because it completes the process in the console. |
 
 #### A list of rules that are available by default
 
@@ -192,3 +203,27 @@ function customRule(dom) {
 .addRule(customRule)
 ...
 ```
+
+## Licensing
+
+MIT License
+
+Copyright (c) 2021 Mad Devs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

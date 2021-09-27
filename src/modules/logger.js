@@ -1,13 +1,7 @@
 import CFonts from 'cfonts';
+import _colors from 'colors';
 
 class Analyzer {
-  constructor() {
-    this.red = '\x1b[31m';
-    this.green = '\x1b[32m';
-    this.yellow = '\x1b[33m%s\x1b[0m';
-    this.successMessage = 'SEO defects were not detected.\n';
-  }
-
   /**
    * Print formatted result to console
    * @param {Array} - Array of reports
@@ -33,6 +27,15 @@ class Analyzer {
    */
   success(success) {
     this._logSuccess(success);
+  }
+
+  /**
+   * Print info message to console
+   * @param {String} - Message
+   * @returns {String} - Print formatted message to console
+   */
+  info(info) {
+    this._logInfo(info);
   }
 
   /**
@@ -67,25 +70,42 @@ class Analyzer {
    */
   _logResult(result) {
     if (!result.some(r => r.report.length))
-      return console.log(`\n %s${this.successMessage}`, this.green);
+      return this._logSuccess('👍 SEO defects were not detected.\n');
+
+    this._logInfo('\n🚀  Report of errors');
 
     for (const item of result) {
-      console.log(this.yellow, `\nSource: ${item.source.trim()}`);
-      console.log(`%s${item.report.join('\n')}`, this.red);
+      this._logInfo(`\nFile: ${item.file.trim()}`);
+      this._logError(`%s${item.report.join('\n')}`);
     }
+
+    this._logSuccess(
+      '\n-------- 🚀 Finished! --------\nThanks for using Seo Analyzer!\n'
+    );
 
     return process.exit(1); // Stop process in terminal
   }
 
   /**
-   * @param {Error} - Error object
-   * @returns {Error} - Stop execution and print error
+   * @param {String} - Error object
+   * @returns {String} - Stop execution and print error
    * @private
    * @memberof Analyzer
    * @description Print error message to console
    */
   _logError(error) {
-    console.error(`\n%s${error}\n`, this.red);
+    console.error(`${_colors.red(error)}`);
+  }
+
+  /**
+   * @param {String} - Error object
+   * @returns {String} - Stop execution and print error
+   * @private
+   * @memberof Analyzer
+   * @description Print error message to console
+   */
+  _logInfo(info) {
+    console.log(`${_colors.yellow(info)}`);
   }
 
   /**
@@ -95,7 +115,7 @@ class Analyzer {
    * @memberof Analyzer
    */
   _logSuccess(success) {
-    console.log(`%s${success}`, this.green);
+    console.log(`${_colors.green(success)}`);
   }
 }
 

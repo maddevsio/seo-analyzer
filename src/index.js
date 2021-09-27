@@ -29,18 +29,21 @@ class SeoAnalyzer {
 
   // ------- Input methods ------- //
   inputFiles(files) {
+    if (this.inputData.length !== 0) return this;
     this.logger.printTextToConsole('Seo Analyzer');
     this.inputData = this.input.files(files, this._ignoreFiles);
     return this;
   }
 
   inputUrls(urls) {
+    if (this.inputData.length !== 0) return this;
     this.logger.printTextToConsole('Seo Analyzer');
     this.inputData = this.input.urls(urls);
     return this;
   }
 
   inputFolders(folders) {
+    if (this.inputData.length !== 0) return this;
     this.logger.printTextToConsole('Seo Analyzer');
     this.inputData = this.input.folders(
       folders,
