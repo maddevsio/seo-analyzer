@@ -19,8 +19,8 @@ new SeoAnalyzer()
   .ignoreFiles(['example/html/team.html'])
 
   // ------- Input methods -------- //
-  .inputFolders(['example/html', 'example/html2'])
-  // .inputFiles(['example/index.html', 'example/html/team.html'])
+  // .inputFolders(['example/html', 'example/html2'])
+  .inputFiles(['example/index.html', 'example/html/team.html'])
 
   // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })

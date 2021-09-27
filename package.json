@@ -1,6 +1,6 @@
 {
   "name": "seo-analyzer",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A library for analyze a HTML files to show all of the SEO defects",
   "main": "dist/seo-analyzer.js",
   "module": "dist/seo-analyzer.mjs",
@@ -39,6 +39,14 @@
     "prepublish": "npm run build",
     "lint": "eslint src --ext .js",
     "format": "prettier \"src/**/*.js\" --write --config .prettierrc"
+  },
+  "scriptsInfo": {
+    "watch": "Watch for changes and rebuild",
+    "make": "Build files and run Seo Analyzer",
+    "build": "Remove dist and build files",
+    "prepublish": "Build files before publish",
+    "lint": "Lint files",
+    "format": "Format files"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
