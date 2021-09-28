@@ -66,11 +66,8 @@ class Input {
     return listDOM;
   }
 
-  async url(url) {
-    if (!url) {
-      this.logger.error('Url is required');
-    }
-    const listTexts = await this.scanner.scan(url);
+  async spa() {
+    const listTexts = await this.scanner.scan();
     const htmlDoms = await this._getDom(listTexts);
     return htmlDoms;
   }

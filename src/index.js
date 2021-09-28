@@ -4,6 +4,8 @@ import Input from './modules/input';
 import Output from './modules/output';
 import Logger from './modules/logger';
 
+import { startServer } from './modules/server';
+
 class SeoAnalyzer {
   constructor() {
     this.logger = new Logger();
@@ -35,10 +37,11 @@ class SeoAnalyzer {
     return this;
   }
 
-  inputUrl(url) {
+  inputSpa(folder) {
     if (!this.inputData) return this;
     this.logger.printTextToConsole('Seo Analyzer');
-    this.inputData = this.input.url(url);
+    startServer(folder);
+    this.inputData = this.input.spa();
     return this;
   }
 

@@ -19,17 +19,17 @@ class Scanner {
     this.inputUrl = '';
   }
 
-  async scan(url) {
-    const links = await this._getLinksFromSitemap(url);
+  async scan() {
+    const links = await this._getLinksFromSitemap();
     const htmlDoms = await this._getHtmlDomFromLinks(links);
     return htmlDoms;
   }
 
-  _getLinksFromSitemap(url) {
-    this.logger.info(`🚀  Get sitemap from ${url}\n`);
-    this.inputUrl = url;
+  _getLinksFromSitemap() {
+    this.inputUrl = 'http://localhost:3000';
+    this.logger.info(`🚀  Get sitemap from ${this.inputUrl}\n`);
     return new Promise(resolve => {
-      const formatttedUrl = `${url}/sitemap.xml`;
+      const formatttedUrl = `${this.inputUrl}/sitemap.xml`;
       const links = [];
       sitemaps.parseSitemaps(
         formatttedUrl,
@@ -39,11 +39,11 @@ class Scanner {
         err => {
           if (err) {
             this.logger.error('❌  Sitemap not found\n');
-            process.exit(1);
+            // process.exit(1);
           } else {
             if (links.length === 0) {
               this.logger.error('❌  Links not found\n');
-              process.exit(1);
+              // process.exit(1);
             } else {
               this.logger.success('✅  Done\n');
               resolve(links);

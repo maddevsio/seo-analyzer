@@ -21,7 +21,7 @@ new SeoAnalyzer()
   // ------- Input methods -------- //
   // .inputFolders(['example/html', 'example/html2'])
   // .inputFiles(['example/index.html', 'example/html/team.html'])
-  .inputUrl('http://localhost:3000')
+  .inputSpa('example/spa/dist')
 
   // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })
