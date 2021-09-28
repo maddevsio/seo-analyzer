@@ -31,31 +31,37 @@ class Scanner {
     return new Promise(resolve => {
       const formatttedUrl = `${url}/sitemap.xml`;
       const links = [];
-      sitemaps.parseSitemaps(formatttedUrl, link => { links.push(this._formatLink(link)); }, err => {
-        if (err) {
-          this.logger.error('❌  Sitemap not found\n');
-          process.exit(1);
-        } else {
-          if (links.length === 0) {
-            this.logger.error('❌  Links not found\n');
+      sitemaps.parseSitemaps(
+        formatttedUrl,
+        link => {
+          links.push(this._formatLink(link));
+        },
+        err => {
+          if (err) {
+            this.logger.error('❌  Sitemap not found\n');
             process.exit(1);
           } else {
-            this.logger.success('✅  Done\n');
-            resolve(links);
+            if (links.length === 0) {
+              this.logger.error('❌  Links not found\n');
+              process.exit(1);
+            } else {
+              this.logger.success('✅  Done\n');
+              resolve(links);
+            }
           }
         }
-      });
+      );
     });
   }
 
   _formatLink(link) {
     const result = link.replace(/^.*\/\/[^/]+/, this.inputUrl);
     return result;
-  } 
+  }
 
   /**
    * Sleep for the given time in milliseconds
-   * @param {Number} ms 
+   * @param {Number} ms
    * @returns {Promise}
    */
   sleep(ms) {
@@ -71,22 +77,27 @@ class Scanner {
     this.consoleProgressBar.start(links.length, 0);
 
     for (const link of links) {
-      promises.push(axios.get(link)
-        .then(res => {
-          if (res && res.status === 200) {
-            htmlDoms.push({ source: link, text: res.data });
-          }
-        })
-        .catch(error => {
-          const err = error && error.response && error.response.status || 500;
-          console.log(`Error: ${error} - ${link}`);
-          console.log(
-            `\n${_colors.yellow('==>')} ${_colors.white(link)} ${_colors.red(err)}`
-          );
-        })
-        .finally(() => {
-          this.consoleProgressBar.increment();
-        })
+      promises.push(
+        axios
+          .get(link)
+          .then(res => {
+            if (res && res.status === 200) {
+              htmlDoms.push({ source: link, text: res.data });
+            }
+          })
+          .catch(error => {
+            const err =
+              (error && error.response && error.response.status) || 500;
+            console.log(`Error: ${error} - ${link}`);
+            console.log(
+              `\n${_colors.yellow('==>')} ${_colors.white(link)} ${_colors.red(
+                err
+              )}`
+            );
+          })
+          .finally(() => {
+            this.consoleProgressBar.increment();
+          })
       );
       await this.sleep(500);
     }

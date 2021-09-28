@@ -66,6 +66,8 @@
     "i": "^0.3.7",
     "jsdom": "^16.5.3",
     "npm": "^7.24.1",
+    "puppeteer": "^10.4.0",
+    "puppeteer-core": "^10.4.0",
     "sitemap-stream-parser": "^1.7.0"
   }
 }
