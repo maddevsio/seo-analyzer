@@ -1,20 +1,16 @@
 import test from 'ava';
 import titleLengthRule from '../../src/rules/TitleLengthRule';
 
-const fakeDOM = title => ({
+const fakeDOM = (title = null) => ({
   window: {
     document: {
-      title
+      querySelector: () => title 
     }
   }
 });
 
 test('if title not exists, return promise "This HTML without <title> tag"', async t => {
-  const withoutTitle = {
-    window: {
-      document: {}
-    }
-  };
+  const withoutTitle = fakeDOM();
   const options = { min: 1, max: 10 };
   const result = await titleLengthRule(withoutTitle, options);
   t.is(result, 'This HTML without <title> tag');
