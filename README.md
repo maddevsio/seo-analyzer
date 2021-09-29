@@ -5,14 +5,15 @@
 
 ![Preview](preview.jpg)
 
-A library for analyze a HTML files to show all of the SEO defects.
+The library for analyze a HTML files to show all of the SEO defects.
 
 ## Advantages of this plugin
 
 * Easy setup.
 * Adding custom rules.
+* Running the seo-analyzer for SPA applications.
+* Running the seo-analyzer in pipelines(github, gitlab, ...) or pre-push or anywhere else.
 * Multiple options for outputting the result.
-* Running the seo-analyzer in pipelines(github, gitlab, ...) or pre-push or anywhere else. 
 
 ## Why you should use Seo Analyzer
 
@@ -31,8 +32,20 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer().inputFiles(<array>).addRule(<function>).addRule(<function>).outputConsole();
 ```
+#### One way: file analysis for SPA application and log report to console
 
-#### One way: read a list HTML files and log report to console
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .ignoreUrls(['/404', '/login'])
+  .inputSpaFolder('/dist', 3000)
+  .addRule('noMoreThanOneH1TagRule')
+  .outputConsole();
+```
+
+#### Two way: read a list HTML files and log report to console
+
 ```js
 const SeoAnalyzer = require('seo-analyzer');
 
@@ -42,7 +55,7 @@ new SeoAnalyzer()
   .outputConsole();
 ```
 
-#### Two way: read a folders with HTML files and log report to console
+#### Three way: read a folders with HTML files and log report to console
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -53,7 +66,7 @@ new SeoAnalyzer()
   .outputConsole();
 ```
 
-#### Three way: read a folders with HTML files and return json
+#### Fourth way: read a folders with HTML files and return json
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -64,7 +77,7 @@ new SeoAnalyzer()
   .outputJson(json => console.log(json));
 ```
 
-#### Fourth way: ignore subfolder "test" and 404.html in folder "src" and return js object
+#### Fifth way: ignore subfolder "test" and 404.html in folder "src" and return js object
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -74,8 +87,8 @@ new SeoAnalyzer()
   .ignoreFiles(['src/404.html'])
   .inputFolders(['dist', 'src'])
   .addRule('noMoreThanOneH1TagRule')
-  .outputObject(json => console.log(json));
-```
+  .outputObject(obj => console.log(obj));
+``` 
 
 #### Example of the output of all SEO defects in the console.
 
@@ -105,7 +118,7 @@ Handling files by rules |██████████████████�
 🚀  Report of errors
 
 File: example/index.html
-%s<title> too short(1). The minimum length should be 10 characters.
+<title> too short(1). The minimum length should be 10 characters.
 This HTML have more than 2 <strong> tags
 This HTML without <meta property="og:url"> tag
 This HTML without <meta property="og:type"> tag
@@ -139,16 +152,18 @@ or
 
 #### Available methods:
 
-| Method        | Params                                | Description                                                                                             |
-|---------------|---------------------------------------|---------------------------------------------------------------------------------------------------------|
-| ignoreFiles   | ['dist/about.html']                   | This method expects an array of files to ignore before analysis.                                        |
-| ignoreFolders | ['dist/ignore']                       | This method expects an array of folders to ignore before analysis.                                      |
-| inputFiles    | ['dist/index.html']                   | This method expects an array of html files to analyze.                                                  |
-| inputFolders  | ['dist', 'src']                       | This method expects an array of folders with html files to analyze.                                     |
-| addRule       | function(dom) {}                      | This method adds a custom rule to check incoming HTML files.                                            |
-| outputObject  | function(obj) {}                      | This method will return the report as a javascript object.                                              |
-| outputJson    | function(json) {}                     | This method will return the report in JSON format.                                                      |
-| outputConsole | null                                  | This method must be used at the very end of the chain, because it completes the process in the console. |
+| Method         | Params               | Description                                                                                             |
+|----------------|----------------------|---------------------------------------------------------------------------------------------------------|
+| ignoreFiles    | ['dist/about.html']  | This method expects an array of files to ignore before analysis.                                        |
+| ignoreFolders  | ['dist/ignore']      | This method expects an array of folders to ignore before analysis.                                      |
+| ignoreUrls     | ['/404']             | This method expects an array of urls to ignore before analysis.                                         |
+| inputFiles     | ['dist/index.html']  | This method expects an array of html files.                                                             |
+| inputFolders   | ['dist', 'src']      | This method expects an array of folders with html files.                                                |
+| inputSpaFolder | '/dist', 3000        | This method expects an string of folder with SPA builded files to production & port for run server.     |
+| addRule        | function(dom) {}     | This method adds a custom rule to check incoming HTML files.                                            |
+| outputObject   | function(obj) {}     | This method will return the report as a javascript object.                                              |
+| outputJson     | function(json) {}    | This method will return the report in JSON format.                                                      |
+| outputConsole  | null                 | This method must be used at the very end of the chain, because it completes the process in the console. |
 
 #### A list of rules that are available by default
 

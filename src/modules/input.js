@@ -4,10 +4,12 @@ import { JSDOM, VirtualConsole } from 'jsdom';
 import cliProgress from 'cli-progress';
 import _colors from 'colors';
 import Logger from './logger';
+import Scraper from './scraper';
 
 class Input {
   constructor() {
     this.logger = new Logger();
+    this.scraper = new Scraper();
     this.consoleProgressBar = new cliProgress.Bar({
       format:
         'Processing... |' +
@@ -62,6 +64,18 @@ class Input {
     const files = await this._getFilesFromFolders(folders);
     const listDOM = await this.files(files, ignoreFiles);
     return listDOM;
+  }
+
+  /**
+   * Get the DOM from urls
+   * @param {Number} - Port for the server
+   * @param {Array} - Ignore urls
+   * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
+   */
+  async spa(port, ignoreUrls = []) {
+    const listTexts = await this.scraper.run(port, ignoreUrls);
+    const htmlDoms = await this._getDom(listTexts);
+    return htmlDoms;
   }
 
   /**
@@ -134,7 +148,7 @@ class Input {
       if (this.ignoreFiles.includes(file)) return;
       try {
         const text = fs.readFileSync(file, 'utf8');
-        listTexts.push({ file, text });
+        listTexts.push({ source: file, text });
       } catch (error) {
         this.logger.error(`File "${file}" not found`);
       }
@@ -150,12 +164,26 @@ class Input {
    */
   _getDom(list) {
     const doms = [];
-    list.forEach(item => {
-      // NOTE: https://github.com/jsdom/jsdom/issues/2177#issuecomment-379212964
-      const virtualConsole = new VirtualConsole();
-      let dom = new JSDOM(item.text, { virtualConsole });
-      doms.push({ file: item.file, dom });
+    const proccess = new cliProgress.Bar({
+      format:
+        'Handling html |' +
+        _colors.green('{bar}') +
+        '| {percentage}% || {value}/{total} Sources',
+      barCompleteChar: '\u2588',
+      barIncompleteChar: '\u2591',
+      hideCursor: true
     });
+    this.logger.info('\n🚀  Get DOM from HTML\n');
+    proccess.start(list.length, 0);
+    // NOTE: https://github.com/jsdom/jsdom/issues/2177#issuecomment-379212964
+    const virtualConsole = new VirtualConsole();
+    list.forEach(item => {
+      let dom = new JSDOM(item.text, { virtualConsole });
+      doms.push({ source: item.source, dom });
+      proccess.increment();
+    });
+
+    proccess.stop();
     return doms;
   }
 }

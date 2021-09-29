@@ -4,6 +4,8 @@ import Input from './modules/input';
 import Output from './modules/output';
 import Logger from './modules/logger';
 
+import { startServer } from './server';
+
 class SeoAnalyzer {
   constructor() {
     this.logger = new Logger();
@@ -13,33 +15,31 @@ class SeoAnalyzer {
     this.rules = [];
     this._ignoreFolders = [];
     this._ignoreFiles = [];
+    this._ignoreUrls = [];
     return this;
   }
 
   // --------- Ignore methods --------- //
+  ignoreFiles(files) {
+    this._ignoreFiles = files;
+    return this;
+  }
+
   ignoreFolders(folders) {
     this._ignoreFolders = folders;
     return this;
   }
 
-  ignoreFiles(files) {
-    this._ignoreFiles = files;
+  ignoreUrls(urls) {
+    this._ignoreUrls = urls;
     return this;
   }
-  // ------------------------------- //
 
   // ------- Input methods ------- //
   inputFiles(files) {
     if (this.inputData.length !== 0) return this;
     this.logger.printTextToConsole('Seo Analyzer');
     this.inputData = this.input.files(files, this._ignoreFiles);
-    return this;
-  }
-
-  inputUrls(urls) {
-    if (this.inputData.length !== 0) return this;
-    this.logger.printTextToConsole('Seo Analyzer');
-    this.inputData = this.input.urls(urls);
     return this;
   }
 
@@ -53,7 +53,15 @@ class SeoAnalyzer {
     );
     return this;
   }
-  // ------------------------------ //
+
+  inputSpaFolder(folder, port = 9999) {
+    if (!this.inputData) return this;
+    this.logger.printTextToConsole('Seo Analyzer');
+    // Run server for spa
+    startServer(folder, port);
+    this.inputData = this.input.spa(port, this._ignoreUrls);
+    return this;
+  }
 
   // --------- Add Rule --------- //
   addRule(func, options = {}) {
@@ -66,7 +74,6 @@ class SeoAnalyzer {
     }
     return this;
   }
-  // ----------------------------- //
 
   // ------- Output methods ------- //
   outputConsole() {

@@ -15,12 +15,14 @@ function customRule(dom) {
 
 new SeoAnalyzer()
   // ------- Ignore methods ------- //
-  .ignoreFolders(['example/html/contact'])
-  .ignoreFiles(['example/html/team.html'])
+  // .ignoreFolders(['example/html/contact'])
+  // .ignoreFiles(['example/html/team.html'])
+  .ignoreUrls(['/#/product/2'])
 
   // ------- Input methods -------- //
   // .inputFolders(['example/html', 'example/html2'])
-  .inputFiles(['example/index.html', 'example/html/team.html'])
+  // .inputFiles(['example/index.html', 'example/html/team.html'])
+  .inputSpaFolder('example/spa/')
 
   // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })
@@ -41,7 +43,7 @@ new SeoAnalyzer()
       'twitter:description',
       'twitter:image:src',
       'twitter:url'
-    ], 
+    ]
   })
   .addRule('hTagsRule')
   .addRule('noMoreThanOneH1TagRule')

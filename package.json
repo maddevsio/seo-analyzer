@@ -59,9 +59,13 @@
     "rollup-plugin-terser": "^5.3.1"
   },
   "dependencies": {
+    "axios": "^0.21.4",
     "cfonts": "^2.10.0",
     "cli-progress": "^3.9.1",
     "colors": "^1.4.0",
-    "jsdom": "^16.5.3"
+    "express": "^4.17.1",
+    "i": "^0.3.7",
+    "jsdom": "^16.5.3",
+    "sitemap-stream-parser": "^1.7.0"
   }
 }
