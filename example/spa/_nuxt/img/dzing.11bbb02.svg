@@ -1,0 +1,26 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 143 64">
+  <g clip-path="url(#clip0)">
+    <g filter="url(#filter0_d)">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M126.4 42a12.3 12.3 0 110-24.7 12.3 12.3 0 010 24.7zm-27.7 0a12.3 12.3 0 110-24.7 12.3 12.3 0 010 24.7zM71 42a12.3 12.3 0 110-24.7A12.3 12.3 0 0171 42zm-27.8 0a12.3 12.3 0 110-24.7 12.3 12.3 0 010 24.7zm-27.7 0a12.3 12.3 0 110-24.7 12.3 12.3 0 010 24.7z" fill="url(#paint0_linear)"/>
+    </g>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M127 25l-3.7 1.5-1.3 3.2 1.3 3.1 1.6.7v-3.8a1.5 1.5 0 013 0v6a1.5 1.5 0 01-2 1.5l-4.4-1.8c-.4-.2-.7-.4-.8-.8l-1.8-4.4c-.2-.3-.2-.8 0-1.1l1.8-4.4c.1-.3.4-.6.8-.8l4.3-1.8A1.5 1.5 0 11127 25zm-22.6 9.6a1.5 1.5 0 01-2.5.5l-7-7-.7 1.6 1.6 3.7a1.5 1.5 0 11-2.9 1.2l-1.8-4.4v-1.1l1.8-4.4a1.5 1.5 0 012.5-.5l7 7 .8-1.5-1.6-3.8a1.5 1.5 0 112.8-1.2l1.8 4.4c.2.3.2.8 0 1.1l-1.8 4.4zm-33.4 1c-.9 0-1.6-.8-1.6-1.6v-8.7a1.5 1.5 0 013 0V34c0 .8-.6 1.5-1.4 1.5zm-24-3a1.5 1.5 0 111.2 2.8l-4.4 1.8a1.5 1.5 0 01-1.1 0l-4.4-1.8a1.5 1.5 0 01-.5-2.5l7-7-1.6-.7-3.7 1.5a1.5 1.5 0 11-1.2-2.8l4.4-1.8h1.1l4.4 1.8a1.5 1.5 0 01.5 2.5l-7 7 1.5.7 3.8-1.5zm-25.7 2c-.2.4-.5.6-.9.8l-4.3 1.8a1.5 1.5 0 01-1.4-.1c-.5-.3-.7-.8-.7-1.3v-6.1a1.5 1.5 0 013 0v3.8l1.7-.7 1.3-3.1-1.3-3.2-3.8-1.6a1.5 1.5 0 111.2-2.8l4.3 1.8c.4.2.7.5.9.8l1.8 4.4v1.1l-1.8 4.4z" fill="#fff"/>
+  </g>
+  <defs>
+    <linearGradient id="paint0_linear" x1="3.2" y1="42" x2="3.2" y2="17.3" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8209"/>
+      <stop offset="1" stop-color="#FEC737"/>
+    </linearGradient>
+    <clipPath id="clip0">
+      <path fill="#fff" d="M0 0h143v64H0z"/>
+    </clipPath>
+    <filter id="filter0_d" x="-.8" y="15.3" width="143.6" height="32.6" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="2"/>
+      <feGaussianBlur stdDeviation="2"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
+      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+  </defs>
+</svg>

@@ -4,12 +4,12 @@ import { JSDOM, VirtualConsole } from 'jsdom';
 import cliProgress from 'cli-progress';
 import _colors from 'colors';
 import Logger from './logger';
-import Scanner from './scanner';
+import Scraper from './scraper';
 
 class Input {
   constructor() {
     this.logger = new Logger();
-    this.scanner = new Scanner();
+    this.scraper = new Scraper();
     this.consoleProgressBar = new cliProgress.Bar({
       format:
         'Processing... |' +
@@ -66,8 +66,8 @@ class Input {
     return listDOM;
   }
 
-  async spa() {
-    const listTexts = await this.scanner.scan();
+  async spa(port) {
+    const listTexts = await this.scraper.run(port);
     const htmlDoms = await this._getDom(listTexts);
     return htmlDoms;
   }

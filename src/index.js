@@ -4,7 +4,7 @@ import Input from './modules/input';
 import Output from './modules/output';
 import Logger from './modules/logger';
 
-import { startServer } from './modules/server';
+import { startServer } from './server';
 
 class SeoAnalyzer {
   constructor() {
@@ -19,13 +19,13 @@ class SeoAnalyzer {
   }
 
   // --------- Ignore methods --------- //
-  ignoreFolders(folders) {
-    this._ignoreFolders = folders;
+  ignoreFiles(files) {
+    this._ignoreFiles = files;
     return this;
   }
 
-  ignoreFiles(files) {
-    this._ignoreFiles = files;
+  ignoreFolders(folders) {
+    this._ignoreFolders = folders;
     return this;
   }
 
@@ -37,14 +37,6 @@ class SeoAnalyzer {
     return this;
   }
 
-  inputSpa(folder) {
-    if (!this.inputData) return this;
-    this.logger.printTextToConsole('Seo Analyzer');
-    startServer(folder);
-    this.inputData = this.input.spa();
-    return this;
-  }
-
   inputFolders(folders) {
     if (this.inputData.length !== 0) return this;
     this.logger.printTextToConsole('Seo Analyzer');
@@ -53,6 +45,15 @@ class SeoAnalyzer {
       this._ignoreFolders,
       this._ignoreFiles
     );
+    return this;
+  }
+
+  inputSpaFolder(folder, port = 9999) {
+    if (!this.inputData) return this;
+    this.logger.printTextToConsole('Seo Analyzer');
+    // Run server for spa
+    startServer(folder, port);
+    this.inputData = this.input.spa(port);
     return this;
   }
 

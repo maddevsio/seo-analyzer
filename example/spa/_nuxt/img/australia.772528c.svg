@@ -1,0 +1,20 @@
+<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="32" height="24" fill="#41479B"/>
+<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="16">
+<rect width="20" height="16" fill="#C4C4C4"/>
+</mask>
+<g mask="url(#mask0)">
+<path d="M22 -2.6665L-2 18.6668" stroke="white" stroke-width="5.15625"/>
+<path d="M22 -2.6665L-2 18.6668" stroke="#DC251C" stroke-width="1.54688"/>
+<path d="M-2 -2.6665L22 18.6668" stroke="white" stroke-width="5.15625"/>
+<path d="M-2 -2.6665L22 18.6668" stroke="#DC251C" stroke-width="1.54688"/>
+<path d="M10 0V16M0 8H20" stroke="white" stroke-width="6.1875"/>
+<path d="M10 0V16M0 8H20" stroke="#DC251C" stroke-width="4.125"/>
+</g>
+<circle cx="25" cy="5" r="1" fill="white"/>
+<circle cx="23" cy="11" r="1" fill="white"/>
+<circle cx="29" cy="9" r="1" fill="white"/>
+<circle cx="27" cy="13" r="1" fill="white"/>
+<circle cx="25" cy="19" r="1" fill="white"/>
+<path d="M10.0078 16.4844L10.6583 18.0004L12.2194 17.5768L11.4695 19.0437L12.7656 20.0315L11.18 20.3447L11.2352 22L10.0078 20.9236L8.78047 22L8.83567 20.3447L7.25 20.0315L8.54617 19.0437L7.79622 17.5768L9.35732 18.0004L10.0078 16.4844Z" fill="white"/>
+</svg>
