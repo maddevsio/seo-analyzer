@@ -6,13 +6,12 @@ function metaSocialRule(dom, options = { properties: [] }) {
         const element = dom.window.document.querySelector(
           `head > meta[property="${property}"]`
         );
-        if (element && !element.content.length) {
+        if (!element) {
+          report.push(`This HTML without <meta property="${property}"> tag`);
+        } else if (!element.content) {
           report.push(
             `The content attribute for the <meta property="${property}" content=""> tag is empty`
           );
-        }
-        if (!element || (element && !element.content)) {
-          report.push(`This HTML without <meta property="${property}"> tag`);
         }
       });
     }

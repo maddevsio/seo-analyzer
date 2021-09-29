@@ -26,3 +26,9 @@ test('if document exists base meta tags description & viewport, return []', asyn
   const result = await metaBaseRule(fakeDOM({ content: 'content' }), options);
   t.deepEqual(result, []);
 });
+
+test('if names is empty, return []', async t => {
+  const options = { names: [] };
+  const result = await metaBaseRule(fakeDOM(), options);
+  t.deepEqual(result, []);
+});
