@@ -15,6 +15,7 @@ class SeoAnalyzer {
     this.rules = [];
     this._ignoreFolders = [];
     this._ignoreFiles = [];
+    this._ignoreUrls = [];
     return this;
   }
 
@@ -26,6 +27,11 @@ class SeoAnalyzer {
 
   ignoreFolders(folders) {
     this._ignoreFolders = folders;
+    return this;
+  }
+
+  ignoreUrls(urls) {
+    this._ignoreUrls = urls;
     return this;
   }
 
@@ -53,7 +59,7 @@ class SeoAnalyzer {
     this.logger.printTextToConsole('Seo Analyzer');
     // Run server for spa
     startServer(folder, port);
-    this.inputData = this.input.spa(port);
+    this.inputData = this.input.spa(port, this._ignoreUrls);
     return this;
   }
 

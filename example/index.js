@@ -15,8 +15,9 @@ function customRule(dom) {
 
 new SeoAnalyzer()
   // ------- Ignore methods ------- //
-  .ignoreFolders(['example/html/contact'])
-  .ignoreFiles(['example/html/team.html'])
+  // .ignoreFolders(['example/html/contact'])
+  // .ignoreFiles(['example/html/team.html'])
+  .ignoreUrls(['/#/product/2'])
 
   // ------- Input methods -------- //
   // .inputFolders(['example/html', 'example/html2'])

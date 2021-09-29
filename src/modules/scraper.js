@@ -17,6 +17,7 @@ class Scanner {
     });
     this.logger = new Logger();
     this.inputUrl = '';
+    this.ignoreUrls = '';
   }
 
   /**
@@ -24,8 +25,9 @@ class Scanner {
    * @returns {Array} - Array of html doms
    * @description - Scrapes the site and returns the html doms
    */
-  async run(port) {
+  async run(port, urls) {
     this.inputUrl = `http://localhost:${port}`;
+    this.ignoreUrls = urls;
     const links = await this._getLinksFromSitemap();
     const htmlDoms = await this._getHtmlDomFromLinks(links);
     return htmlDoms;
@@ -44,7 +46,11 @@ class Scanner {
       sitemaps.parseSitemaps(
         formatttedUrl,
         link => {
-          links.push(this._formatLink(link));
+          // Ignore the links that are in the ignore list
+          const path = link.replace(/^.*\/\/[^/]+/, '');
+          if (this.ignoreUrls.indexOf(path) === -1) {
+            links.push(this._formatLink(link));
+          }
         },
         err => {
           if (err) {

@@ -38,6 +38,7 @@ new SeoAnalyzer().inputFiles(<array>).addRule(<function>).addRule(<function>).ou
 const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
+  .ignoreUrls(['/404', '/login'])
   .inputSpaFolder('/dist', 3000)
   .addRule('noMoreThanOneH1TagRule')
   .outputConsole();
@@ -155,6 +156,7 @@ or
 |----------------|----------------------|---------------------------------------------------------------------------------------------------------|
 | ignoreFiles    | ['dist/about.html']  | This method expects an array of files to ignore before analysis.                                        |
 | ignoreFolders  | ['dist/ignore']      | This method expects an array of folders to ignore before analysis.                                      |
+| ignoreUrls     | ['/404']             | This method expects an array of urls to ignore before analysis.                                         |
 | inputFiles     | ['dist/index.html']  | This method expects an array of html files.                                                             |
 | inputFolders   | ['dist', 'src']      | This method expects an array of folders with html files.                                                |
 | inputSpaFolder | '/dist', 3000        | This method expects an string of folder with SPA builded files to production & port for run server.     |

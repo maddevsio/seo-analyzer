@@ -66,8 +66,14 @@ class Input {
     return listDOM;
   }
 
-  async spa(port) {
-    const listTexts = await this.scraper.run(port);
+  /**
+   * Get the DOM from urls
+   * @param {Number} - Port for the server
+   * @param {Array} - Ignore urls
+   * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
+   */
+  async spa(port, ignoreUrls = []) {
+    const listTexts = await this.scraper.run(port, ignoreUrls);
     const htmlDoms = await this._getDom(listTexts);
     return htmlDoms;
   }
