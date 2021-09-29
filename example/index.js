@@ -20,7 +20,7 @@ new SeoAnalyzer()
   .ignoreUrls(['/#/product/2'])
 
   // ------- Input methods -------- //
-  .inputFolders(['example/html', 'example/html2'])
+  .inputFolders(['example'])
   // .inputFiles(['example/index.html', 'example/html/team.html'])
   // .inputSpaFolder('example/spa/')
 
