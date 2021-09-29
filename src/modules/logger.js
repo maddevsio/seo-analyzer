@@ -76,7 +76,7 @@ class Analyzer {
 
     for (const item of result) {
       this._logInfo(`\nFile: ${item.source.trim()}`);
-      this._logError(`%s${item.report.join('\n')}`);
+      this._logError(`${item.report.join('\n')}`);
     }
 
     this._logSuccess(
