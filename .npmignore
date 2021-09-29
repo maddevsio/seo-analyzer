@@ -10,6 +10,15 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-
+.eslintrc.js
+.eslintignore
+.prettierrc
+preview.jpg
+rollup.config.js
+.babelrc
 node_modules/
-dist/
+example/
+src/
+tests/
+coverage
+.nyc_output
