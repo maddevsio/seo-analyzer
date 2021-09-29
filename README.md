@@ -11,6 +11,7 @@ The library for analyze a HTML files to show all of the SEO defects.
 
 * Easy setup.
 * Adding custom rules.
+* 9 ready-made rules.
 * Running the seo-analyzer for SPA applications.
 * Running the seo-analyzer in pipelines(github, gitlab, ...) or pre-push or anywhere else.
 * Multiple options for outputting the result.
@@ -192,7 +193,6 @@ or
 .addRule('hTagsRule')
 .addRule('noMoreThanOneH1TagRule')
 .addRule('imgTagWithAltAttritubeRule')
-.addRule('headTagWithTitleAndDescriptionKeywordsMetaRule')
 .addRule('aTagWithRelAttritubeRule')
 .addRule('canonicalLinkRule')
 ...
