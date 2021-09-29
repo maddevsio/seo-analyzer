@@ -19,6 +19,11 @@ class Scanner {
     this.inputUrl = '';
   }
 
+  /**
+   * @param {Number} port - Port for the server to listen on
+   * @returns {Array} - Array of html doms
+   * @description - Scrapes the site and returns the html doms
+   */
   async run(port) {
     this.inputUrl = `http://localhost:${port}`;
     const links = await this._getLinksFromSitemap();
@@ -26,6 +31,11 @@ class Scanner {
     return htmlDoms;
   }
 
+  /**
+   * Get the links from the sitemap
+   * @returns {Array} - Array of links
+   * @description - Scrapes the sitemap and returns the links
+   */
   _getLinksFromSitemap() {
     this.logger.info(`🚀  Get sitemap from ${this.inputUrl}\n`);
     return new Promise(resolve => {
@@ -54,6 +64,11 @@ class Scanner {
     });
   }
 
+  /**
+   * Formats the link to be used in axios
+   * @param {String} link
+   * @returns {String} - Formatted link > http://localhost:{port}/link
+   */
   _formatLink(link) {
     const result = link.replace(/^.*\/\/[^/]+/, this.inputUrl);
     return result;
@@ -68,6 +83,12 @@ class Scanner {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  /**
+   * Get the html doms from the links
+   * @param {Array} links - Array of links
+   * @returns {Array} - Array of html doms
+   * @description - Scrapes the links and returns the html doms
+   */
   async _getHtmlDomFromLinks(links) {
     const htmlDoms = [];
     const promises = [];
