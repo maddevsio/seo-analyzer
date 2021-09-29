@@ -1,6 +1,5 @@
 function imgTagWithAltAttritubeRule(dom) {
   return new Promise(resolve => {
-    let report = '';
     let count = 0;
     const elements = dom.window.document.querySelectorAll('img');
     elements.forEach(element => {
@@ -9,9 +8,9 @@ function imgTagWithAltAttritubeRule(dom) {
       }
     });
     if (count > 0) {
-      report += 'There are ' + count + ' <img> tag without alt attribute';
+      resolve(`There are ${count} <img> tag without alt attribute`);
     }
-    resolve(report);
+    resolve(null);
   });
 }
 
