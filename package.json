@@ -1,6 +1,6 @@
 {
   "name": "seo-analyzer",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A library for analyze a HTML files to show all of the SEO defects",
   "main": "dist/seo-analyzer.js",
   "module": "dist/seo-analyzer.mjs",
@@ -17,21 +17,6 @@
     "npm": ">=7.0.0"
   },
   "license": "MIT",
-  "keywords": [
-    "es5",
-    "react",
-    "vue",
-    "svelte",
-    "nuxt",
-    "next",
-    "angular",
-    "vanilla",
-    "jquery",
-    "plugins",
-    "seo",
-    "analyzer",
-    "html"
-  ],
   "scripts": {
     "watch": "rollup -c -w",
     "make": "rimraf dist && rollup -c && node ./example/index.js",
@@ -67,5 +52,20 @@
     "i": "^0.3.7",
     "jsdom": "^16.5.3",
     "sitemap-stream-parser": "^1.7.0"
-  }
+  },
+  "keywords": [
+    "es5",
+    "react",
+    "vue",
+    "svelte",
+    "nuxt",
+    "next",
+    "angular",
+    "vanilla",
+    "jquery",
+    "plugins",
+    "seo",
+    "analyzer",
+    "html"
+  ]
 }
