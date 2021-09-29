@@ -1,6 +1,5 @@
 function aTagWithRelAttritubeRule(dom) {
   return new Promise(resolve => {
-    let report = '';
     let count = 0;
     const elements = dom.window.document.querySelectorAll('a');
     elements.forEach(element => {
@@ -9,9 +8,9 @@ function aTagWithRelAttritubeRule(dom) {
       }
     });
     if (count > 0) {
-      report += 'There are ' + count + ' <a> tag without rel attribute';
+      resolve(`There are ${count} <a> tag without rel attribute`);
     }
-    resolve(report);
+    resolve(null);
   });
 }
 
