@@ -1,21 +1,18 @@
 function canonicalLinkRule(dom) {
   return new Promise(resolve => {
-    let report = '';
     const element = dom.window.document.querySelector(
       'head > link[rel="canonical"]'
     );
     if (!element) {
-      report = 'This HTML without <link rel="canonical" href="..."> link';
-    } else if (element && !element.href) {
-      report = 'The canonical link without href attribute';
-    } else if (element && !element.href.length) {
-      report =
-        'The canonical link for the <link rel="canonical" href=""> tag is empty';
-    } else if (element && element.href.substr(-1) !== '/') {
-      report =
-        'The href attribute does not have a slash at the end of the link.';
+      resolve('This HTML without <link rel="canonical" href="..."> link');
     }
-    resolve(report);
+    if (element && !element.href) {
+      resolve('The canonical link without href attribute');
+    }
+    if (element && element.href.substr(-1) !== '/') {
+      resolve('The href attribute does not have a slash at the end of the link.');
+    } 
+    resolve(null);
   });
 }
 
