@@ -27,7 +27,7 @@ new SeoAnalyzer()
   // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })
   .addRule('noTooManyStrongTagsRule', { threshold: 2 })
-  .addRule('metaBaseRule', { list: ['description', 'viewport'] })
+  .addRule('metaBaseRule', { names: ['description', 'viewport'] })
   .addRule('metaSocialRule', {
     properties: [
       'og:url',

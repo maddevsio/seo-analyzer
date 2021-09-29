@@ -10,8 +10,10 @@ function canonicalLinkRule(dom) {
       resolve('The canonical link without href attribute');
     }
     if (element && element.href.substr(-1) !== '/') {
-      resolve('The href attribute does not have a slash at the end of the link.');
-    } 
+      resolve(
+        'The href attribute does not have a slash at the end of the link.'
+      );
+    }
     resolve(null);
   });
 }

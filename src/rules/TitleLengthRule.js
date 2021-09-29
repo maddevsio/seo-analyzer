@@ -8,10 +8,14 @@ function titleLengthRule(dom, options) {
     // If title exists in the DOM
     const titleLength = title.length;
     if (titleLength < options.min) {
-      resolve(`<title> too short(${titleLength}). The minimum length should be ${options.min} characters.`);
+      resolve(
+        `<title> too short(${titleLength}). The minimum length should be ${options.min} characters.`
+      );
     }
     if (titleLength > options.max) {
-      resolve(`<title> too long(${titleLength}). The maximum length should be ${options.max} characters.`);
+      resolve(
+        `<title> too long(${titleLength}). The maximum length should be ${options.max} characters.`
+      );
     }
     resolve(null);
   });
