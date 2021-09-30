@@ -16,8 +16,9 @@ class Analyzer {
    * @param {String} - Message
    * @returns {String} - Print formatted message to console
    */
-  error(error) {
+  error(error, exit) {
     this._logError(error);
+    if (exit) process.exit(1);
   }
 
   /**

@@ -8,11 +8,12 @@ import { startServer } from './server';
 
 class SeoAnalyzer {
   constructor() {
-    this.logger = new Logger();
-    this.input = new Input();
-    this.output = new Output();
-    this.inputData = [];
-    this.rules = [];
+    this._logger = new Logger();
+    this._input = new Input();
+    this._output = new Output();
+    this._inputData = [];
+    this._defaultRules = defaultRules;
+    this._rules = [];
     this._ignoreFolders = [];
     this._ignoreFiles = [];
     this._ignoreUrls = [];
@@ -37,16 +38,16 @@ class SeoAnalyzer {
 
   // ------- Input methods ------- //
   inputFiles(files) {
-    if (this.inputData.length !== 0) return this;
-    this.logger.printTextToConsole('Seo Analyzer');
-    this.inputData = this.input.files(files, this._ignoreFiles);
+    if (this._inputData.length !== 0) return this;
+    this._logger.printTextToConsole('SEO Analyzer');
+    this._inputData = this._input.files(files, this._ignoreFiles);
     return this;
   }
 
   inputFolders(folders) {
-    if (this.inputData.length !== 0) return this;
-    this.logger.printTextToConsole('Seo Analyzer');
-    this.inputData = this.input.folders(
+    if (this._inputData.length !== 0) return this;
+    this._logger.printTextToConsole('SEO Analyzer');
+    this._inputData = this._input.folders(
       folders,
       this._ignoreFolders,
       this._ignoreFiles
@@ -55,11 +56,11 @@ class SeoAnalyzer {
   }
 
   inputSpaFolder(folder, port = 9999) {
-    if (!this.inputData) return this;
-    this.logger.printTextToConsole('Seo Analyzer');
+    if (!this._inputData) return this;
+    this._logger.printTextToConsole('SEO Analyzer');
     // Run server for spa
     startServer(folder, port);
-    this.inputData = this.input.spa(port, this._ignoreUrls);
+    this._inputData = this._input.spa(port, this._ignoreUrls);
     return this;
   }
 
@@ -67,10 +68,14 @@ class SeoAnalyzer {
   addRule(func, options = {}) {
     if (typeof func === 'string') {
       if (func in defaultRules) {
-        this.rules.push({ rule: defaultRules[func], options });
+        this._rules.push({ rule: defaultRules[func], options });
+      } else {
+        this._logger.error(`\n\n❌  Rule "${func}" not found\n`, 1);
       }
+    } else if (typeof func === 'function') {
+      this._rules.push({ rule: func, options });
     } else {
-      this.rules.push({ rule: func, options });
+      this._logger.error('\n\n❌  Rule must be a function or a string\n', 1);
     }
     return this;
   }
@@ -78,15 +83,15 @@ class SeoAnalyzer {
   // ------- Output methods ------- //
   outputConsole() {
     (async () => {
-      const json = await this.output.object(await this.inputData, this.rules);
-      this.logger.result(json);
+      const json = await this._output.object(await this._inputData, this._rules);
+      this._logger.result(json);
     })();
     return this;
   }
 
   outputJson(callback) {
     (async () => {
-      const json = await this.output.json(await this.inputData, this.rules);
+      const json = await this._output.json(await this._inputData, this._rules);
       callback(json);
     })();
     return this;
@@ -94,7 +99,7 @@ class SeoAnalyzer {
 
   outputObject(callback) {
     (async () => {
-      const obj = await this.output.object(await this.inputData, this.rules);
+      const obj = await this._output.object(await this._inputData, this._rules);
       callback(obj);
     })();
     return this;

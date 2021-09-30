@@ -20,37 +20,37 @@ new SeoAnalyzer()
   // .ignoreUrls(['/#/product/2'])
   // ------- Input methods -------- //
   .inputFolders(['example'])
-  // .inputFiles(['example/index.html', 'example/html/team.html'])
+  .inputFiles(['example/index.html', 'example/html/team.html'])
   // .inputSpaFolder('example/spa/')
 
   // ------ Default rules -------- //
-  .addRule('titleLengthRule', { min: 10, max: 50 })
-  .addRule('noTooManyStrongTagsRule', { threshold: 2 })
-  .addRule('metaBaseRule', { names: ['description', 'viewport'] })
-  .addRule('metaSocialRule', {
-    properties: [
-      'og:url',
-      'og:type',
-      'og:site_name',
-      'og:title',
-      'og:description',
-      'og:image',
-      'og:image:width',
-      'og:image:height',
-      'twitter:card',
-      'twitter:text:title',
-      'twitter:description',
-      'twitter:image:src',
-      'twitter:url'
-    ]
-  })
+  // .addRule('titleLengthRule', { min: 10, max: 50 })
+  // .addRule('noTooManyStrongTagsRule', { threshold: 2 })
+  // .addRule('metaBaseRule', { names: ['description', 'viewport'] })
+  // .addRule('metaSocialRule', {
+  //   properties: [
+  //     'og:url',
+  //     'og:type',
+  //     'og:site_name',
+  //     'og:title',
+  //     'og:description',
+  //     'og:image',
+  //     'og:image:width',
+  //     'og:image:height',
+  //     'twitter:card',
+  //     'twitter:text:title',
+  //     'twitter:description',
+  //     'twitter:image:src',
+  //     'twitter:url'
+  //   ]
+  // })
   .addRule('hTagsRule')
-  .addRule('noMoreThanOneH1TagRule')
-  .addRule('imgTagWithAltAttritubeRule')
-  .addRule('aTagWithRelAttritubeRule')
-  .addRule('canonicalLinkRule')
+  // .addRule('noMoreThanOneH1TagRule')
+  // .addRule('imgTagWithAltAttritubeRule')
+  // .addRule('aTagWithRelAttritubeRule')
+  // .addRule('canonicalLinkRule')
   // Custom rules
-  .addRule(customRule)
+  // .addRule(customRule)
 
   // ------- Output methods ------- //
   // .outputObject(obj => console.log(obj))

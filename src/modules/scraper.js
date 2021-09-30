@@ -54,12 +54,10 @@ class Scanner {
         },
         err => {
           if (err) {
-            this.logger.error('❌  Sitemap not found\n');
-            process.exit(1);
+            this.logger.error('❌  Sitemap not found\n', 1);
           } else {
             if (links.length === 0) {
-              this.logger.error('❌  Links not found\n');
-              process.exit(1);
+              this.logger.error('❌  Links not found\n', 1);
             } else {
               this.logger.success('✅  Done\n');
               resolve(links);
