@@ -31,7 +31,11 @@ Install with npm `npm install -D seo-analyzer`
 ```js
 const SeoAnalyzer = require('seo-analyzer');
 
-new SeoAnalyzer().inputFiles(<array>).addRule(<function>).addRule(<function>).outputConsole();
+new SeoAnalyzer()
+  .inputFiles(<array>)
+  .addRule(<function>)
+  .addRule(<function>)
+  .outputConsole();
 ```
 #### One way: file analysis for SPA application and log report to console
 
@@ -91,7 +95,162 @@ new SeoAnalyzer()
   .outputObject(obj => console.log(obj));
 ``` 
 
-#### Example of the output of all SEO defects in the console.
+## Available methods:
+
+| Method         | Params               | Description                                                                                             |
+|----------------|----------------------|---------------------------------------------------------------------------------------------------------|
+| ignoreFiles    | ['dist/about.html']  | This method expects an array of files to ignore before analysis.                                        |
+| ignoreFolders  | ['dist/ignore']      | This method expects an array of folders to ignore before analysis.                                      |
+| ignoreUrls     | ['/404']             | This method expects an array of urls to ignore before analysis.                                         |
+| inputFiles     | ['dist/index.html']  | This method expects an array of html files.                                                             |
+| inputFolders   | ['dist', 'src']      | This method expects an array of folders with html files.                                                |
+| inputSpaFolder | '/dist', 3000        | This method expects an string of folder with SPA builded files to production & port for run server.     |
+| addRule        | function(dom) {}     | This method adds a custom rule to check incoming HTML files.                                            |
+| outputObject   | function(obj) {}     | This method will return the report as a javascript object.                                              |
+| outputJson     | function(json) {}    | This method will return the report in JSON format.                                                      |
+| outputConsole  | null                 | This method must be used at the very end of the chain, because it completes the process in the console. |
+
+## List of rules that are available by default
+
+Below are the rules that are executed for each file transferred to Seo Analyzer. They are disabled by default and must be added.
+
+### Title Length Rule
+
+Checks the length of tag `<title>`. Two parameters are accepted:
+ 
+* **min:** minimum length of the header
+* **max:** maximum length of the header 
+
+```js
+.addRule('titleLengthRule', { min: 10, max: 50 })
+```
+
+### H Tags Rule
+
+Checks if <h> is positioned correctly on the page.
+
+#### Bad
+
+```html
+<h1>
+- <h3>
+- - <h4>
+- <h2>
+```
+
+#### Good
+
+```html
+<h1>
+- <h2>
+- - <h3>
+- <h2>
+```
+
+```js
+.addRule('hTagsRule')
+```
+
+### No More Than One H1 Tag Rule
+
+Checks the number of `<h1>` tags on the page.
+
+```js
+.addRule('noMoreThanOneH1TagRule')
+```
+
+### Img Tag With Alt Attritube Rule
+
+Checks if all `<img>` tags have alt="" attribute.
+
+```js
+.addRule('imgTagWithAltAttritubeRule')
+```
+
+### <a> Tag With Rel Attritube Rule
+
+Checks if all <a> tags have rel="" attribute
+
+```js
+.addRule('aTagWithRelAttritubeRule')
+```
+
+### No Too Many Strong Tags Rule
+
+Checks the number of `<strong>` tags on the page. Accepts one parameter:
+
+* **threshold:** maximum number of tags on the page 
+
+```js
+.addRule('noTooManyStrongTagsRule', { threshold: 2 })
+```
+
+### Meta Base Rule
+
+Checks if the specified **basic** meta tags are present on the page. Accepts one parameter:
+
+* **list:** list of required meta tags
+
+```js
+.addRule('metaBaseRule', { list: ['description', 'viewport'] })
+```
+
+### Meta Social Rule
+
+Checks if the specified **social** meta tags are present on the page. Accepts one parameter:
+
+* **properties:** list of required meta tags
+
+```js
+.addRule('metaSocialRule', {
+  properties: [
+    'og:url',
+    'og:type',
+    'og:site_name',
+    'og:title',
+    'og:description',
+    'og:image',
+    'og:image:width',
+    'og:image:height',
+    'twitter:card',
+    'twitter:text:title',
+    'twitter:description',
+    'twitter:image:src',
+    'twitter:url'
+  ], 
+})
+```
+
+### Canonical Link Rule
+
+Checks if a canonical link exists on the page.
+
+```js
+.addRule('canonicalLinkRule')
+```
+
+### Add custom rule
+
+A custom rule is a function that takes a DOM tree argument.
+
+```js
+function customRule(dom) {
+  return new Promise(async (resolve, reject) => {
+    const paragraph = dom.window.document.querySelector('p');
+    if (paragraph) {
+      resolve('');
+    } else {
+      reject('Not found <p> tags');
+    }
+  });
+}
+
+...
+.addRule(customRule)
+...
+```
+
+## Example of the output of all SEO defects in the console.
 
 ```bash
 
@@ -149,74 +308,6 @@ or
 
 ```bash
 👍 SEO defects were not detected.
-```
-
-#### Available methods:
-
-| Method         | Params               | Description                                                                                             |
-|----------------|----------------------|---------------------------------------------------------------------------------------------------------|
-| ignoreFiles    | ['dist/about.html']  | This method expects an array of files to ignore before analysis.                                        |
-| ignoreFolders  | ['dist/ignore']      | This method expects an array of folders to ignore before analysis.                                      |
-| ignoreUrls     | ['/404']             | This method expects an array of urls to ignore before analysis.                                         |
-| inputFiles     | ['dist/index.html']  | This method expects an array of html files.                                                             |
-| inputFolders   | ['dist', 'src']      | This method expects an array of folders with html files.                                                |
-| inputSpaFolder | '/dist', 3000        | This method expects an string of folder with SPA builded files to production & port for run server.     |
-| addRule        | function(dom) {}     | This method adds a custom rule to check incoming HTML files.                                            |
-| outputObject   | function(obj) {}     | This method will return the report as a javascript object.                                              |
-| outputJson     | function(json) {}    | This method will return the report in JSON format.                                                      |
-| outputConsole  | null                 | This method must be used at the very end of the chain, because it completes the process in the console. |
-
-#### A list of rules that are available by default
-
-```js
-...
-.addRule('titleLengthRule', { min: 10, max: 50 })
-.addRule('noTooManyStrongTagsRule', { threshold: 2 })
-.addRule('metaBaseRule', { list: ['description', 'viewport'] })
-.addRule('metaSocialRule', {
-  properties: [
-    'og:url',
-    'og:type',
-    'og:site_name',
-    'og:title',
-    'og:description',
-    'og:image',
-    'og:image:width',
-    'og:image:height',
-    'twitter:card',
-    'twitter:text:title',
-    'twitter:description',
-    'twitter:image:src',
-    'twitter:url'
-  ], 
-})
-.addRule('hTagsRule')
-.addRule('noMoreThanOneH1TagRule')
-.addRule('imgTagWithAltAttritubeRule')
-.addRule('aTagWithRelAttritubeRule')
-.addRule('canonicalLinkRule')
-...
-```
-
-#### Add custom rule
-
-A custom rule is a function that takes a DOM tree argument.
-
-```js
-function customRule(dom) {
-  return new Promise(async (resolve, reject) => {
-    const paragraph = dom.window.document.querySelector('p');
-    if (paragraph) {
-      resolve('');
-    } else {
-      reject('Not found <p> tags');
-    }
-  });
-}
-
-...
-.addRule(customRule)
-...
 ```
 
 ## Licensing
