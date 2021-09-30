@@ -34,7 +34,7 @@ class Input {
    * @memberof Input
    */
   async files(files = [], ignoreFiles = []) {
-    this.logger.info('\n🚀  Analysis of files');
+    this.logger.info('\n🚀  Parsing files\n');
     if (files.length === 0) {
       this.logger.error(this.emptyList);
     }
@@ -144,15 +144,31 @@ class Input {
    */
   _getHtml(files) {
     const listTexts = [];
+    const proccess = new cliProgress.Bar({
+      format:
+        'Processing... |' +
+        _colors.green('{bar}') +
+        '| {percentage}% || {value}/{total} Sources',
+      barCompleteChar: '\u2588',
+      barIncompleteChar: '\u2591',
+      hideCursor: true
+    });
+
+    // Start the progress bar
+    proccess.start(files.length, 0);
+
     files.forEach(file => {
       if (this.ignoreFiles.includes(file)) return;
       try {
         const text = fs.readFileSync(file, 'utf8');
         listTexts.push({ source: file, text });
+        proccess.increment();
       } catch (error) {
+        proccess.increment();
         this.logger.error(`File "${file}" not found`);
       }
     });
+    proccess.stop();
     return listTexts;
   }
 
