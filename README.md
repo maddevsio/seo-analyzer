@@ -7,6 +7,8 @@
 
 The library for analyze a HTML files to show all of the SEO defects.
 
+**Link to article** https://maddevs.io/insights/blog/seo-analyzer/
+
 ## Advantages of this plugin
 
 * Easy setup.
