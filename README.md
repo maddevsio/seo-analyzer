@@ -1,4 +1,4 @@
-# SEO Analyzer
+# SEO analyzer — library for searching SEO issues
 
 [![Developed by Mad Devs](https://maddevs.io/badge-dark.svg)](https://maddevs.io?utm_source=github&utm_medium=madboiler)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
