@@ -5,14 +5,14 @@
 
 ![Preview](preview.jpg)
 
+The library for analyze a HTML files to show all of the SEO defects.
+
+**Link to article** https://maddevs.io/insights/blog/seo-analyzer/
+
 ## Translations of documentation
 
 - English
 - [Russian](./README_RU.md)
-
-The library for analyze a HTML files to show all of the SEO defects.
-
-**Link to article** https://maddevs.io/insights/blog/seo-analyzer/
 
 ## Advantages of this plugin
 
