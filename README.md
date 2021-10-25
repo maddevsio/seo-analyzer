@@ -5,6 +5,11 @@
 
 ![Preview](preview.jpg)
 
+## Translations of documentation
+
+- English
+- [Russian](./README_RU.md)
+
 The library for analyze a HTML files to show all of the SEO defects.
 
 **Link to article** https://maddevs.io/insights/blog/seo-analyzer/
@@ -26,9 +31,15 @@ The library for analyze a HTML files to show all of the SEO defects.
 
 ## Usage
 
-Install with npm `npm install -D seo-analyzer`
+Install with npm 
+
+```bash
+npm install -D seo-analyzer
+```
 
 ### Getting started
+
+Setting up the SEO analyzer is as simple as possible. It will look something like this:
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -39,6 +50,9 @@ new SeoAnalyzer()
   .addRule(<function>)
   .outputConsole();
 ```
+
+Next I will show you some examples.
+
 #### One way: file analysis for SPA application and log report to console
 
 ```js

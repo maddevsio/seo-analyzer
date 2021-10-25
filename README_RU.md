@@ -1,0 +1,351 @@
+# SEO анализатор - библиотека для поиска SEO ошибок
+
+[![Developed by Mad Devs](https://maddevs.io/badge-dark.svg)](https://maddevs.io?utm_source=github&utm_medium=madboiler)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+![Preview](preview.jpg)
+
+## Переводы документации
+
+- [English](./README.md)
+- Russian
+
+SEO анализатор это инструмент, который поможет отлавливать SEO дефекты на разных стадиях разработки. Основная задача — анализ DOM дерева с целью обнаружения SEO дефектов.
+
+**Ссылка на статью** https://medium.com/maddevs-io/seo-analyzer-bfb0eea16801
+
+## Преимущества этого плагина
+
+* Простая настройка.
+* Запуск анализатора для SPA приложений.
+* Запуск анализатора в конвейерах (github, gitlab, ...), pre-push и т.д.
+* 9 готовых и популярных правил.
+* Добавление собственных правил.
+* Несколько вариантов вывода результата.
+
+## Почему вам следует использовать Seo Analyzer?
+
+* **Экономит время:** избавит вас от ручного поиска проблем, которые влияют на поисковую оптимизацию.
+* **Seo Friendly:** держит ваш проект валидным и дружелюбным к поисковым роботам путём обнаружения дефектов на страницах вашего сайта.
+* **Это бесплатно:** мы рады поделиться результатами своей работы.
+
+## Применение
+
+Установка с помощью npm
+
+```bash
+npm install -D seo-analyzer
+```
+
+### Начало
+
+Настройка SEO анализатора максимально проста. Выглядеть она будет примерно так:
+
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .inputFiles(<array>)
+  .addRule(<function>)
+  .addRule(<function>)
+  .outputConsole();
+```
+
+Далее покажу несколько примеров.
+
+#### Способ №1: анализ страниц для SPA приложения и вывод отчета в консоль
+
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .ignoreUrls(['/404', '/login'])
+  .inputSpaFolder('/dist', 3000)
+  .addRule('noMoreThanOneH1TagRule')
+  .outputConsole();
+```
+
+#### Способ №2: анализ список HTML-файлов и вывод отчета в консоль
+
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .inputFiles(['index.html', 'about.html'])
+  .addRule('noMoreThanOneH1TagRule')
+  .outputConsole();
+```
+
+#### Способ №3: анализ папок с HTML-файлами и вывод отчета в консоль
+
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .inputFolders(['dist', 'src'])
+  .addRule('noMoreThanOneH1TagRule')
+  .outputConsole();
+```
+
+#### Способ №4: анализ папок с HTML-файлами и вывод отчета в виде JSON
+
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .inputFolders(['dist', 'src'])
+  .addRule('noMoreThanOneH1TagRule')
+  .outputJson(json => console.log(json));
+```
+
+#### Способ №5: игнорировать подпапку "test" и 404.html в папке "src" и вернуть объект js
+
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .ignoreFolders(['src/test'])
+  .ignoreFiles(['src/404.html'])
+  .inputFolders(['dist', 'src'])
+  .addRule('noMoreThanOneH1TagRule')
+  .outputObject(obj => console.log(obj));
+``` 
+
+## Доступные методы:
+
+| Метод          | Параметры            | Описание                                                                                                |
+|----------------|----------------------|---------------------------------------------------------------------------------------------------------|
+| ignoreFiles    | ['dist/about.html']  | Массив файлов, которые будут проигнорированны во время анализа. |
+| ignoreFolders  | ['dist/ignore']      | Массив папок с файлами, которые будут проигнорированны во время анализа. |
+| ignoreUrls     | ['/404']             | Массив URL-адресов, которые будут проигнорированны во время анализа. |
+| inputFiles     | ['dist/index.html']  | Массив файлов, которые нужно анализировать. |
+| inputFolders   | ['dist', 'src']      | Массив папкок с файлами, которые нужно анализировать. |
+| inputSpaFolder | '/dist', 3000        | Метод для запуска анализаторв для SPA приложений. Ожидает папку с финальными кодом приложения и порт на котором запустится анализатор. |
+| addRule        | function(dom) {}     | Метод для добавления встроенных правил или собственных. |
+| outputObject   | function(obj) {}     | Метод для вывода результата. Вернёт js объект. |
+| outputJson     | function(json) {}    | Метод для вывода результата. Вернёт JSON. |
+| outputConsole  | null                 | Метод для вывода результата. Вернёт результат в консоль. Использовать только в самом конце цепочки, потому что он завершает процесс и цепочка методов ниже не сработает |
+
+## Список правил, доступных по умолчанию
+
+Ниже приведены правила, которые выполняются для каждого файла передаваемого в Seo Analyzer. По умолчанию они отключены и должны быть добавлены.
+
+### Правило длины заголовка
+
+Проверяет длину тега `<title>`. Принимаются два параметра:
+ 
+* **min:** минимальная длина заголовка
+* **max:** максимальная длина заголовка
+
+```js
+.addRule('titleLengthRule', { min: 10, max: 50 })
+```
+
+### Правило тегов H
+
+Проверяет правильность вложенности на странице.
+
+#### Неправильно
+
+```html
+<h1>
+- <h3>
+- - <h4>
+- <h2>
+```
+
+#### Правильно
+
+```html
+<h1>
+- <h2>
+- - <h3>
+- <h2>
+```
+
+```js
+.addRule('hTagsRule')
+```
+
+### Правило тега H1
+
+Проверяет количество тегов `<h1>` на странице.
+
+```js
+.addRule('noMoreThanOneH1TagRule')
+```
+
+### Правило теги Img с атрибутом Alt
+
+Проверяет, все ли теги `<img>` имеют текст в атрибуте `alt=""`.
+
+```js
+.addRule('imgTagWithAltAttritubeRule')
+```
+
+### <a> Правило тега `<a>` с атрибутом Rel
+
+Проверяет, все ли теги `<a>` имеют атрибут `rel=""`
+
+```js
+.addRule('aTagWithRelAttritubeRule')
+```
+
+### Правило ограничения тегов strong
+
+Проверяет количество `<strong>` тегов на странице. Принимает один параметр:
+
+* **threshold:** максимальное количество тегов на странице
+
+```js
+.addRule('noTooManyStrongTagsRule', { threshold: 2 })
+```
+
+### Правило метаданных
+
+Проверяет, присутствуют ли на странице указанные **базовые** мета-теги. Принимает один параметр:
+
+* **list:** список необходимых метатегов
+
+```js
+.addRule('metaBaseRule', { list: ['description', 'viewport'] })
+```
+
+### Правило мета-тегов для социальных сетей
+
+Проверяет, присутствуют ли на странице указанные **социальные** мета-теги. Принимает один параметр:
+
+* **properties:** список необходимых мета-тегов
+
+```js
+.addRule('metaSocialRule', {
+  properties: [
+    'og:url',
+    'og:type',
+    'og:site_name',
+    'og:title',
+    'og:description',
+    'og:image',
+    'og:image:width',
+    'og:image:height',
+    'twitter:card',
+    'twitter:text:title',
+    'twitter:description',
+    'twitter:image:src',
+    'twitter:url'
+  ], 
+})
+```
+
+### Правило канонической ссылки
+
+Проверяет, существует ли на странице каноническая ссылка.
+
+```js
+.addRule('canonicalLinkRule')
+```
+
+### Добавить собственное правило
+
+Пользовательское правило - это всего лишь функция, которая принимает один аргумент в виде DOM дерева.
+
+```js
+function customRule(dom) {
+  return new Promise(async (resolve, reject) => {
+    const paragraph = dom.window.document.querySelector('p');
+    if (paragraph) {
+      resolve('');
+    } else {
+      reject('Not found <p> tags');
+    }
+  });
+}
+
+...
+.addRule(customRule)
+...
+```
+
+## Пример вывода отчета в консоль.
+
+```bash
+
+ ███████╗ ███████╗  ██████╗
+ ██╔════╝ ██╔════╝ ██╔═══██╗
+ ███████╗ █████╗   ██║   ██║
+ ╚════██║ ██╔══╝   ██║   ██║
+ ███████║ ███████╗ ╚██████╔╝
+ ╚══════╝ ╚══════╝  ╚═════╝
+
+  █████╗  ███╗   ██╗  █████╗  ██╗      ██╗   ██╗ ███████╗ ███████╗ ██████╗
+ ██╔══██╗ ████╗  ██║ ██╔══██╗ ██║      ╚██╗ ██╔╝ ╚══███╔╝ ██╔════╝ ██╔══██╗
+ ███████║ ██╔██╗ ██║ ███████║ ██║       ╚████╔╝    ███╔╝  █████╗   ██████╔╝
+ ██╔══██║ ██║╚██╗██║ ██╔══██║ ██║        ╚██╔╝    ███╔╝   ██╔══╝   ██╔══██╗
+ ██║  ██║ ██║ ╚████║ ██║  ██║ ███████╗    ██║    ███████╗ ███████╗ ██║  ██║
+ ╚═╝  ╚═╝ ╚═╝  ╚═══╝ ╚═╝  ╚═╝ ╚══════╝    ╚═╝    ╚══════╝ ╚══════╝ ╚═╝  ╚═╝
+
+
+
+🚀  Analysis of files
+
+==> Analysis example/index.html
+Handling files by rules |████████████████████████████████████████| 100% || 11/11 Rules
+
+🚀  Report of errors
+
+File: example/index.html
+<title> too short(1). The minimum length should be 10 characters.
+This HTML have more than 2 <strong> tags
+This HTML without <meta property="og:url"> tag
+This HTML without <meta property="og:type"> tag
+This HTML without <meta property="og:site_name"> tag
+This HTML without <meta property="og:title"> tag
+This HTML without <meta property="og:description"> tag
+This HTML without <meta property="og:image"> tag
+This HTML without <meta property="og:image:width"> tag
+This HTML without <meta property="og:image:height"> tag
+This HTML without <meta property="twitter:card"> tag
+This HTML without <meta property="twitter:text:title"> tag
+This HTML without <meta property="twitter:description"> tag
+This HTML without <meta property="twitter:image:src"> tag
+This HTML without <meta property="twitter:url"> tag
+Tag <h3>Title 3</h3> should be </h2>
+This HTML have more than one <h1> tag
+There are 1 <img> tag without alt attribute
+This HTML without <meta name="keywords"> tag
+There are 1 <a> tag without rel attribute
+The canonical link without href attribute
+
+-------- 🚀 Finished! --------
+Thanks for using Seo Analyzer!
+```
+
+or
+
+```bash
+👍 SEO defects were not detected.
+```
+
+## Лицензирование
+
+MIT License
+
+Copyright (c) 2021 Mad Devs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
