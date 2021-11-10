@@ -1,0 +1,7 @@
+name: 'SEO Analizer CI Action'
+
+description: 'Analyze a HTML files to show all of the SEO defects with SEO Analizer CI'
+
+runs:
+  using: 'node12'
+  main: 'src/action.js'
