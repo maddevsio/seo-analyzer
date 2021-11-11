@@ -19,8 +19,8 @@ new SeoAnalyzer()
   // .ignoreFiles(['example/html/team.html'])
   // .ignoreUrls(['/#/product/2'])
   // ------- Input methods -------- //
-  .inputFolders(['example'])
-  .inputFiles(['example/index.html', 'example/html/team.html'])
+  // .inputFolders(['example'])
+  .inputFiles(['example/html/index.html'])
   // .inputSpaFolder('example/spa/')
 
   // ------ Default rules -------- //

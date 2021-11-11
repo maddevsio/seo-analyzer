@@ -10,3 +10,6 @@ jobs:
       - name: 'install'
         run: npm i
       - uses: ./
+        with:
+          folders: |
+            example
