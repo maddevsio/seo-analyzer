@@ -54,6 +54,8 @@ class Input {
    * @memberof Input
    */
   async folders(folders = [], ignoreFolders = [], ignoreFiles = []) {
+    if (!Array.isArray(folders)) this.logger.error('❌  The "inputFolders" method expects an array of folders.\n', true);
+
     this.logger.info('🚀  Parsing folders\n');
 
     // Start the progress bar
