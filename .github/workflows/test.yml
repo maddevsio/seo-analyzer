@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: 'install'
         run: npm i
-      - uses: ./
+      - uses: maddevsio/seo-analyzer
         with:
           folders: |
             example
