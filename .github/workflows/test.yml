@@ -1,0 +1,15 @@
+name: Test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: 'install'
+        run: npm i
+      - uses: maddevsio/seo-analyzer
+        with:
+          folders: |
+            example

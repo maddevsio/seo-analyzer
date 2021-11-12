@@ -34,6 +34,12 @@ class Input {
    * @memberof Input
    */
   async files(files = [], ignoreFiles = []) {
+    if (!Array.isArray(files) || !files.length)
+      this.logger.error('❌  The "inputFiles" method expects an array of files.\n', true);
+
+    if (!Array.isArray(ignoreFiles))
+      this.logger.error('❌  The "ignoreFiles" method expects an array of ignore files.\n', true);
+
     this.logger.info('\n🚀  Parsing files\n');
     if (files.length === 0) {
       this.logger.error(this.emptyList);
@@ -54,6 +60,12 @@ class Input {
    * @memberof Input
    */
   async folders(folders = [], ignoreFolders = [], ignoreFiles = []) {
+    if (!Array.isArray(folders) || !folders.length)
+      this.logger.error('❌  The "inputFolders" method expects an array of folders.\n', true);
+
+    if (!Array.isArray(ignoreFolders))
+      this.logger.error('❌  The "ignoreFolders" method expects an array of ignore folders.\n', true);
+
     this.logger.info('🚀  Parsing folders\n');
 
     // Start the progress bar
@@ -99,6 +111,8 @@ class Input {
     // Stop the progress bar
     this.consoleProgressBar.stop();
 
+    if (!files.length) this.logger.error('\n❌  No files found.\n', true);
+
     return files;
   }
 
@@ -130,7 +144,7 @@ class Input {
         );
       return [...filePaths, ...dirFiles];
     } catch (error) {
-      this.logger.error(`Folder "${folder}" not found`);
+      this.logger.error(`\n\n❌ Folder "${folder}" not found\n`);
       return [];
     }
   }
@@ -165,10 +179,11 @@ class Input {
         proccess.increment();
       } catch (error) {
         proccess.increment();
-        this.logger.error(`File "${file}" not found`);
+        this.logger.error(`\n\nFile "${file}" not found\n`);
       }
     });
     proccess.stop();
+    if (!listTexts.length) this.logger.error('\n❌  No files found.\n', true);
     return listTexts;
   }
 
