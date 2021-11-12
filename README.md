@@ -185,7 +185,7 @@ Checks if all `<img>` tags have alt="" attribute.
 
 ### <a> Tag With Rel Attritube Rule
 
-Checks if all <a> tags have rel="" attribute
+Checks if all <a> tags have rel="" attribute.
 
 ```js
 .addRule('aTagWithRelAttritubeRule')
