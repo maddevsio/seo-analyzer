@@ -45,7 +45,7 @@ new SeoAnalyzer()
   //   ]
   // })
   .addRule('hTagsRule')
-  // .addRule('noMoreThanOneH1TagRule')
+  .addRule('noMoreThanOneH1TagRule')
   // .addRule('imgTagWithAltAttritubeRule')
   // .addRule('aTagWithRelAttritubeRule')
   // .addRule('canonicalLinkRule')
