@@ -23,34 +23,34 @@ new SeoAnalyzer()
   // .inputFiles(['example/html/index.html'])
   // .inputSpaFolder('example/spa/')
 
-  // ------ Default rules -------- //
-  // .addRule('titleLengthRule', { min: 10, max: 50 })
-  // .addRule('noTooManyStrongTagsRule', { threshold: 2 })
-  // .addRule('metaBaseRule', { names: ['description', 'viewport'] })
-  // .addRule('metaSocialRule', {
-  //   properties: [
-  //     'og:url',
-  //     'og:type',
-  //     'og:site_name',
-  //     'og:title',
-  //     'og:description',
-  //     'og:image',
-  //     'og:image:width',
-  //     'og:image:height',
-  //     'twitter:card',
-  //     'twitter:text:title',
-  //     'twitter:description',
-  //     'twitter:image:src',
-  //     'twitter:url'
-  //   ]
-  // })
-  .addRule('hTagsRule')
-  // .addRule('noMoreThanOneH1TagRule')
-  // .addRule('imgTagWithAltAttritubeRule')
-  // .addRule('aTagWithRelAttritubeRule')
-  // .addRule('canonicalLinkRule')
-  // Custom rules
-  // .addRule(customRule)
+// ------ Default rules -------- //
+// .addRule('titleLengthRule', { min: 10, max: 50 })
+// .addRule('noTooManyStrongTagsRule', { threshold: 2 })
+// .addRule('metaBaseRule', { names: ['description', 'viewport'] })
+// .addRule('metaSocialRule', {
+//   properties: [
+//     'og:url',
+//     'og:type',
+//     'og:site_name',
+//     'og:title',
+//     'og:description',
+//     'og:image',
+//     'og:image:width',
+//     'og:image:height',
+//     'twitter:card',
+//     'twitter:text:title',
+//     'twitter:description',
+//     'twitter:image:src',
+//     'twitter:url'
+//   ]
+// })
+// .addRule('noMoreThanOneH1TagRule')
+// .addRule('imgTagWithAltAttritubeRule')
+// .addRule('aTagWithRelAttritubeRule')
+// .addRule('canonicalLinkRule')
+
+// Custom rules
+// .addRule(customRule)
 
   // ------- Output methods ------- //
   // .outputObject(obj => console.log(obj))
