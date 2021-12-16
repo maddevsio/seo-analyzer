@@ -3,6 +3,7 @@ import defaultRules from './rules/index';
 import Input from './modules/input';
 import Output from './modules/output';
 import Logger from './modules/logger';
+import NextServer from './modules/next-server';
 
 import { startServer } from './server';
 
@@ -11,6 +12,7 @@ class SeoAnalyzer {
     this._logger = new Logger();
     this._input = new Input();
     this._output = new Output();
+    this._nextServer = new NextServer();
     this._inputData = [];
     this._defaultRules = defaultRules;
     this._rules = [];
@@ -61,6 +63,13 @@ class SeoAnalyzer {
     // Run server for spa
     startServer(folder, port);
     this._inputData = this._input.spa(port, this._ignoreUrls);
+    return this;
+  }
+
+  inputNextJs(port = 3000) {
+    if (!this._inputData) return this;
+    this._logger.printTextToConsole('SEO Analyzer');
+    this._inputData = this._nextServer.inputSSR(port, this._ignoreUrls);
     return this;
   }
 
