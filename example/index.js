@@ -50,7 +50,7 @@ new SeoAnalyzer()
   // .addRule('aTagWithRelAttritubeRule')
   // .addRule('canonicalLinkRule')
   // Custom rules
-  // .addRule(customRule)
+  // .addRule(customRule
 
   // ------- Output methods ------- //
   // .outputObject(obj => console.log(obj))
