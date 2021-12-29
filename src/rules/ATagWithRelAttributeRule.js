@@ -1,4 +1,4 @@
-function aTagWithRelAttritubeRule(dom) {
+function ATagWithRelAttributeRule(dom) {
   return new Promise(resolve => {
     let count = 0;
     const elements = dom.window.document.querySelectorAll('a');
@@ -14,4 +14,4 @@ function aTagWithRelAttritubeRule(dom) {
   });
 }
 
-export default aTagWithRelAttritubeRule;
+export default ATagWithRelAttributeRule;

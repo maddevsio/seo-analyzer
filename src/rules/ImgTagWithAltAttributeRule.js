@@ -1,4 +1,4 @@
-function imgTagWithAltAttritubeRule(dom) {
+function imgTagWithAltAttributeRule(dom) {
   return new Promise(resolve => {
     let countAlt = 0;
     let countSrc = 0;
@@ -30,4 +30,4 @@ function imgTagWithAltAttritubeRule(dom) {
   });
 }
 
-export default imgTagWithAltAttritubeRule;
+export default imgTagWithAltAttributeRule;
