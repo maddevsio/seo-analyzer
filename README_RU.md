@@ -111,6 +111,17 @@ new SeoAnalyzer()
   .outputObject(obj => console.log(obj));
 ``` 
 
+#### Способ №6: анализ страниц для Next.js SSR приложения и вывод отчета в консоль
+
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .inputNextJs(3000)
+  .addRule('imgTagWithAltAttritubeRule')
+  .outputConsole();
+```
+
 ## Доступные методы:
 
 | Метод          | Параметры            | Описание                                                                                                |
@@ -121,6 +132,7 @@ new SeoAnalyzer()
 | inputFiles     | ['dist/index.html']  | Массив файлов, которые нужно анализировать. |
 | inputFolders   | ['dist', 'src']      | Массив папкок с файлами, которые нужно анализировать. |
 | inputSpaFolder | '/dist', 3000        | Метод для запуска анализаторв для SPA приложений. Ожидает папку с финальными кодом приложения и порт на котором запустится анализатор. |
+| inputNextJs    | 3000                 | Метод для запуска анализаторв для Next.js SSR приложений. Ожидает порт для запуска Next.js сервера.                                                       |
 | addRule        | function(dom) {}     | Метод для добавления встроенных правил или собственных. |
 | outputObject   | function(obj) {}     | Метод для вывода результата. Вернёт js объект. |
 | outputJson     | function(json) {}    | Метод для вывода результата. Вернёт JSON. |
@@ -183,7 +195,7 @@ new SeoAnalyzer()
 .addRule('imgTagWithAltAttritubeRule')
 ```
 
-### <a> Правило тега `<a>` с атрибутом Rel
+### `<a>` Правило тега `<a>` с атрибутом Rel
 
 Проверяет, все ли теги `<a>` имеют атрибут `rel=""`
 
