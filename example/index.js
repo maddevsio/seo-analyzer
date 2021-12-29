@@ -1,4 +1,5 @@
 const SeoAnalyzer = require('../dist/seo-analyzer.js');
+
 // --------- Custom rules ------------ //
 function customRule(dom) {
   return new Promise((resolve, reject) => {
@@ -44,13 +45,13 @@ new SeoAnalyzer()
   //     'twitter:url'
   //   ]
   // })
-  .addRule('hTagsRule')
+  // .addRule('hTagsRule')
   // .addRule('noMoreThanOneH1TagRule')
   .addRule('imgTagWithAltAttritubeRule')
   // .addRule('aTagWithRelAttritubeRule')
   // .addRule('canonicalLinkRule')
   // Custom rules
-  // .addRule(customRule
+  // .addRule(customRule)
 
   // ------- Output methods ------- //
   // .outputObject(obj => console.log(obj))
