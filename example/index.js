@@ -1,5 +1,4 @@
 const SeoAnalyzer = require('../dist/seo-analyzer.js');
-
 // --------- Custom rules ------------ //
 function customRule(dom) {
   return new Promise((resolve, reject) => {
@@ -46,7 +45,7 @@ new SeoAnalyzer()
   // })
   .addRule('hTagsRule')
   // .addRule('noMoreThanOneH1TagRule')
-  // .addRule('imgTagWithAltAttritubeRule')
+  .addRule('imgTagWithAltAttritubeRule')
   // .addRule('aTagWithRelAttritubeRule')
   // .addRule('canonicalLinkRule')
   // Custom rules
