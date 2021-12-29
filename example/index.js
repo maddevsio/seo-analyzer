@@ -21,7 +21,8 @@ new SeoAnalyzer()
   // ------- Input methods -------- //
   .inputFolders(['example'])
   // .inputFiles(['example/html/index.html'])
-  // .inputSpaFolder('example/spa/')
+  // .inputSpaFolder('example/spa')
+  // .inputNextJs()
 
   // ------ Default rules -------- //
   // .addRule('titleLengthRule', { min: 10, max: 50 })
@@ -44,9 +45,9 @@ new SeoAnalyzer()
   //     'twitter:url'
   //   ]
   // })
-  .addRule('hTagsRule')
-  .addRule('noMoreThanOneH1TagRule')
-  // .addRule('imgTagWithAltAttritubeRule')
+  // .addRule('hTagsRule')
+  // .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttritubeRule')
   // .addRule('aTagWithRelAttritubeRule')
   // .addRule('canonicalLinkRule')
   // Custom rules

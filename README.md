@@ -111,6 +111,17 @@ new SeoAnalyzer()
   .outputObject(obj => console.log(obj));
 ``` 
 
+#### Sixth way: file analysis for Next.js SSR application and log report to console
+
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .inputNextJs(3000)
+  .addRule('imgTagWithAltAttritubeRule')
+  .outputConsole();
+```
+
 ## Available methods:
 
 | Method         | Params               | Description                                                                                             |
@@ -121,6 +132,7 @@ new SeoAnalyzer()
 | inputFiles     | ['dist/index.html']  | This method expects an array of html files.                                                             |
 | inputFolders   | ['dist', 'src']      | This method expects an array of folders with html files.                                                |
 | inputSpaFolder | '/dist', 3000        | This method expects an string of folder with SPA builded files to production & port for run server.     |
+| inputNextJs    | 3000                 | This method expects a port for run next.js server.                                                              |
 | addRule        | function(dom) {}     | This method adds a custom rule to check incoming HTML files.                                            |
 | outputObject   | function(obj) {}     | This method will return the report as a javascript object.                                              |
 | outputJson     | function(json) {}    | This method will return the report in JSON format.                                                      |
@@ -183,9 +195,9 @@ Checks if all `<img>` tags have alt="" attribute.
 .addRule('imgTagWithAltAttritubeRule')
 ```
 
-### <a> Tag With Rel Attritube Rule
+### `<a>` Tag With Rel Attritube Rule
 
-Checks if all <a> tags have rel="" attribute.
+Checks if all `<a>` tags have rel="" attribute.
 
 ```js
 .addRule('aTagWithRelAttritubeRule')
