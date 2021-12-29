@@ -12,6 +12,13 @@
     "name": "Denisoed",
     "email": "denisoed@gmail.com"
   },
+  "contributors": [
+    {
+      "name": "Roman Zheltukhin",
+      "email": "kaktysuwe@gmail.com",
+      "url" : "https://www.linkedin.com/in/oh-roman"
+    }
+  ],
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=7.0.0"
