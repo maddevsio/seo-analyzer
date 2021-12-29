@@ -18,7 +18,8 @@ The library for analyze a HTML files to show all of the SEO defects.
 
 * Easy setup.
 * Adding custom rules.
-* 9 ready-made rules.
+* 6 ready-made rules.
+* Running the seo-analyzer for Next.js SSR applications.
 * Running the seo-analyzer for SPA applications.
 * Running the seo-analyzer in pipelines(github, gitlab, ...) or pre-push or anywhere else.
 * Multiple options for outputting the result.
@@ -29,13 +30,15 @@ The library for analyze a HTML files to show all of the SEO defects.
 * **Seo Friendly:** will save your project from problems with search engines.
 * **It’s free:** we’re happy to share the results of our work.
 
-## Usage
+## Installation
 
-Install with npm 
+Install with npm
 
-```bash
+```sh
 npm install -D seo-analyzer
 ```
+
+## Usage
 
 ### Getting started
 
@@ -61,7 +64,7 @@ const SeoAnalyzer = require('seo-analyzer');
 new SeoAnalyzer()
   .ignoreUrls(['/404', '/login'])
   .inputSpaFolder('/dist', 3000)
-  .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
 
@@ -72,7 +75,7 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .inputFiles(['index.html', 'about.html'])
-  .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
 
@@ -83,7 +86,7 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .inputFolders(['dist', 'src'])
-  .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
 
@@ -94,7 +97,7 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .inputFolders(['dist', 'src'])
-  .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputJson(json => console.log(json));
 ```
 
@@ -107,7 +110,7 @@ new SeoAnalyzer()
   .ignoreFolders(['src/test'])
   .ignoreFiles(['src/404.html'])
   .inputFolders(['dist', 'src'])
-  .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputObject(obj => console.log(obj));
 ``` 
 
@@ -118,7 +121,7 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .inputNextJs(3000)
-  .addRule('imgTagWithAltAttritubeRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
 
@@ -153,64 +156,20 @@ Checks the length of tag `<title>`. Two parameters are accepted:
 .addRule('titleLengthRule', { min: 10, max: 50 })
 ```
 
-### H Tags Rule
-
-Checks if <h> is positioned correctly on the page.
-
-#### Bad
-
-```html
-<h1>
-- <h3>
-- - <h4>
-- <h2>
-```
-
-#### Good
-
-```html
-<h1>
-- <h2>
-- - <h3>
-- <h2>
-```
-
-```js
-.addRule('hTagsRule')
-```
-
-### No More Than One H1 Tag Rule
-
-Checks the number of `<h1>` tags on the page.
-
-```js
-.addRule('noMoreThanOneH1TagRule')
-```
-
-### Img Tag With Alt Attritube Rule
+### Img Tag With Alt Attribute Rule
 
 Checks if all `<img>` tags have alt="" attribute.
 
 ```js
-.addRule('imgTagWithAltAttritubeRule')
+.addRule('imgTagWithAltAttributeRule')
 ```
 
-### `<a>` Tag With Rel Attritube Rule
+### `<a>` Tag With Rel Attribute Rule
 
 Checks if all `<a>` tags have rel="" attribute.
 
 ```js
-.addRule('aTagWithRelAttritubeRule')
-```
-
-### No Too Many Strong Tags Rule
-
-Checks the number of `<strong>` tags on the page. Accepts one parameter:
-
-* **threshold:** maximum number of tags on the page 
-
-```js
-.addRule('noTooManyStrongTagsRule', { threshold: 2 })
+.addRule('aTagWithRelAttributeRule')
 ```
 
 ### Meta Base Rule
@@ -277,6 +236,20 @@ function customRule(dom) {
 .addRule(customRule)
 ...
 ```
+
+## What's new
+One new rule was created and three obsolete rules were deleted.
+
+✅: added\
+❌: removed
+
+| ✅ | ❌ | Rule | Description |
+| :---: | :---: | :--- | :--- |
+| ✅  |  | inputNextJs | Running the seo-analyzer for Next.js SSR applications |
+|    |❌ | hTagsRule | Only for HTML4 |
+|    |❌ | noMoreThanOneH1TagRule | Only for HTML4 |
+|    |❌ | noTooManyStrongTagsRule | Only for HTML4 |
+
 
 ## Example of the output of all SEO defects in the console.
 

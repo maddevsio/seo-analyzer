@@ -17,10 +17,11 @@ SEO анализатор это инструмент, который помож�
 ## Преимущества этого плагина
 
 * Простая настройка.
+* Добавление собственных правил.
+* 6 готовых и популярных правил.
+* Запуск анализатора для Next.js SSR приложений.
 * Запуск анализатора для SPA приложений.
 * Запуск анализатора в конвейерах (github, gitlab, ...), pre-push и т.д.
-* 9 готовых и популярных правил.
-* Добавление собственных правил.
 * Несколько вариантов вывода результата.
 
 ## Почему вам следует использовать Seo Analyzer?
@@ -29,14 +30,15 @@ SEO анализатор это инструмент, который помож�
 * **Seo Friendly:** держит ваш проект валидным и дружелюбным к поисковым роботам путём обнаружения дефектов на страницах вашего сайта.
 * **Это бесплатно:** мы рады поделиться результатами своей работы.
 
-## Применение
+## Установка
 
 Установка с помощью npm
 
-```bash
+```sh
 npm install -D seo-analyzer
 ```
 
+## Применение
 ### Начало
 
 Настройка SEO анализатора максимально проста. Выглядеть она будет примерно так:
@@ -61,7 +63,7 @@ const SeoAnalyzer = require('seo-analyzer');
 new SeoAnalyzer()
   .ignoreUrls(['/404', '/login'])
   .inputSpaFolder('/dist', 3000)
-  .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
 
@@ -72,7 +74,7 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .inputFiles(['index.html', 'about.html'])
-  .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
 
@@ -83,7 +85,7 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .inputFolders(['dist', 'src'])
-  .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
 
@@ -94,7 +96,7 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .inputFolders(['dist', 'src'])
-  .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputJson(json => console.log(json));
 ```
 
@@ -107,7 +109,7 @@ new SeoAnalyzer()
   .ignoreFolders(['src/test'])
   .ignoreFiles(['src/404.html'])
   .inputFolders(['dist', 'src'])
-  .addRule('noMoreThanOneH1TagRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputObject(obj => console.log(obj));
 ``` 
 
@@ -118,7 +120,7 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .inputNextJs(3000)
-  .addRule('imgTagWithAltAttritubeRule')
+  .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
 
@@ -153,46 +155,12 @@ new SeoAnalyzer()
 .addRule('titleLengthRule', { min: 10, max: 50 })
 ```
 
-### Правило тегов H
-
-Проверяет правильность вложенности на странице.
-
-#### Неправильно
-
-```html
-<h1>
-- <h3>
-- - <h4>
-- <h2>
-```
-
-#### Правильно
-
-```html
-<h1>
-- <h2>
-- - <h3>
-- <h2>
-```
-
-```js
-.addRule('hTagsRule')
-```
-
-### Правило тега H1
-
-Проверяет количество тегов `<h1>` на странице.
-
-```js
-.addRule('noMoreThanOneH1TagRule')
-```
-
 ### Правило теги Img с атрибутом Alt
 
 Проверяет, все ли теги `<img>` имеют текст в атрибуте `alt=""`.
 
 ```js
-.addRule('imgTagWithAltAttritubeRule')
+.addRule('imgTagWithAltAttributeRule')
 ```
 
 ### `<a>` Правило тега `<a>` с атрибутом Rel
@@ -200,17 +168,7 @@ new SeoAnalyzer()
 Проверяет, все ли теги `<a>` имеют атрибут `rel=""`
 
 ```js
-.addRule('aTagWithRelAttritubeRule')
-```
-
-### Правило ограничения тегов strong
-
-Проверяет количество `<strong>` тегов на странице. Принимает один параметр:
-
-* **threshold:** максимальное количество тегов на странице
-
-```js
-.addRule('noTooManyStrongTagsRule', { threshold: 2 })
+.addRule('aTagWithRelAttributeRule')
 ```
 
 ### Правило метаданных
@@ -277,6 +235,20 @@ function customRule(dom) {
 .addRule(customRule)
 ...
 ```
+
+## Что нового
+Было добавлено одно новое правило и удалено 3 устаревших.
+
+✅: добавлено\
+❌: удалено
+
+| ✅ | ❌ | Rule | Description |
+| :---: | :---: | :--- | :--- |
+| ✅  |  | inputNextJs | Запуск анализатора для Next.js SSR приложений |
+|    |❌ | hTagsRule | Только для HTML4 |
+|    |❌ | noMoreThanOneH1TagRule | Только для HTML4 |
+|    |❌ | noTooManyStrongTagsRule | Только для HTML4|
+
 
 ## Пример вывода отчета в консоль.
 
