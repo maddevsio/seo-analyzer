@@ -30,6 +30,7 @@ class Input {
   /**
    * Get the html from files
    * @param {Array} files [<string>, <string>, ...]
+   * @param ignoreFiles
    * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @memberof Input
    */
@@ -56,6 +57,8 @@ class Input {
   /**
    * Get the html from files in folders
    * @param {string} folders [<string>, <string>, ...]
+   * @param ignoreFolders
+   * @param ignoreFiles
    * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @memberof Input
    */
@@ -80,9 +83,9 @@ class Input {
 
   /**
    * Get the DOM from urls
-   * @param {Number} - Port for the server
-   * @param {Array} - Ignore urls
    * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
+   * @param port
+   * @param ignoreUrls
    */
   async spa(port, ignoreUrls = []) {
     const listTexts = await this.scraper.run(port, ignoreUrls);
