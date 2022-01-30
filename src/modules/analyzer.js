@@ -5,7 +5,7 @@ class Analyzer {
   constructor() {
     this.consoleProgressBar = new cliProgress.Bar({
       format:
-        'Ranning rules |' +
+        'Running rules |' +
         _colors.green('{bar}') +
         '| {percentage}% || {value}/{total} Rules',
       barCompleteChar: '\u2588',
