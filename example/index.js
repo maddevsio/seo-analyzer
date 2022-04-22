@@ -19,9 +19,9 @@ new SeoAnalyzer()
   // .ignoreFiles(['example/html/team.html'])
   // .ignoreUrls(['/#/product/2'])
   // ------- Input methods -------- //
-  // .inputFolders(['example'])
+  .inputFolders(['example'])
   // .inputFiles(['example/html/index.html'])
-  .inputSpaFolder('example/spa', 'sitemap.xml')
+  // .inputSpaFolder('example/spa', 'sitemap.xml')
   // .inputNextJs()
 
   // ------ Default rules -------- //
@@ -51,7 +51,7 @@ new SeoAnalyzer()
   // .addRule('aTagWithRelAttributeRule')
   // .addRule('canonicalLinkRule')
   // Custom rules
-  .addRule(customRule)
+  // .addRule(customRule)
 
   // ------- Output methods ------- //
   // .outputObject(obj => console.log(obj))

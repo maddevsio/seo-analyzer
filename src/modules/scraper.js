@@ -25,10 +25,10 @@ class Scanner {
    * @returns {Array} - Array of html doms
    * @description - Scrapes the site and returns the html doms
    */
-  async run(port, urls, sitemapUrl) {
+  async run(port, urls, sitemap) {
     this.inputUrl = `http://localhost:${port}`;
     this.ignoreUrls = urls;
-    const links = await this._getLinksFromSitemap(sitemapUrl);
+    const links = await this._getLinksFromSitemap(sitemap);
     const htmlDoms = await this._getHtmlDomFromLinks(links);
     return htmlDoms;
   }
@@ -38,13 +38,13 @@ class Scanner {
    * @returns {Array} - Array of links
    * @description - Scrapes the sitemap and returns the links
    */
-  _getLinksFromSitemap(sitemapUrl) {
+  _getLinksFromSitemap(sitemap) {
     this.logger.info(`🚀  Get sitemap from ${this.inputUrl}\n`);
     return new Promise(resolve => {
-      const formatttedUrl = `${this.inputUrl}/${sitemapUrl}`;
+      const formattedUrl = `${this.inputUrl}/${sitemap}`;
       const links = [];
       sitemaps.parseSitemaps(
-        formatttedUrl,
+        formattedUrl,
         link => {
           // Ignore the links that are in the ignore list
           const path = link.replace(/^.*\/\/[^/]+/, '');

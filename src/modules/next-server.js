@@ -7,7 +7,7 @@ class NextServer {
   constructor() {
     this.logger = new Logger();
     this._input = new Input();
-    this.port = +process.env.PORT || 3000;
+    this.port = parseInt(process.env.PORT, 10) || 3000;
     this.app = next({ dev: false });
     this.handle = this.app.getRequestHandler();
     this.status = {};
@@ -49,10 +49,10 @@ class NextServer {
    * @param ignoreUrls
    * @returns {Promise<Promise.Array>}
    */
-  async inputSSR(port, ignoreUrls = [], sitemapUrl) {
+  async inputSSR(port, ignoreUrls = [], sitemap) {
     this.port = port;
     this.status = await this.run();
-    const inputResult = this._input.spa(this.port, ignoreUrls, sitemapUrl);
+    const inputResult = this._input.spa(this.port, ignoreUrls, sitemap);
     return inputResult;
   }
 }
