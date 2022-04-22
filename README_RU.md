@@ -62,7 +62,7 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .ignoreUrls(['/404', '/login'])
-  .inputSpaFolder('/dist', 3000)
+  .inputSpaFolder('/dist', 'sitemap.xml', 3000)
   .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
@@ -119,7 +119,7 @@ new SeoAnalyzer()
 const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
-  .inputNextJs(3000)
+  .inputNextJs('sitemap-index.xml', 3000)
   .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
@@ -133,8 +133,8 @@ new SeoAnalyzer()
 | ignoreUrls     | ['/404']             | Массив URL-адресов, которые будут проигнорированны во время анализа. |
 | inputFiles     | ['dist/index.html']  | Массив файлов, которые нужно анализировать. |
 | inputFolders   | ['dist', 'src']      | Массив папкок с файлами, которые нужно анализировать. |
-| inputSpaFolder | '/dist', 3000        | Метод для запуска анализаторв для SPA приложений. Ожидает папку с финальными кодом приложения и порт на котором запустится анализатор. |
-| inputNextJs    | 3000                 | Метод для запуска анализаторв для Next.js SSR приложений. Ожидает порт для запуска Next.js сервера.                                                       |
+| inputSpaFolder | '/dist', 'sitemap.xml', 3000        | Метод для запуска анализаторв для SPA приложений. Ожидает папку с финальными кодом приложения и порт на котором запустится анализатор. |
+| inputNextJs    | 'sitemap.xml', 3000                 | Метод для запуска анализаторв для Next.js SSR приложений. Ожидает порт для запуска Next.js сервера.                                                       |
 | addRule        | function(dom) {}     | Метод для добавления встроенных правил или собственных. |
 | outputObject   | function(obj) {}     | Метод для вывода результата. Вернёт js объект. |
 | outputJson     | function(json) {}    | Метод для вывода результата. Вернёт JSON. |

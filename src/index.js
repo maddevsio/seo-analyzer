@@ -57,7 +57,7 @@ class SeoAnalyzer {
     return this;
   }
 
-  inputSpaFolder(folder, port = 9999, sitemapUrl) {
+  inputSpaFolder(folder, sitemapUrl, port = 9999) {
     if (!this._inputData) return this;
     this._logger.printTextToConsole('SEO Analyzer');
     // Run server for spa
@@ -66,7 +66,7 @@ class SeoAnalyzer {
     return this;
   }
 
-  inputNextJs(port = 3000, sitemapUrl) {
+  inputNextJs(sitemapUrl, port = 3000) {
     if (!this._inputData) return this;
     this._logger.printTextToConsole('SEO Analyzer');
     this._inputData = this._nextServer.inputSSR(port, this._ignoreUrls, sitemapUrl);
