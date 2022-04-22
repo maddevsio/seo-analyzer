@@ -25,10 +25,10 @@ class Scanner {
    * @returns {Array} - Array of html doms
    * @description - Scrapes the site and returns the html doms
    */
-  async run(port, urls) {
+  async run(port, urls, sitemapUrl) {
     this.inputUrl = `http://localhost:${port}`;
     this.ignoreUrls = urls;
-    const links = await this._getLinksFromSitemap();
+    const links = await this._getLinksFromSitemap(sitemapUrl);
     const htmlDoms = await this._getHtmlDomFromLinks(links);
     return htmlDoms;
   }
@@ -38,10 +38,10 @@ class Scanner {
    * @returns {Array} - Array of links
    * @description - Scrapes the sitemap and returns the links
    */
-  _getLinksFromSitemap() {
+  _getLinksFromSitemap(sitemapUrl) {
     this.logger.info(`🚀  Get sitemap from ${this.inputUrl}\n`);
     return new Promise(resolve => {
-      const formatttedUrl = `${this.inputUrl}/sitemap.xml`;
+      const formatttedUrl = `${this.inputUrl}/${sitemapUrl}`;
       const links = [];
       sitemaps.parseSitemaps(
         formatttedUrl,
@@ -56,7 +56,7 @@ class Scanner {
           if (err) {
             this.logger.error('❌  Sitemap not found\n', 1);
           } else {
-            if (links.length === 0) {
+            if (!links.length) {
               this.logger.error('❌  Links not found\n', 1);
             } else {
               this.logger.success('✅  Done\n');

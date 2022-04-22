@@ -87,8 +87,8 @@ class Input {
    * @param port
    * @param ignoreUrls
    */
-  async spa(port, ignoreUrls = []) {
-    const listTexts = await this.scraper.run(port, ignoreUrls);
+  async spa(port, ignoreUrls = [], sitemapUrl) {
+    const listTexts = await this.scraper.run(port, ignoreUrls, sitemapUrl);
     const htmlDoms = await this._getDom(listTexts);
     return htmlDoms;
   }
