@@ -1,5 +1,5 @@
 import test from 'ava';
-import ATagWithRelAttributeRule from '../../src/rules/ATagWithRelAttritubeRule';
+import ATagWithRelAttributeRule from '../../src/rules/ATagWithRelAttributeRule';
 
 const fakeDOM = (links = []) => ({
   window: {

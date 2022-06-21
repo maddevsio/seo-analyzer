@@ -1,5 +1,5 @@
 import test from 'ava';
-import imgTagWithAltAttributeRule from '../../src/rules/ImgTagWithAltAttritubeRule';
+import imgTagWithAltAttributeRule from '../../src/rules/ImgTagWithAltAttributeRule';
 
 const fakeDOM = (images = []) => ({
   window: {

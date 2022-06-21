@@ -49,10 +49,10 @@ class NextServer {
    * @param ignoreUrls
    * @returns {Promise<Promise.Array>}
    */
-  async inputSSR(port, ignoreUrls = []) {
+  async inputSSR(port, ignoreUrls = [], sitemap) {
     this.port = port;
     this.status = await this.run();
-    const inputResult = this._input.spa(this.port, ignoreUrls);
+    const inputResult = this._input.spa(this.port, ignoreUrls, sitemap);
     return inputResult;
   }
 }

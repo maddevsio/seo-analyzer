@@ -63,7 +63,7 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .ignoreUrls(['/404', '/login'])
-  .inputSpaFolder('/dist', 3000)
+  .inputSpaFolder('/dist', 'sitemapindex.xml', 3000)
   .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
@@ -134,7 +134,7 @@ new SeoAnalyzer()
 | ignoreUrls     | ['/404']             | This method expects an array of urls to ignore before analysis.                                         |
 | inputFiles     | ['dist/index.html']  | This method expects an array of html files.                                                             |
 | inputFolders   | ['dist', 'src']      | This method expects an array of folders with html files.                                                |
-| inputSpaFolder | '/dist', 3000        | This method expects an string of folder with SPA builded files to production & port for run server.     |
+| inputSpaFolder | '/dist', 'sitemap.xml', 3000        | This method expects an string of folder with SPA builded files to production & port for run server.     |
 | inputNextJs    | 3000                 | This method expects a port for run next.js server.                                                              |
 | addRule        | function(dom) {}     | This method adds a custom rule to check incoming HTML files.                                            |
 | outputObject   | function(obj) {}     | This method will return the report as a javascript object.                                              |

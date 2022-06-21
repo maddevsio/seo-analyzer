@@ -21,7 +21,7 @@ new SeoAnalyzer()
   // ------- Input methods -------- //
   .inputFolders(['example'])
   // .inputFiles(['example/html/index.html'])
-  // .inputSpaFolder('example/spa')
+  // .inputSpaFolder('example/spa', 'sitemap.xml')
   // .inputNextJs()
 
   // ------ Default rules -------- //

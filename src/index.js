@@ -57,19 +57,19 @@ class SeoAnalyzer {
     return this;
   }
 
-  inputSpaFolder(folder, port = 9999) {
+  inputSpaFolder(folder, sitemap='sitemap.xml', port = 9999) {
     if (!this._inputData) return this;
     this._logger.printTextToConsole('SEO Analyzer');
     // Run server for spa
     startServer(folder, port);
-    this._inputData = this._input.spa(port, this._ignoreUrls);
+    this._inputData = this._input.spa(port, this._ignoreUrls, sitemap);
     return this;
   }
 
-  inputNextJs(port = 3000) {
+  inputNextJs(sitemap='sitemap.xml', port = 3000) {
     if (!this._inputData) return this;
     this._logger.printTextToConsole('SEO Analyzer');
-    this._inputData = this._nextServer.inputSSR(port, this._ignoreUrls);
+    this._inputData = this._nextServer.inputSSR(port, this._ignoreUrls, sitemap);
     return this;
   }
 
