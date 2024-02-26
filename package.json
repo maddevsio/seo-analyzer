@@ -1,6 +1,6 @@
 {
   "name": "seo-analyzer",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A library for analyze a HTML files to show all of the SEO defects",
   "main": "dist/seo-analyzer.js",
   "module": "dist/seo-analyzer.mjs",
@@ -17,6 +17,10 @@
       "name": "Roman Zheltukhin",
       "email": "kaktysuwe@gmail.com",
       "url": "https://www.linkedin.com/in/oh-roman"
+    },
+    {
+      "name": "Kristján Andri Gunnarsson",
+      "email": "kristjanandri.gunnarsson@travelshift.com"
     }
   ],
   "engines": {
@@ -63,9 +67,11 @@
     "express": "^4.17.1",
     "i": "^0.3.7",
     "jsdom": "^16.5.3",
-    "next": "^12.0.7",
     "sinon": "^11.1.2",
     "sitemap-stream-parser": "^1.7.0"
+  },
+  "optionalDependencies": {
+    "next": "^12.0.7"
   },
   "keywords": [
     "es5",

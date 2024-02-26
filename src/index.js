@@ -3,7 +3,6 @@ import defaultRules from './rules/index';
 import Input from './modules/input';
 import Output from './modules/output';
 import Logger from './modules/logger';
-import NextServer from './modules/next-server';
 
 import { startServer } from './server';
 
@@ -12,7 +11,7 @@ class SeoAnalyzer {
     this._logger = new Logger();
     this._input = new Input();
     this._output = new Output();
-    this._nextServer = new NextServer();
+    this._nextServer = null;
     this._inputData = [];
     this._defaultRules = defaultRules;
     this._rules = [];
@@ -39,17 +38,17 @@ class SeoAnalyzer {
   }
 
   // ------- Input methods ------- //
-  inputFiles(files) {
+  async inputFiles(files) {
     if (this._inputData.length !== 0) return this;
     this._logger.printTextToConsole('SEO Analyzer');
-    this._inputData = this._input.files(files, this._ignoreFiles);
+    this._inputData = await this._input.files(files, this._ignoreFiles);
     return this;
   }
 
-  inputFolders(folders) {
+  async inputFolders(folders) {
     if (this._inputData.length !== 0) return this;
     this._logger.printTextToConsole('SEO Analyzer');
-    this._inputData = this._input.folders(
+    this._inputData = await this._input.folders(
       folders,
       this._ignoreFolders,
       this._ignoreFiles
@@ -57,19 +56,36 @@ class SeoAnalyzer {
     return this;
   }
 
-  inputSpaFolder(folder, sitemap='sitemap.xml', port = 9999) {
+  async inputSpaFolder(folder, sitemap='sitemap.xml', port = 9999) {
     if (!this._inputData) return this;
     this._logger.printTextToConsole('SEO Analyzer');
     // Run server for spa
     startServer(folder, port);
-    this._inputData = this._input.spa(port, this._ignoreUrls, sitemap);
+    this._inputData = await this._input.spa(port, this._ignoreUrls, sitemap);
     return this;
   }
 
-  inputNextJs(sitemap='sitemap.xml', port = 3000) {
+  async inputNextJs(sitemap='sitemap.xml', port = 3000) {
     if (!this._inputData) return this;
+    if (!this._nextServer) {
+      const { default: NextServer }  = await import('./modules/next-server');
+      this._nextServer = new NextServer();
+      await this._nextServer.setup();
+    }
     this._logger.printTextToConsole('SEO Analyzer');
-    this._inputData = this._nextServer.inputSSR(port, this._ignoreUrls, sitemap);
+    this._inputData = await this._nextServer.inputSSR(port, this._ignoreUrls, sitemap);
+    return this;
+  }
+
+  /**
+   * Input plain HTML strings in {text, source} format
+   * @param {Array<{text: string, source: string}>} inputHTMLs `text` is the plain html, `source` is an identifier such a URI
+   * @returns {SeoAnalyzer}
+   */
+  inputHTMLStrings(inputHTMLs) {
+    if (this._inputData.length !== 0) return this;
+    this._logger.printTextToConsole('SEO Analyzer');
+    this._inputData = this._input.getDom(inputHTMLs);
     return this;
   }
 
@@ -92,7 +108,7 @@ class SeoAnalyzer {
   // ------- Output methods ------- //
   outputConsole() {
     (async () => {
-      const json = await this._output.object(await this._inputData, this._rules);
+      const json = await this._output.object(this._inputData, this._rules);
       this._logger.result(json);
     })();
     return this;
@@ -100,18 +116,26 @@ class SeoAnalyzer {
 
   outputJson(callback) {
     (async () => {
-      const json = await this._output.json(await this._inputData, this._rules);
+      const json = await this._output.json(this._inputData, this._rules);
       callback(json);
     })();
     return this;
   }
 
+  async outputJsonAsync() {
+    return this._output.json(this._inputData, this._rules);
+  }
+
   outputObject(callback) {
     (async () => {
-      const obj = await this._output.object(await this._inputData, this._rules);
+      const obj = await this._output.object(this._inputData, this._rules);
       callback(obj);
     })();
     return this;
+  }
+
+  async outputObjectAsync() {
+    return this._output.object(this._inputData, this._rules);
   }
 }
 

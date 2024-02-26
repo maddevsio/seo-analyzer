@@ -8,7 +8,7 @@ function ATagWithRelAttributeRule(dom) {
       }
     });
     if (count > 0) {
-      resolve(`There are ${count} <a> tag without rel attribute`);
+      resolve(`There are ${count} <a> tags without a rel attribute`);
     }
     resolve(null);
   });

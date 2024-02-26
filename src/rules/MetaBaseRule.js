@@ -7,7 +7,7 @@ function metaBaseRule(dom, options = { list: [] }) {
           `head > meta[name="${name}"]`
         );
         if (!element) {
-          report.push(`This HTML without <meta name="${name}"> tag`);
+          report.push(`This HTML is missing a <meta name="${name}"> tag`);
         } else if (!element.content) {
           report.push(
             `The content attribute for the <meta name="${name}" content=""> tag is empty`

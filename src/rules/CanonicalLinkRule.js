@@ -4,10 +4,10 @@ function canonicalLinkRule(dom) {
       'head > link[rel="canonical"]'
     );
     if (!element) {
-      resolve('This HTML without <link rel="canonical" href="..."> link');
+      resolve('This HTML is missing a <link rel="canonical" href="..."> link');
     }
     if (element && !element.href) {
-      resolve('The canonical link without href attribute');
+      resolve('The canonical link is missing an href attribute');
     }
     if (element && element.href.substr(-1) !== '/') {
       resolve(

@@ -50,7 +50,7 @@ class Input {
     }
     this.ignoreFiles = ignoreFiles;
     const listTexts = await this._getHtml(files);
-    const listDOM = await this._getDom(listTexts);
+    const listDOM = await this.getDom(listTexts);
     return listDOM;
   }
 
@@ -89,7 +89,7 @@ class Input {
    */
   async spa(port, ignoreUrls = [], sitemap) {
     const listTexts = await this.scraper.run(port, ignoreUrls, sitemap);
-    const htmlDoms = await this._getDom(listTexts);
+    const htmlDoms = await this.getDom(listTexts);
     return htmlDoms;
   }
 
@@ -192,11 +192,11 @@ class Input {
 
   /**
    * Transform html to DOM
-   * @param {Array} list [<string>, <string>, ...]
+   * @param {Array<{text: string, source: string}>} list [{text: <string>, source: <string>}, {text: <string>, source: <string>}, ...]
    * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @private
    */
-  _getDom(list) {
+  getDom(list) {
     const doms = [];
     const proccess = new cliProgress.Bar({
       format:
@@ -207,7 +207,7 @@ class Input {
       barIncompleteChar: '\u2591',
       hideCursor: true
     });
-    this.logger.info('\n🚀  Get DOM from HTML\n');
+    this.logger.info('\n🚀  Getting DOM from HTML\n');
     proccess.start(list.length, 0);
     // NOTE: https://github.com/jsdom/jsdom/issues/2177#issuecomment-379212964
     const virtualConsole = new VirtualConsole();
@@ -218,6 +218,7 @@ class Input {
     });
 
     proccess.stop();
+    console.log(doms);
     return doms;
   }
 }

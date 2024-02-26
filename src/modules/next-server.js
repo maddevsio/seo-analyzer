@@ -1,5 +1,4 @@
 import express from 'express';
-import next from 'next';
 import Logger from './logger';
 import Input from './input';
 
@@ -7,10 +6,16 @@ class NextServer {
   constructor() {
     this.logger = new Logger();
     this._input = new Input();
+    this.app = {};
+    this.handle = {};
+    this.status = {};
     this.port = parseInt(process.env.PORT, 10) || 3000;
+  }
+
+  async setup() {
+    const { default: next } = await import('next');
     this.app = next({ dev: false });
     this.handle = this.app.getRequestHandler();
-    this.status = {};
   }
 
   /**

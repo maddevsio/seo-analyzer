@@ -15,11 +15,11 @@ function imgTagWithAltAttributeRule(dom) {
     });
 
     if (countSrc > 0) {
-      report.push(`There are ${countSrc} <img> tag without src attribute`);
+      report.push(`There are ${countSrc} <img> tags without a src attribute`);
     }
 
     if (countAlt > 0) {
-      report.push(`There are ${countAlt} <img> tag without alt attribute`);
+      report.push(`There are ${countAlt} <img> tags without an alt attribute`);
     }
 
     if (countSrc || countAlt) {

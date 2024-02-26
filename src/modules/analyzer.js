@@ -1,11 +1,14 @@
 import cliProgress from 'cli-progress';
 import _colors from 'colors';
 
+import Logger from './logger';
+
 class Analyzer {
   constructor() {
+    this.logger = new Logger();
     this.consoleProgressBar = new cliProgress.Bar({
       format:
-        'Ranning rules |' +
+        'Running rules |' +
         _colors.green('{bar}') +
         '| {percentage}% || {value}/{total} Rules',
       barCompleteChar: '\u2588',

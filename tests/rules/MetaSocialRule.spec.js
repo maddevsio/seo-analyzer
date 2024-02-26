@@ -26,7 +26,7 @@ test('if document not exists social meta tags, return array with errors', async 
     'twitter:url'
   ]};
   const result = await metaSocialRule(fakeDOM(), options);
-  t.deepEqual(result[0], 'This HTML without <meta property="og:url"> tag');
+  t.deepEqual(result[0], 'This HTML is missing a <meta property="og:url"> tag');
 });
 
 test('if document exists social meta tags but property is empty, return array with errors', async t => {

@@ -71,9 +71,9 @@ class Analyzer {
    */
   _logResult(result) {
     if (!result.some(r => r.report.length))
-      return this._logSuccess('\n👍 SEO defects were not detected.\n');
+      return this._logSuccess('\n👍  No SEO defects detected.\n');
 
-    this._logInfo('\n🚀  Report of errors');
+    this._logInfo('\n🚀  Issue report');
 
     for (const item of result) {
       this._logInfo(`\nFile: ${item.source.trim()}`);

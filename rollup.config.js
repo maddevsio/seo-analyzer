@@ -18,19 +18,19 @@ export default [
   {
     external,
     input,
-    output: { file: pkg.module, format: 'es', globals },
+    output: { file: pkg.module, format: 'es', globals, inlineDynamicImports: true },
     plugins: [terser()]
   },
   {
     external,
     input,
-    output: { file: pkg.main, format: 'umd', name, sourcemap: true, globals },
+    output: { file: pkg.main, format: 'umd', name, sourcemap: true, globals, inlineDynamicImports: true },
     plugins: [terser()]
   },
   {
     external,
     input,
-    output: { file: pkg.browser, format: 'umd', name, sourcemap: true, globals },
+    output: { file: pkg.browser, format: 'umd', name, sourcemap: true, globals, inlineDynamicImports: true },
     plugins: [terser()]
   }
 ];
