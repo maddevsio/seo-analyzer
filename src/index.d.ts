@@ -1,7 +1,7 @@
 export default SeoAnalyzer;
-export type AnalyzerResult = import('./modules/input').AnalyzerResult;
+export type AnalyzerResult = import('./modules/analyzer').AnalyzerResult;
 /**
- * @typedef {import('./modules/input').AnalyzerResult} AnalyzerResult
+ * @typedef {import('./modules/analyzer').AnalyzerResult} AnalyzerResult
  */
 declare class SeoAnalyzer {
     /**
@@ -114,7 +114,7 @@ declare class SeoAnalyzer {
      * Returns the object asynchronously
      * @returns {Promise<AnalyzerResult>}
      */
-    outputObjectAsync(): Promise<AnalyzerResult>;
+    outputObjectAsync(): Promise<import("./modules/analyzer").AnalyzerResult>;
 }
 import Logger from './modules/logger';
 import Input from './modules/input';

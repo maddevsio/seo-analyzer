@@ -7,7 +7,7 @@ import Logger from './modules/logger';
 import { startServer } from './server';
 
 /**
- * @typedef {import('./modules/input').AnalyzerResult} AnalyzerResult
+ * @typedef {import('./modules/analyzer').AnalyzerResult} AnalyzerResult
  */
 
 class SeoAnalyzer {
