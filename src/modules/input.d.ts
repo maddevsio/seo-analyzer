@@ -4,7 +4,8 @@ export type ListDom = Array<JSDOM>;
  * @typedef {Array<JSDOM>} ListDom
  */
 declare class Input {
-    logger: Logger;
+    constructor(logger: any);
+    logger: any;
     scraper: Scraper;
     consoleProgressBar: any;
     badType: string;
@@ -68,5 +69,4 @@ declare class Input {
     private getDom;
 }
 import { JSDOM } from 'jsdom';
-import Logger from './logger';
 import Scraper from './scraper';

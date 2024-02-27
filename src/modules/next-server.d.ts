@@ -1,6 +1,7 @@
 export default NextServer;
 declare class NextServer {
-    logger: Logger;
+    constructor(logger: any);
+    logger: any;
     _input: Input;
     app: {};
     handle: {};
@@ -21,5 +22,4 @@ declare class NextServer {
      */
     inputSSR(port: number, ignoreUrls: any[], sitemap: any): Promise<Promise.Array>;
 }
-import Logger from './logger';
 import Input from './input';

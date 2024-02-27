@@ -1,11 +1,17 @@
-export default Analyzer;
-declare class Analyzer {
+export default Logger;
+declare class Logger {
+    /**
+     * @param {string} level
+     * @returns {Logger}
+     */
+    constructor(level: string);
+    level: number;
     /**
      * Print formatted result to console
      * @param {Array} - Array of reports
      * @returns {Error} - Stop execution and print error
      */
-    result(result: any): Error;
+    result(result: any, force?: boolean): Error;
     /**
      * Print error message to console
      * @param {String} - Message
@@ -34,7 +40,7 @@ declare class Analyzer {
      * @param {Array} - Array of reports
      * @returns {Error} - Stop execution and print error
      * @private
-     * @memberof Analyzer
+     * @memberof Logger
      * @description Print result message to console
      */
     private _logResult;
@@ -42,7 +48,7 @@ declare class Analyzer {
      * @param {String} - Error object
      * @returns {String} - Stop execution and print error
      * @private
-     * @memberof Analyzer
+     * @memberof Logger
      * @description Print error message to console
      */
     private _logError;
@@ -50,7 +56,7 @@ declare class Analyzer {
      * @param {String} - Error object
      * @returns {String} - Stop execution and print error
      * @private
-     * @memberof Analyzer
+     * @memberof Logger
      * @description Print error message to console
      */
     private _logInfo;
@@ -58,7 +64,7 @@ declare class Analyzer {
      * @param {String} - Message
      * @returns {String} - Print formatted message to console
      * @private
-     * @memberof Analyzer
+     * @memberof Logger
      */
     private _logSuccess;
 }

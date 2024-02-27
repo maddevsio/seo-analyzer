@@ -3,9 +3,9 @@ import Logger from './logger';
 import Input from './input';
 
 class NextServer {
-  constructor() {
-    this.logger = new Logger();
-    this._input = new Input();
+  constructor(logger) {
+    this.logger = logger ?? new Logger();
+    this._input = new Input(logger);
     this.app = {};
     this.handle = {};
     this.status = {};

@@ -11,10 +11,10 @@ import Scraper from './scraper';
  */
 
 class Input {
-  constructor() {
-    this.logger = new Logger();
-    this.scraper = new Scraper();
-    this.consoleProgressBar = new cliProgress.Bar({
+  constructor(logger) {
+    this.logger = logger ?? new Logger();
+    this.scraper = new Scraper(this.logger);
+    this.consoleProgressBar = this.logger.level <= 4 && new cliProgress.Bar({
       format:
         'Processing... |' +
         _colors.green('{bar}') +
@@ -76,7 +76,7 @@ class Input {
     this.logger.info('🚀  Parsing folders\n');
 
     // Start the progress bar
-    this.consoleProgressBar.start(folders.length, 0);
+    this.logger.level <= 4 && this.consoleProgressBar.start(folders.length, 0);
     this.ignoreFolders = ignoreFolders;
     this.ignoreFiles = ignoreFiles;
 
@@ -110,13 +110,13 @@ class Input {
       const result = await this._getFilesFromFolder(folder);
 
       // Update the progress bar
-      this.consoleProgressBar.increment();
+      this.logger.level <= 4 && this.consoleProgressBar.increment();
 
       files.push(...result);
     }
 
     // Stop the progress bar
-    this.consoleProgressBar.stop();
+    this.logger.level <= 4 && this.consoleProgressBar.stop();
 
     if (!files.length) this.logger.error('\n❌  No files found.\n', true);
 
@@ -165,7 +165,7 @@ class Input {
    */
   _getHtml(files) {
     const listTexts = [];
-    const proccess = new cliProgress.Bar({
+    const proccess = this.logger.level <= 4 && new cliProgress.Bar({
       format:
         'Processing... |' +
         _colors.green('{bar}') +
@@ -176,20 +176,20 @@ class Input {
     });
 
     // Start the progress bar
-    proccess.start(files.length, 0);
+    this.logger.level <= 4 && proccess.start(files.length, 0);
 
     files.forEach(file => {
       if (this.ignoreFiles.includes(file)) return;
       try {
         const text = fs.readFileSync(file, 'utf8');
         listTexts.push({ source: file, text });
-        proccess.increment();
+        this.logger.level <= 4 && proccess.increment();
       } catch (error) {
-        proccess.increment();
+        this.logger.level <= 4 && proccess.increment();
         this.logger.error(`\n\nFile "${file}" not found\n`);
       }
     });
-    proccess.stop();
+    this.logger.level <= 4 && proccess.stop();
     if (!listTexts.length) this.logger.error('\n❌  No files found.\n', true);
     return listTexts;
   }
@@ -202,7 +202,7 @@ class Input {
    */
   getDom(list) {
     const doms = [];
-    const proccess = new cliProgress.Bar({
+    const proccess = this.logger.level <= 4 && new cliProgress.Bar({
       format:
         'Handling html |' +
         _colors.green('{bar}') +
@@ -212,17 +212,16 @@ class Input {
       hideCursor: true
     });
     this.logger.info('\n🚀  Getting DOM from HTML\n');
-    proccess.start(list.length, 0);
+    this.logger.level <= 4 && proccess.start(list.length, 0);
     // NOTE: https://github.com/jsdom/jsdom/issues/2177#issuecomment-379212964
     const virtualConsole = new VirtualConsole();
     list.forEach(item => {
       let dom = new JSDOM(item.text, { virtualConsole });
       doms.push({ source: item.source, dom });
-      proccess.increment();
+      this.logger.level <= 4 && proccess.increment();
     });
 
-    proccess.stop();
-    console.log(doms);
+    this.logger.level <= 4 && proccess.stop();
     return doms;
   }
 }

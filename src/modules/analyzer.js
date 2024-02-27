@@ -9,9 +9,9 @@ import Logger from './logger';
  */
 
 class Analyzer {
-  constructor() {
-    this.logger = new Logger();
-    this.consoleProgressBar = new cliProgress.Bar({
+  constructor(logger) {
+    this.logger = logger ?? new Logger();
+    this.consoleProgressBar = this.logger.level <= 4 && new cliProgress.Bar({
       format:
         'Running rules |' +
         _colors.green('{bar}') +
@@ -51,7 +51,7 @@ class Analyzer {
   async _startAnalyzer(dataList, rules) {
     const result = [];
     for (const item of dataList) {
-      console.log(
+      this.logger.info(
         `\n${_colors.blue('==>')} Analysis ${_colors.white(item.source)}`
       );
 
@@ -77,7 +77,7 @@ class Analyzer {
   async _analyzeDOM(dom, rules) {
     const result = [];
     // Start the progress bar
-    this.consoleProgressBar.start(rules.length, 0);
+    this.logger.level <= 4 && this.consoleProgressBar.start(rules.length, 0);
 
     for (const item of rules) {
       let report = null;
@@ -95,11 +95,11 @@ class Analyzer {
       }
 
       // Update the progress bar
-      this.consoleProgressBar.increment();
+      this.logger.level <= 4 && this.consoleProgressBar.increment();
     }
 
     // Stop the progress bar
-    this.consoleProgressBar.stop();
+    this.logger.level <= 4 && this.consoleProgressBar.stop();
 
     return result;
   }

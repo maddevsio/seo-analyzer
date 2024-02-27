@@ -4,6 +4,14 @@ export type AnalyzerResult = import('./modules/input').AnalyzerResult;
  * @typedef {import('./modules/input').AnalyzerResult} AnalyzerResult
  */
 declare class SeoAnalyzer {
+    /**
+     * @param {object} options - The options object.
+     * @param {boolean} [options.verbose=true] - A flag indicating whether verbose mode is enabled.
+     * @returns {SeoAnalyzer}
+     */
+    constructor({ verbose }: {
+        verbose?: boolean;
+    });
     _logger: Logger;
     _input: Input;
     _output: Output;
@@ -86,7 +94,7 @@ declare class SeoAnalyzer {
      */
     outputConsole(): SeoAnalyzer;
     /**
-     * Logs JSON object to console asynchronously and returns itself
+     * Returns itself and calls a callback on the output's json string
      * @param {function(string): void}
      * @returns {SeoAnalyzer}
      */
@@ -97,7 +105,7 @@ declare class SeoAnalyzer {
      */
     outputJsonAsync(): Promise<string>;
     /**
-     * Logs JSON object to console asynchronously and returns itself
+     * Returns itself and calls a callback on the output's object
      * @param {function(AnalyzerResult): void}
      * @returns {SeoAnalyzer}
      */

@@ -1,13 +1,26 @@
 import CFonts from 'cfonts';
 import _colors from 'colors';
 
-class Analyzer {
+class Logger {
+
+  /**
+   * @param {string} level
+   * @returns {Logger}
+   */
+  constructor(level) {
+    const levels = ['trace', 'debug', 'info', 'result', 'success', 'error'];
+    this.level = level === 'default' ? 2 : levels.indexOf(level);
+  }
+
   /**
    * Print formatted result to console
    * @param {Array} - Array of reports
    * @returns {Error} - Stop execution and print error
    */
-  result(result) {
+  result(result, force = false) {
+    if (this.level > 3 && !force) {
+      return;
+    } 
     this._logResult(result);
   }
 
@@ -17,6 +30,9 @@ class Analyzer {
    * @returns {String} - Print formatted message to console
    */
   error(error, exit) {
+    if (this.level > 5) {
+      return;
+    } 
     this._logError(error);
     if (exit) process.exit(1);
   }
@@ -27,6 +43,9 @@ class Analyzer {
    * @returns {String} - Print formatted message to console
    */
   success(success) {
+    if (this.level > 4) {
+      return;
+    } 
     this._logSuccess(success);
   }
 
@@ -36,6 +55,9 @@ class Analyzer {
    * @returns {String} - Print formatted message to console
    */
   info(info) {
+    if (this.level > 2) {
+      return;
+    } 
     this._logInfo(info);
   }
 
@@ -45,6 +67,9 @@ class Analyzer {
    * @returns {String} - Print CFonts message to console
    */
   printTextToConsole(text) {
+    if (this.level > 2) {
+      return;
+    } 
     const formattedText = text.replace(' ', '|');
     CFonts.say(formattedText, {
       font: 'block', // define the font face
@@ -66,7 +91,7 @@ class Analyzer {
    * @param {Array} - Array of reports
    * @returns {Error} - Stop execution and print error
    * @private
-   * @memberof Analyzer
+   * @memberof Logger
    * @description Print result message to console
    */
   _logResult(result) {
@@ -91,7 +116,7 @@ class Analyzer {
    * @param {String} - Error object
    * @returns {String} - Stop execution and print error
    * @private
-   * @memberof Analyzer
+   * @memberof Logger
    * @description Print error message to console
    */
   _logError(error) {
@@ -102,7 +127,7 @@ class Analyzer {
    * @param {String} - Error object
    * @returns {String} - Stop execution and print error
    * @private
-   * @memberof Analyzer
+   * @memberof Logger
    * @description Print error message to console
    */
   _logInfo(info) {
@@ -113,11 +138,11 @@ class Analyzer {
    * @param {String} - Message
    * @returns {String} - Print formatted message to console
    * @private
-   * @memberof Analyzer
+   * @memberof Logger
    */
   _logSuccess(success) {
     console.log(`${_colors.green(success)}`);
   }
 }
 
-export default Analyzer;
+export default Logger;

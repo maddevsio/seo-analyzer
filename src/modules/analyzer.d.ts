@@ -11,7 +11,8 @@ export type AnalyzerResult = Array<{
  * @typedef {Array<{file: string, report: string}>} AnalyzerResult
  */
 declare class Analyzer {
-    logger: Logger;
+    constructor(logger: any);
+    logger: any;
     consoleProgressBar: any;
     badType: string;
     emptyList: string;
@@ -36,4 +37,3 @@ declare class Analyzer {
      */
     _analyzeDOM(dom: any, rules: any): Array<string>;
 }
-import Logger from './logger';

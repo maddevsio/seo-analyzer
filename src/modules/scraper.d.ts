@@ -1,7 +1,8 @@
 export default Scanner;
 declare class Scanner {
+    constructor(logger: any);
+    logger: any;
     consoleProgressBar: any;
-    logger: Logger;
     inputUrl: string;
     ignoreUrls: string;
     /**
@@ -36,4 +37,3 @@ declare class Scanner {
      */
     _getHtmlDomFromLinks(links: any[]): any[];
 }
-import Logger from './logger';

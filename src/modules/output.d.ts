@@ -1,5 +1,6 @@
 export default Output;
 declare class Output {
+    constructor(logger: any);
     analyzer: Analyzer;
     /**
      * @param {Array} data - List of files and folders

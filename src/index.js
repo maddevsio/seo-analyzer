@@ -12,12 +12,14 @@ import { startServer } from './server';
 
 class SeoAnalyzer {
   /**
+   * @param {object} options - The options object.
+   * @param {boolean} [options.verbose=true] - A flag indicating whether verbose mode is enabled.
    * @returns {SeoAnalyzer}
    */
-  constructor() {
-    this._logger = new Logger();
-    this._input = new Input();
-    this._output = new Output();
+  constructor({ verbose = true }) {
+    this._logger = new Logger(verbose ? 'default' : 'error');
+    this._input = new Input(this._logger);
+    this._output = new Output(this._logger);
     this._nextServer = null;
     this._inputData = [];
     this._defaultRules = defaultRules;
@@ -112,7 +114,7 @@ class SeoAnalyzer {
     if (!this._inputData) return this;
     if (!this._nextServer) {
       const { default: NextServer }  = await import('./modules/next-server');
-      this._nextServer = new NextServer();
+      this._nextServer = new NextServer(this._logger);
       await this._nextServer.setup();
     }
     this._logger.printTextToConsole('SEO Analyzer');
@@ -168,13 +170,13 @@ class SeoAnalyzer {
   outputConsole() {
     (async () => {
       const json = await this._output.object(this._inputData, this._rules);
-      this._logger.result(json);
+      this._logger.result(json, true);
     })();
     return this;
   }
 
   /**
-   * Logs JSON object to console asynchronously and returns itself
+   * Returns itself and calls a callback on the output's json string
    * @param {function(string): void}
    * @returns {SeoAnalyzer}
    */
@@ -195,7 +197,7 @@ class SeoAnalyzer {
   }
 
   /**
-   * Logs JSON object to console asynchronously and returns itself
+   * Returns itself and calls a callback on the output's object
    * @param {function(AnalyzerResult): void}
    * @returns {SeoAnalyzer}
    */  

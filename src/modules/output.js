@@ -1,8 +1,8 @@
 import Analyzer from './analyzer';
 
 class Output {
-  constructor() {
-    this.analyzer = new Analyzer();
+  constructor(logger) {
+    this.analyzer = new Analyzer(logger);
   }
 
   /**
