@@ -3,6 +3,11 @@ import _colors from 'colors';
 
 import Logger from './logger';
 
+/**
+ * Results returned by analyzer
+ * @typedef {Array<{file: string, report: string}>} AnalyzerResult
+ */
+
 class Analyzer {
   constructor() {
     this.logger = new Logger();
@@ -25,7 +30,7 @@ class Analyzer {
    * Run analyzer for a list of doms
    * @param {JSDOM<array>} doms - The html dom list to run the rule on
    * @param {Array} rules - The rules to run
-   * @returns {Array} - Array of error result [{ file, report }, { file, report }, { file, report }]
+   * @returns {AnalyzerResult} - Array of error result [{ file, report }, { file, report }, { file, report }]
    */
   async run(inputData, rules) {
     if (inputData.length === 0) {
@@ -41,7 +46,7 @@ class Analyzer {
   /**
    * @param {Array} dataList - html doms
    * @param {Array} rules - List rulers
-   * @returns {Array} - Array of reports [{file, report}, {file, report}, {file, report}]
+   * @returns {AnalyzerResult} - Array of reports [{file, report}, {file, report}, {file, report}]
    */
   async _startAnalyzer(dataList, rules) {
     const result = [];
@@ -67,7 +72,7 @@ class Analyzer {
    * Run analyzer for a single dom
    * @param {*} dom - The html dom element to run the rule on
    * @param {*} rules - The rules to run
-   * @returns {Array} - Array of error result ['error', 'error', 'error']
+   * @returns {Array<string>} - Array of error result ['error', 'error', 'error']
    */
   async _analyzeDOM(dom, rules) {
     const result = [];

@@ -1,5 +1,6 @@
-import { terser } from 'rollup-plugin-terser';
-import pkg from './package.json';
+import terser from '@rollup/plugin-terser';
+import pkg from './package.json' assert { type: "json" };
+import { dts } from "rollup-plugin-dts";
 
 const name = 'seo-analyzer';
 const input = 'src/index.js';
@@ -32,5 +33,10 @@ export default [
     input,
     output: { file: pkg.browser, format: 'umd', name, sourcemap: true, globals, inlineDynamicImports: true },
     plugins: [terser()]
-  }
+  },
+  {
+    input: "./src/index.d.ts",
+    output: [{ file: "dist/seo-analyzer.d.ts", format: "es" }],
+    plugins: [dts()],
+  },
 ];

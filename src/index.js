@@ -6,7 +6,14 @@ import Logger from './modules/logger';
 
 import { startServer } from './server';
 
+/**
+ * @typedef {import('./modules/input').AnalyzerResult} AnalyzerResult
+ */
+
 class SeoAnalyzer {
+  /**
+   * @returns {SeoAnalyzer}
+   */
   constructor() {
     this._logger = new Logger();
     this._input = new Input();
@@ -22,22 +29,42 @@ class SeoAnalyzer {
   }
 
   // --------- Ignore methods --------- //
+  /**
+   * List of files to ignore.
+   * @param {Array<string>} files 
+   * @returns {SeoAnalyzer}
+   */
   ignoreFiles(files) {
     this._ignoreFiles = files;
     return this;
   }
 
+  /**
+   * List of directories to ignore.
+   * @param {Array<string>} folders 
+   * @returns {SeoAnalyzer}
+   */
   ignoreFolders(folders) {
     this._ignoreFolders = folders;
     return this;
   }
 
+  /**
+   * List of urls to be ignored
+   * @param {Array<string>} urls to be ignored 
+   * @returns {SeoAnalyzer}
+   */
   ignoreUrls(urls) {
     this._ignoreUrls = urls;
     return this;
   }
 
   // ------- Input methods ------- //
+  /**
+   * Files to analyze
+   * @param {Array<string>} files 
+   * @returns {Promise<SeoAnalyzer>}
+   */
   async inputFiles(files) {
     if (this._inputData.length !== 0) return this;
     this._logger.printTextToConsole('SEO Analyzer');
@@ -45,6 +72,11 @@ class SeoAnalyzer {
     return this;
   }
 
+  /**
+   * Directories to analyze
+   * @param {Array<string>} folders 
+   * @returns {Promise<SeoAnalyzer>}
+   */
   async inputFolders(folders) {
     if (this._inputData.length !== 0) return this;
     this._logger.printTextToConsole('SEO Analyzer');
@@ -56,6 +88,11 @@ class SeoAnalyzer {
     return this;
   }
 
+  /**
+   * Spa folder to analyze
+   * @param {Array<string>} folder 
+   * @returns {Promise<SeoAnalyzer>}
+   */
   async inputSpaFolder(folder, sitemap='sitemap.xml', port = 9999) {
     if (!this._inputData) return this;
     this._logger.printTextToConsole('SEO Analyzer');
@@ -65,7 +102,13 @@ class SeoAnalyzer {
     return this;
   }
 
-  async inputNextJs(sitemap='sitemap.xml', port = 3000) {
+  /**
+   * Scan Next server
+   * @param {string} sitemap Path to sitemap in xml format
+   * @param {number} port Port Next server listens on
+   * @returns {Promise<SeoAnalyzer>}
+   */
+  async inputNextJs(sitemap = 'sitemap.xml', port = 3000) {
     if (!this._inputData) return this;
     if (!this._nextServer) {
       const { default: NextServer }  = await import('./modules/next-server');
@@ -78,7 +121,7 @@ class SeoAnalyzer {
   }
 
   /**
-   * Input plain HTML strings in {text, source} format
+   * Input plain HTML strings in {text, source} format to analyze
    * @param {Array<{text: string, source: string}>} inputHTMLs `text` is the plain html, `source` is an identifier such a URI
    * @returns {SeoAnalyzer}
    */
@@ -96,15 +139,21 @@ class SeoAnalyzer {
   }
 
   // --------- Add Rule --------- //
-  addRule(func, options = {}) {
+  /**
+   * Adds a rule to the SEO analyzer.
+   * @param {string|Function} rule The default rule or a custom rule function.
+   * @param {object} [options={}] Additional options for the rule.
+   * @returns {this} The SEO analyzer instance for method chaining.
+   */
+  addRule(rule, options = {}) {
     if (typeof func === 'string') {
-      if (func in defaultRules) {
-        this._rules.push({ rule: defaultRules[func], options });
+      if (rule in defaultRules) {
+        this._rules.push({ rule: defaultRules[rule], options });
       } else {
-        this._logger.error(`\n\n❌  Rule "${func}" not found\n`, 1);
+        this._logger.error(`\n\n❌  Rule "${rule}" not found\n`, 1);
       }
     } else if (typeof func === 'function') {
-      this._rules.push({ rule: func, options });
+      this._rules.push({ rule, options });
     } else {
       this._logger.error('\n\n❌  Rule must be a function or a string\n', 1);
     }
@@ -112,6 +161,10 @@ class SeoAnalyzer {
   }
 
   // ------- Output methods ------- //
+  /**
+   * Logs object to console asynchronously and returns itself
+   * @returns {SeoAnalyzer}
+   */
   outputConsole() {
     (async () => {
       const json = await this._output.object(this._inputData, this._rules);
@@ -120,6 +173,11 @@ class SeoAnalyzer {
     return this;
   }
 
+  /**
+   * Logs JSON object to console asynchronously and returns itself
+   * @param {function(string): void}
+   * @returns {SeoAnalyzer}
+   */
   outputJson(callback) {
     (async () => {
       const json = await this._output.json(this._inputData, this._rules);
@@ -128,10 +186,19 @@ class SeoAnalyzer {
     return this;
   }
 
+  /**
+   * Returns the JSON output asynchronously
+   * @returns {Promise<string>}
+   */
   async outputJsonAsync() {
     return this._output.json(this._inputData, this._rules);
   }
 
+  /**
+   * Logs JSON object to console asynchronously and returns itself
+   * @param {function(AnalyzerResult): void}
+   * @returns {SeoAnalyzer}
+   */  
   outputObject(callback) {
     (async () => {
       const obj = await this._output.object(this._inputData, this._rules);
@@ -140,6 +207,10 @@ class SeoAnalyzer {
     return this;
   }
 
+  /**
+   * Returns the object asynchronously
+   * @returns {Promise<AnalyzerResult>}
+   */
   async outputObjectAsync() {
     return this._output.object(this._inputData, this._rules);
   }
