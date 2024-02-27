@@ -15,7 +15,7 @@ test('if img tag without alt attribute, return "There are 2 <img> tag without al
     { tagName: 'img', src: '/' }
   ];
   const result = await imgTagWithAltAttributeRule(fakeDOM(images));
-  t.deepEqual(result, ['There are 2 <img> tag without alt attribute']);
+  t.deepEqual(result, ['There are 2 <img> tags without an alt attribute']);
 });
 
 test('if img tag without src and alt attribute', async t => {
@@ -23,8 +23,8 @@ test('if img tag without src and alt attribute', async t => {
     { tagName: 'img' }
   ];
   const report = [
-    'There are 1 <img> tag without src attribute',
-    'There are 1 <img> tag without alt attribute'
+    'There are 1 <img> tags without a src attribute',
+    'There are 1 <img> tags without an alt attribute'
   ];
   const result = await imgTagWithAltAttributeRule(fakeDOM(images));
   t.deepEqual(result, report);

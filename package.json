@@ -1,10 +1,12 @@
 {
   "name": "seo-analyzer",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A library for analyze a HTML files to show all of the SEO defects",
   "main": "dist/seo-analyzer.js",
   "module": "dist/seo-analyzer.mjs",
   "browser": "dist/seo-analyzer.min.js",
+  "types": "dist/seo-analyzer.d.ts",
+  "type": "module",
   "repository": "https://github.com/maddevsio/seo-analyzer",
   "homepage": "https://github.com/maddevsio/seo-analyzer",
   "bugs": "https://github.com/maddevsio/seo-analyzer/issues",
@@ -17,6 +19,10 @@
       "name": "Roman Zheltukhin",
       "email": "kaktysuwe@gmail.com",
       "url": "https://www.linkedin.com/in/oh-roman"
+    },
+    {
+      "name": "Kristján Andri Gunnarsson",
+      "email": "kristjanandri.gunnarsson@travelshift.com"
     }
   ],
   "engines": {
@@ -43,6 +49,7 @@
     "format": "Format files"
   },
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "ava": "^3.15.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -52,10 +59,14 @@
     "nyc": "^15.1.0",
     "prettier": "^2.4.1",
     "rimraf": "^3.0.0",
-    "rollup": "^2.45.2",
-    "rollup-plugin-terser": "^5.3.1"
+    "rollup": "^3.29.4",
+    "rollup-plugin-dts": "^6.1.0",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@types/jsdom": "^21.1.6",
+    "@types/react": "^18.2.60",
+    "@types/react-dom": "^18.2.19",
     "axios": "^0.21.4",
     "cfonts": "^2.10.0",
     "cli-progress": "^3.9.1",
@@ -63,9 +74,11 @@
     "express": "^4.17.1",
     "i": "^0.3.7",
     "jsdom": "^16.5.3",
-    "next": "^12.0.7",
     "sinon": "^11.1.2",
     "sitemap-stream-parser": "^1.7.0"
+  },
+  "optionalDependencies": {
+    "next": "^12.0.7"
   },
   "keywords": [
     "es5",

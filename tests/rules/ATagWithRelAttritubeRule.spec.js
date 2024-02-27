@@ -15,7 +15,7 @@ test('if a tag without rel attribute, return "There are 2 <a> tag without rel at
     { tagName: 'a' }
   ];
   const result = await ATagWithRelAttributeRule(fakeDOM(links));
-  t.is(result, 'There are 2 <a> tag without rel attribute');
+  t.is(result, 'There are 2 <a> tags without a rel attribute');
 });
 
 test('if a tags exists rel attribute, return "null"', async t => {

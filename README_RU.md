@@ -275,30 +275,27 @@ function customRule(dom) {
 ==> Analysis example/index.html
 Handling files by rules |████████████████████████████████████████| 100% || 11/11 Rules
 
-🚀  Report of errors
+🚀  Issue report
 
 File: example/index.html
 <title> too short(1). The minimum length should be 10 characters.
-This HTML have more than 2 <strong> tags
-This HTML without <meta property="og:url"> tag
-This HTML without <meta property="og:type"> tag
-This HTML without <meta property="og:site_name"> tag
-This HTML without <meta property="og:title"> tag
-This HTML without <meta property="og:description"> tag
-This HTML without <meta property="og:image"> tag
-This HTML without <meta property="og:image:width"> tag
-This HTML without <meta property="og:image:height"> tag
-This HTML without <meta property="twitter:card"> tag
-This HTML without <meta property="twitter:text:title"> tag
-This HTML without <meta property="twitter:description"> tag
-This HTML without <meta property="twitter:image:src"> tag
-This HTML without <meta property="twitter:url"> tag
-Tag <h3>Title 3</h3> should be </h2>
-This HTML have more than one <h1> tag
-There are 1 <img> tag without alt attribute
-This HTML without <meta name="keywords"> tag
-There are 1 <a> tag without rel attribute
-The canonical link without href attribute
+This HTML is missing a <meta property="og:url"> tag
+This HTML is missing a <meta property="og:type"> tag
+This HTML is missing a <meta property="og:site_name"> tag
+This HTML is missing a <meta property="og:title"> tag
+This HTML is missing a <meta property="og:description"> tag
+This HTML is missing a <meta property="og:image"> tag
+This HTML is missing a <meta property="og:image:width"> tag
+This HTML is missing a <meta property="og:image:height"> tag
+This HTML is missing a <meta property="twitter:card"> tag
+This HTML is missing a <meta property="twitter:text:title"> tag
+This HTML is missing a <meta property="twitter:description"> tag
+This HTML is missing a <meta property="twitter:image:src"> tag
+This HTML is missing a <meta property="twitter:url"> tag
+There are 1 <img> tags without an alt attribute
+This HTML is missing a <meta name="keywords"> tag
+There are 1 <a> tags without a rel attribute
+The canonical link is missing an href attribute
 
 -------- 🚀 Finished! --------
 Thanks for using Seo Analyzer!

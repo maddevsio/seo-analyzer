@@ -6,6 +6,10 @@ import _colors from 'colors';
 import Logger from './logger';
 import Scraper from './scraper';
 
+/**
+ * @typedef {Array<JSDOM>} ListDom 
+ */
+
 class Input {
   constructor() {
     this.logger = new Logger();
@@ -29,9 +33,9 @@ class Input {
 
   /**
    * Get the html from files
-   * @param {Array} files [<string>, <string>, ...]
+   * @param {Array<string>} files [<string>, <string>, ...]
    * @param ignoreFiles
-   * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
+   * @returns {Promise<ListDom>} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @memberof Input
    */
   async files(files = [], ignoreFiles = []) {
@@ -50,16 +54,16 @@ class Input {
     }
     this.ignoreFiles = ignoreFiles;
     const listTexts = await this._getHtml(files);
-    const listDOM = await this._getDom(listTexts);
+    const listDOM = await this.getDom(listTexts);
     return listDOM;
   }
 
   /**
    * Get the html from files in folders
-   * @param {string} folders [<string>, <string>, ...]
+   * @param {Array<string>} folders [<string>, <string>, ...]
    * @param ignoreFolders
    * @param ignoreFiles
-   * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
+   * @returns {Promise<ListDom>} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @memberof Input
    */
   async folders(folders = [], ignoreFolders = [], ignoreFiles = []) {
@@ -83,20 +87,20 @@ class Input {
 
   /**
    * Get the DOM from urls
-   * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
+   * @returns {Promise<ListDom>} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @param port
    * @param ignoreUrls
    */
   async spa(port, ignoreUrls = [], sitemap) {
     const listTexts = await this.scraper.run(port, ignoreUrls, sitemap);
-    const htmlDoms = await this._getDom(listTexts);
+    const htmlDoms = await this.getDom(listTexts);
     return htmlDoms;
   }
 
   /**
    * Get all files from folders
-   * @param {Array} folders [<string>, <string>, ...]
-   * @returns {Promise.Array} [<string>, <string>, ...]
+   * @param {Array<string>} folders [<string>, <string>, ...]
+   * @returns {Promise<Array<string>>} [<string>, <string>, ...]
    * @private
    * @example ['html', 'dist', 'src']
    */
@@ -122,11 +126,11 @@ class Input {
   /**
    * Get files from folder
    * @param {string} folder
-   * @returns {Promise.Array} [<string>, <string>, ...]
+   * @returns {Promise<Array<string>>} [<string>, <string>, ...]
    * @private
    * @memberof Input
    */
-  _getFilesFromFolder(folder = []) {
+  _getFilesFromFolder(folder = '') {
     try {
       const entryPaths = fs
         .readdirSync(folder)
@@ -154,8 +158,8 @@ class Input {
 
   /**
    * Get the html from file
-   * @param {*} files [<string>, <string>, ...]
-   * @returns {Promise.Array} ['<html><body>...</body></html>', '<html><body>...</body></html>', ...]
+   * @param {Array<string>} files [<string>, <string>, ...]
+   * @returns {Promise<Array<string>>} ['<html><body>...</body></html>', '<html><body>...</body></html>', ...]
    * @private
    * @memberof Input
    */
@@ -192,11 +196,11 @@ class Input {
 
   /**
    * Transform html to DOM
-   * @param {Array} list [<string>, <string>, ...]
-   * @returns {Promise.Array} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
+   * @param {Array<{text: string, source: string}>} list [{text: <string>, source: <string>}, {text: <string>, source: <string>}, ...]
+   * @returns {Promise<ListDom>} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @private
    */
-  _getDom(list) {
+  getDom(list) {
     const doms = [];
     const proccess = new cliProgress.Bar({
       format:
@@ -207,7 +211,7 @@ class Input {
       barIncompleteChar: '\u2591',
       hideCursor: true
     });
-    this.logger.info('\n🚀  Get DOM from HTML\n');
+    this.logger.info('\n🚀  Getting DOM from HTML\n');
     proccess.start(list.length, 0);
     // NOTE: https://github.com/jsdom/jsdom/issues/2177#issuecomment-379212964
     const virtualConsole = new VirtualConsole();
@@ -218,6 +222,7 @@ class Input {
     });
 
     proccess.stop();
+    console.log(doms);
     return doms;
   }
 }
