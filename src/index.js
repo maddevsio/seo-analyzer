@@ -146,13 +146,13 @@ class SeoAnalyzer {
    * @returns {this} The SEO analyzer instance for method chaining.
    */
   addRule(rule, options = {}) {
-    if (typeof func === 'string') {
+    if (typeof rule === 'string') {
       if (rule in defaultRules) {
         this._rules.push({ rule: defaultRules[rule], options });
       } else {
         this._logger.error(`\n\n❌  Rule "${rule}" not found\n`, 1);
       }
-    } else if (typeof func === 'function') {
+    } else if (typeof rule === 'function') {
       this._rules.push({ rule, options });
     } else {
       this._logger.error('\n\n❌  Rule must be a function or a string\n', 1);
