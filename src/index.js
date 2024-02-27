@@ -84,6 +84,12 @@ class SeoAnalyzer {
    */
   inputHTMLStrings(inputHTMLs) {
     if (this._inputData.length !== 0) return this;
+    if (!inputHTMLs || !inputHTMLs.length 
+      || inputHTMLs.some(html => typeof html.text === 'undefined' || typeof html.source === 'undefined')) {
+      const error = `Invalid input ${inputHTMLs}`;
+      this._logger.error(error);
+      throw error;
+    }
     this._logger.printTextToConsole('SEO Analyzer');
     this._inputData = this._input.getDom(inputHTMLs);
     return this;
