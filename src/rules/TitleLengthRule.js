@@ -3,7 +3,7 @@ function titleLengthRule(dom, options) {
     const document = dom.window.document;
     const title = document.querySelector('title');
     if (!title) {
-      resolve('This HTML without <title> tag');
+      resolve('This HTML is missing a <title> tag');
     }
     // If title exists in the DOM
     const titleLength = title.length;

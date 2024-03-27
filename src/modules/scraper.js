@@ -5,8 +5,9 @@ import _colors from 'colors';
 import Logger from './logger';
 
 class Scanner {
-  constructor() {
-    this.consoleProgressBar = new cliProgress.Bar({
+  constructor(logger) {
+    this.logger = logger ?? new Logger();
+    this.consoleProgressBar = this.logger.level <= 4 && new cliProgress.Bar({
       format:
         'Processing... |' +
         _colors.green('{bar}') +
@@ -15,7 +16,6 @@ class Scanner {
       barIncompleteChar: '\u2591',
       hideCursor: true
     });
-    this.logger = new Logger();
     this.inputUrl = '';
     this.ignoreUrls = '';
   }
@@ -99,7 +99,7 @@ class Scanner {
     this.logger.info('🚀  Parsing HTML\n');
 
     // Start the progress bar
-    this.consoleProgressBar.start(links.length, 0);
+    this.logger.level <= 4 && this.consoleProgressBar.start(links.length, 0);
 
     for (const link of links) {
       promises.push(
@@ -113,15 +113,15 @@ class Scanner {
           .catch(error => {
             const err =
               (error && error.response && error.response.status) || 500;
-            console.log(`Error: ${error} - ${link}`);
-            console.log(
+            this.logger.error(`Error: ${error} - ${link}`);
+            this.logger.error(
               `\n${_colors.yellow('==>')} ${_colors.white(link)} ${_colors.red(
                 err
               )}`
             );
           })
           .finally(() => {
-            this.consoleProgressBar.increment();
+            this.logger.level <= 4 && this.consoleProgressBar.increment();
           })
       );
       await this.sleep(500);
@@ -129,7 +129,7 @@ class Scanner {
 
     return Promise.all(promises).then(() => {
       // // Stop the progress bar
-      this.consoleProgressBar.stop();
+      this.logger.level <= 4 && this.consoleProgressBar.stop();
       return htmlDoms;
     });
   }

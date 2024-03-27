@@ -1,11 +1,19 @@
 import cliProgress from 'cli-progress';
 import _colors from 'colors';
 
+import Logger from './logger';
+
+/**
+ * Results returned by analyzer
+ * @typedef {Array<{source: string, report: string}>} AnalyzerResult
+ */
+
 class Analyzer {
-  constructor() {
-    this.consoleProgressBar = new cliProgress.Bar({
+  constructor(logger) {
+    this.logger = logger ?? new Logger();
+    this.consoleProgressBar = this.logger.level <= 4 && new cliProgress.Bar({
       format:
-        'Ranning rules |' +
+        'Running rules |' +
         _colors.green('{bar}') +
         '| {percentage}% || {value}/{total} Rules',
       barCompleteChar: '\u2588',
@@ -22,7 +30,7 @@ class Analyzer {
    * Run analyzer for a list of doms
    * @param {JSDOM<array>} doms - The html dom list to run the rule on
    * @param {Array} rules - The rules to run
-   * @returns {Array} - Array of error result [{ file, report }, { file, report }, { file, report }]
+   * @returns {AnalyzerResult} - Array of error result [{ source, report }, { source, report }, { source, report }]
    */
   async run(inputData, rules) {
     if (inputData.length === 0) {
@@ -38,12 +46,12 @@ class Analyzer {
   /**
    * @param {Array} dataList - html doms
    * @param {Array} rules - List rulers
-   * @returns {Array} - Array of reports [{file, report}, {file, report}, {file, report}]
+   * @returns {AnalyzerResult} - Array of reports [{source, report}, {source, report}, {source, report}]
    */
   async _startAnalyzer(dataList, rules) {
     const result = [];
     for (const item of dataList) {
-      console.log(
+      this.logger.info(
         `\n${_colors.blue('==>')} Analysis ${_colors.white(item.source)}`
       );
 
@@ -64,12 +72,12 @@ class Analyzer {
    * Run analyzer for a single dom
    * @param {*} dom - The html dom element to run the rule on
    * @param {*} rules - The rules to run
-   * @returns {Array} - Array of error result ['error', 'error', 'error']
+   * @returns {Array<string>} - Array of error result ['error', 'error', 'error']
    */
   async _analyzeDOM(dom, rules) {
     const result = [];
     // Start the progress bar
-    this.consoleProgressBar.start(rules.length, 0);
+    this.logger.level <= 4 && this.consoleProgressBar.start(rules.length, 0);
 
     for (const item of rules) {
       let report = null;
@@ -87,11 +95,11 @@ class Analyzer {
       }
 
       // Update the progress bar
-      this.consoleProgressBar.increment();
+      this.logger.level <= 4 && this.consoleProgressBar.increment();
     }
 
     // Stop the progress bar
-    this.consoleProgressBar.stop();
+    this.logger.level <= 4 && this.consoleProgressBar.stop();
 
     return result;
   }

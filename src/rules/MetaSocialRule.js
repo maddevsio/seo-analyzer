@@ -7,7 +7,7 @@ function metaSocialRule(dom, options = { properties: [] }) {
           `head > meta[property="${property}"]`
         );
         if (!element) {
-          report.push(`This HTML without <meta property="${property}"> tag`);
+          report.push(`This HTML is missing a <meta property="${property}"> tag`);
         } else if (!element.content) {
           report.push(
             `The content attribute for the <meta property="${property}" content=""> tag is empty`

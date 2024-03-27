@@ -9,10 +9,10 @@ const fakeDOM = content => ({
   }
 });
 
-test('if document not exists base meta tags description & viewport, return ["This HTML without <meta name="description"> tag", "This HTML without <meta name="viewport"> tag"]', async t => {
+test('if document not exists base meta tags description & viewport, return ["This HTML is missing a <meta name="description"> tag", "This HTML is missing a <meta name="viewport"> tag"]', async t => {
   const options = { names: ['description', 'viewport'] };
   const result = await metaBaseRule(fakeDOM(), options);
-  t.deepEqual(result, ['This HTML without <meta name="description"> tag', 'This HTML without <meta name="viewport"> tag']);
+  t.deepEqual(result, ['This HTML is missing a <meta name="description"> tag', 'This HTML is missing a <meta name="viewport"> tag']);
 });
 
 test('if document exists base meta tags description & viewport but content is empty, return ["The content attribute for the <meta name="description" content=""> tag is empty", "The content attribute for the <meta name="viewport" content=""> tag is empty"]', async t => {
