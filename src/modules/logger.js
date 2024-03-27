@@ -20,7 +20,7 @@ class Logger {
   result(result, force = false) {
     if (this.level > 3 && !force) {
       return;
-    } 
+    }
     this._logResult(result);
   }
 
@@ -32,7 +32,7 @@ class Logger {
   error(error, exit) {
     if (this.level > 5) {
       return;
-    } 
+    }
     this._logError(error);
     if (exit) process.exit(1);
   }
@@ -45,7 +45,7 @@ class Logger {
   success(success) {
     if (this.level > 4) {
       return;
-    } 
+    }
     this._logSuccess(success);
   }
 
@@ -57,7 +57,7 @@ class Logger {
   info(info) {
     if (this.level > 2) {
       return;
-    } 
+    }
     this._logInfo(info);
   }
 
@@ -69,7 +69,7 @@ class Logger {
   printTextToConsole(text) {
     if (this.level > 2) {
       return;
-    } 
+    }
     const formattedText = text.replace(' ', '|');
     CFonts.say(formattedText, {
       font: 'block', // define the font face
@@ -101,7 +101,7 @@ class Logger {
     this._logInfo('\n🚀  Issue report');
 
     for (const item of result) {
-      this._logInfo(`\nFile: ${item.source.trim()}`);
+      this._logInfo(`\nSource: ${item.source.trim()}`);
       this._logError(`${item.report.join('\n')}`);
     }
 

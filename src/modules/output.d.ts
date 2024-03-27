@@ -5,13 +5,13 @@ declare class Output {
     /**
      * @param {Array} data - List of files and folders
      * @param {Array} rules - List of rules
-     * @returns {Promise} - Returns js object [{file, report}, ...]
+     * @returns {Promise} - Returns js object [{source, report}, ...]
      */
     object(inputData: any, rules: any[]): Promise<any>;
     /**
      * @param {Array} data - List of files and folders
      * @param {Array} rules - List of rules
-     * @returns {JSON} - Returns json [{"file", "report"}, ...]
+     * @returns {JSON} - Returns json [{"source", "report"}, ...]
      */
     json(inputData: any, rules: any[]): JSON;
 }

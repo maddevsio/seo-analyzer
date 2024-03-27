@@ -8,7 +8,7 @@ class Output {
   /**
    * @param {Array} data - List of files and folders
    * @param {Array} rules - List of rules
-   * @returns {Promise} - Returns js object [{file, report}, ...]
+   * @returns {Promise} - Returns js object [{source, report}, ...]
    */
   async object(inputData, rules) {
     const report = await this.analyzer.run(inputData, rules);
@@ -18,7 +18,7 @@ class Output {
   /**
    * @param {Array} data - List of files and folders
    * @param {Array} rules - List of rules
-   * @returns {JSON} - Returns json [{"file", "report"}, ...]
+   * @returns {JSON} - Returns json [{"source", "report"}, ...]
    */
   async json(inputData, rules) {
     const report = await this.analyzer.run(inputData, rules);

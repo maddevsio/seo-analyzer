@@ -5,7 +5,7 @@ import Logger from './logger';
 
 /**
  * Results returned by analyzer
- * @typedef {Array<{file: string, report: string}>} AnalyzerResult
+ * @typedef {Array<{source: string, report: string}>} AnalyzerResult
  */
 
 class Analyzer {
@@ -30,7 +30,7 @@ class Analyzer {
    * Run analyzer for a list of doms
    * @param {JSDOM<array>} doms - The html dom list to run the rule on
    * @param {Array} rules - The rules to run
-   * @returns {AnalyzerResult} - Array of error result [{ file, report }, { file, report }, { file, report }]
+   * @returns {AnalyzerResult} - Array of error result [{ source, report }, { source, report }, { source, report }]
    */
   async run(inputData, rules) {
     if (inputData.length === 0) {
@@ -46,7 +46,7 @@ class Analyzer {
   /**
    * @param {Array} dataList - html doms
    * @param {Array} rules - List rulers
-   * @returns {AnalyzerResult} - Array of reports [{file, report}, {file, report}, {file, report}]
+   * @returns {AnalyzerResult} - Array of reports [{source, report}, {source, report}, {source, report}]
    */
   async _startAnalyzer(dataList, rules) {
     const result = [];
