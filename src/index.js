@@ -183,22 +183,6 @@ class SeoAnalyzer {
     return this;
   }
 
-  // --------- Runner --------- //
-  /**
-   * Runs all operations
-   * @returns {Promise<AnalyzerResult>}
-   */
-  async run() {
-    if (this.operations.length) {
-      this._logger.printTextToConsole('SEO Analyzer');
-      for (const operation of this.operations) {
-        await operation();
-      }
-      this.operations = [];
-      return this.product;
-    }
-  }
-
   // ------- Output methods ------- //
   /**
    * Logs object to console asynchronously and returns itself
@@ -209,7 +193,6 @@ class SeoAnalyzer {
       const json = await this._output.object(this._inputData, this._rules);
       this._logger.result(json, true);
     });
-    this.run();
     return this;
   }
 
@@ -223,7 +206,6 @@ class SeoAnalyzer {
       const json = await this._output.json(this._inputData, this._rules);
       callback(json);
     });
-    this.run();
     return this;
   }
 
@@ -235,7 +217,6 @@ class SeoAnalyzer {
     this.operations.push(async () => {
       this._output.json(this._inputData, this._rules);
     });
-    this.run();
     return this;
   }
 
@@ -249,7 +230,6 @@ class SeoAnalyzer {
       const obj = await this._output.object(this._inputData, this._rules);
       callback(obj);
     });
-    this.run();
     return this;
   }
 
@@ -261,8 +241,19 @@ class SeoAnalyzer {
     this.operations.push(async () => {
       this._output.object(this._inputData, this._rules);
     });
-    this.run();
     return this;
+  }
+
+  // --------- Runner --------- //
+  /**
+   * Runs all operations
+   * @returns {Promise<AnalyzerResult>}
+   */
+  async run() {
+    this._logger.printTextToConsole('SEO Analyzer');
+    for (const operation of this.operations) {
+      await operation();
+    }
   }
 }
 

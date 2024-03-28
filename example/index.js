@@ -60,5 +60,5 @@ new SeoAnalyzer()
   // .outputJson(json => console.log(json))
   // .outputObjectAsync().then(console.log) // this cannot be chained further
   // .outputJsonAsync().then(console.log) // this cannot be chained further
-  // .outputConsole()
-  .outputConsole();
+  .outputConsole()
+  .run();

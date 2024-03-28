@@ -50,7 +50,8 @@ new SeoAnalyzer()
   .inputFiles(<array>)
   .addRule(<function>)
   .addRule(<function>)
-  .outputConsole();
+  .outputConsole()
+  .run();
 ```
 
 Next I will show you some examples.
@@ -64,7 +65,8 @@ new SeoAnalyzer()
   .ignoreUrls(['/404', '/login'])
   .inputSpaFolder('/dist', 'sitemapindex.xml', 3000)
   .addRule('imgTagWithAltAttributeRule')
-  .outputConsole();
+  .outputConsole()
+  .run();
 ```
 
 #### Two way: read a list HTML files and log report to console
@@ -86,7 +88,8 @@ const SeoAnalyzer = require('seo-analyzer');
 new SeoAnalyzer()
   .inputFolders(['dist', 'src'])
   .addRule('imgTagWithAltAttributeRule')
-  .outputConsole();
+  .outputConsole()
+  .run();
 ```
 
 #### Fourth way: read a folders with HTML files and return json
@@ -97,7 +100,8 @@ const SeoAnalyzer = require('seo-analyzer');
 new SeoAnalyzer()
   .inputFolders(['dist', 'src'])
   .addRule('imgTagWithAltAttributeRule')
-  .outputJson(json => console.log(json));
+  .outputJson(json => console.log(json))
+  .run();
 ```
 
 #### Fifth way: ignore subfolder "test" and 404.html in folder "src" and return js object
@@ -110,7 +114,8 @@ new SeoAnalyzer()
   .ignoreFiles(['src/404.html'])
   .inputFolders(['dist', 'src'])
   .addRule('imgTagWithAltAttributeRule')
-  .outputObject(obj => console.log(obj));
+  .outputObject(obj => console.log(obj))
+  .run();
 ```
 
 #### Sixth way: file analysis for Next.js SSR application and log report to console
@@ -120,9 +125,9 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .inputNextJs()
-  .then(analyzer =>
-    analyzer.addRule('imgTagWithAltAttributeRule').outputConsole()
-  );
+  .addRule('imgTagWithAltAttributeRule')\
+  .outputConsole()
+  .run();
 ```
 
 #### Seventh way: Input an HTML string directly and log report to console
@@ -135,7 +140,8 @@ new SeoAnalyzer()
     '<!DOCTYPE html><html><body><h1>title</h1><p>content</p></body></html>'
   )
   .addRule('imgTagWithAltAttributeRule')
-  .outputConsole();
+  .outputConsole()
+  .run();
 ```
 
 ## Available methods:

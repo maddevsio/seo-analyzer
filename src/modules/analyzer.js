@@ -102,7 +102,6 @@ class Analyzer {
 
     // Stop the progress bar
     this.logger.level <= 4 && this.consoleProgressBar.stop();
-
     return result;
   }
 }

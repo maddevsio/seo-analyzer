@@ -50,7 +50,8 @@ new SeoAnalyzer()
   .inputFiles(<array>)
   .addRule(<function>)
   .addRule(<function>)
-  .outputConsole();
+  .outputConsole()
+  .run();
 ```
 
 Далее покажу несколько примеров.
@@ -64,7 +65,8 @@ new SeoAnalyzer()
   .ignoreUrls(['/404', '/login'])
   .inputSpaFolder('/dist', 'sitemap.xml', 3000)
   .addRule('imgTagWithAltAttributeRule')
-  .outputConsole();
+  .outputConsole()
+  .run();
 ```
 
 #### Способ №2: анализ список HTML-файлов и вывод отчета в консоль
@@ -75,7 +77,8 @@ const SeoAnalyzer = require('seo-analyzer');
 new SeoAnalyzer()
   .inputFiles(['index.html', 'about.html'])
   .addRule('imgTagWithAltAttributeRule')
-  .outputConsole();
+  .outputConsole()
+  .run();
 ```
 
 #### Способ №3: анализ папок с HTML-файлами и вывод отчета в консоль
@@ -86,7 +89,8 @@ const SeoAnalyzer = require('seo-analyzer');
 new SeoAnalyzer()
   .inputFolders(['dist', 'src'])
   .addRule('imgTagWithAltAttributeRule')
-  .outputConsole();
+  .outputConsole()
+  .run();
 ```
 
 #### Способ №4: анализ папок с HTML-файлами и вывод отчета в виде JSON
@@ -97,7 +101,8 @@ const SeoAnalyzer = require('seo-analyzer');
 new SeoAnalyzer()
   .inputFolders(['dist', 'src'])
   .addRule('imgTagWithAltAttributeRule')
-  .outputJson(json => console.log(json));
+  .outputJson(json => console.log(json))
+  .run();
 ```
 
 #### Способ №5: игнорировать подпапку "test" и 404.html в папке "src" и вернуть объект js
@@ -110,7 +115,8 @@ new SeoAnalyzer()
   .ignoreFiles(['src/404.html'])
   .inputFolders(['dist', 'src'])
   .addRule('imgTagWithAltAttributeRule')
-  .outputObject(obj => console.log(obj));
+  .outputObject(obj => console.log(obj))
+  .run();
 ```
 
 #### Способ №6: анализ страниц для Next.js SSR приложения и вывод отчета в консоль
@@ -121,7 +127,8 @@ const SeoAnalyzer = require('seo-analyzer');
 new SeoAnalyzer()
   .inputNextJs('sitemap-index.xml', 3000)
   .addRule('imgTagWithAltAttributeRule')
-  .outputConsole();
+  .outputConsole()
+  .run();
 ```
 
 ## Доступные методы:
