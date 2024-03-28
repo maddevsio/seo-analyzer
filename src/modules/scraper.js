@@ -7,15 +7,17 @@ import Logger from './logger';
 class Scanner {
   constructor(logger) {
     this.logger = logger ?? new Logger();
-    this.consoleProgressBar = this.logger.level <= 4 && new cliProgress.Bar({
-      format:
-        'Processing... |' +
-        _colors.green('{bar}') +
-        '| {percentage}% || {value}/{total} Pages',
-      barCompleteChar: '\u2588',
-      barIncompleteChar: '\u2591',
-      hideCursor: true
-    });
+    this.consoleProgressBar =
+      this.logger.level <= 4 &&
+      new cliProgress.Bar({
+        format:
+          'Processing... |' +
+          _colors.green('{bar}') +
+          '| {percentage}% || {value}/{total} Pages',
+        barCompleteChar: '\u2588',
+        barIncompleteChar: '\u2591',
+        hideCursor: true
+      });
     this.inputUrl = '';
     this.ignoreUrls = '';
   }

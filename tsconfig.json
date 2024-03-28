@@ -1,13 +1,9 @@
 {
-  "include": [
-      "./src/index.js"
-  ],
+  "include": ["./src/index.js"],
   "compilerOptions": {
-      "declaration": true,
-      "emitDeclarationOnly": true,
-      "allowJs": true,
-      "lib": [      
-        "es2017"
-      ]
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "allowJs": true,
+    "lib": ["es2017"]
   }
 }

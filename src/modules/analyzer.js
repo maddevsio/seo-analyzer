@@ -11,15 +11,17 @@ import Logger from './logger';
 class Analyzer {
   constructor(logger) {
     this.logger = logger ?? new Logger();
-    this.consoleProgressBar = this.logger.level <= 4 && new cliProgress.Bar({
-      format:
-        'Running rules |' +
-        _colors.green('{bar}') +
-        '| {percentage}% || {value}/{total} Rules',
-      barCompleteChar: '\u2588',
-      barIncompleteChar: '\u2591',
-      hideCursor: true
-    });
+    this.consoleProgressBar =
+      this.logger.level <= 4 &&
+      new cliProgress.Bar({
+        format:
+          'Running rules |' +
+          _colors.green('{bar}') +
+          '| {percentage}% || {value}/{total} Rules',
+        barCompleteChar: '\u2588',
+        barIncompleteChar: '\u2591',
+        hideCursor: true
+      });
     this.badType =
       'The inputFiles function takes an array only ["index.html", "...", "..."]';
     this.emptyList =
@@ -100,7 +102,6 @@ class Analyzer {
 
     // Stop the progress bar
     this.logger.level <= 4 && this.consoleProgressBar.stop();
-
     return result;
   }
 }

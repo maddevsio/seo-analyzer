@@ -24,7 +24,8 @@ class NextServer {
    */
   run() {
     return new Promise((resolve, reject) => {
-      this.app.prepare()
+      this.app
+        .prepare()
         .then(() => {
           const server = express();
 
