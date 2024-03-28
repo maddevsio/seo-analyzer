@@ -145,9 +145,7 @@ new SeoAnalyzer()
 | inputHTMLString | ['<html>example</html>'] | This method expects a string containing HTML. |
 | addRule | function(dom) {} | This method adds a custom rule to check incoming HTML files. |
 | outputObject | function(obj) {} | This method will return the report as a javascript object. |
-| outputObjectAsync | function() {} | This method returns a promise that resolves to the report as a javascript object. |
 | outputJson | function(json) {} | This method will return the report in JSON format. |
-| outputJsonAsync | function() {} | This method returns a promise that resolves to the report as a JSON string. |
 | outputConsole | null | This method must be used at the very end of the chain, because it completes the process in the console. |
 
 ## List of rules that are available by default

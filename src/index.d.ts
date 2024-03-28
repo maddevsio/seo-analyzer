@@ -97,21 +97,11 @@ declare class SeoAnalyzer {
    */
   outputJson(callback: any): SeoAnalyzer;
   /**
-   * Returns the JSON output asynchronously
-   * @returns {Promise<string>}
-   */
-  outputJsonAsync(): Promise<string>;
-  /**
    * Returns itself and calls a callback on the output's object
    * @param {function(AnalyzerResult): void}
    * @returns {SeoAnalyzer}
    */
   outputObject(callback: any): SeoAnalyzer;
-  /**
-   * Returns the object asynchronously
-   * @returns {Promise<AnalyzerResult>}
-   */
-  outputObjectAsync(): Promise<import('./modules/analyzer').AnalyzerResult>;
 }
 import Logger from './modules/logger';
 import Input from './modules/input';

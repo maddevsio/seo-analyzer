@@ -186,17 +186,6 @@ class SeoAnalyzer {
   }
 
   /**
-   * Returns the JSON output asynchronously
-   * @returns {Promise<string>}
-   */
-  outputJsonAsync() {
-    this.operations.push(async () => {
-      this._output.json(this._inputData, this._rules);
-    });
-    return this;
-  }
-
-  /**
    * Returns itself and calls a callback on the output's object
    * @param {function(AnalyzerResult): void}
    * @returns {SeoAnalyzer}
@@ -205,17 +194,6 @@ class SeoAnalyzer {
     this.operations.push(async () => {
       const obj = await this._output.object(this._inputData, this._rules);
       callback(obj);
-    });
-    return this;
-  }
-
-  /**
-   * Returns the object asynchronously
-   * @returns {Promise<AnalyzerResult>}
-   */
-  outputObjectAsync() {
-    this.operations.push(async () => {
-      this._output.object(this._inputData, this._rules);
     });
     return this;
   }
