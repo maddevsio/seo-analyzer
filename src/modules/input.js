@@ -7,22 +7,24 @@ import Logger from './logger';
 import Scraper from './scraper';
 
 /**
- * @typedef {Array<JSDOM>} ListDom 
+ * @typedef {Array<JSDOM>} ListDom
  */
 
 class Input {
   constructor(logger) {
     this.logger = logger ?? new Logger();
     this.scraper = new Scraper(this.logger);
-    this.consoleProgressBar = this.logger.level <= 4 && new cliProgress.Bar({
-      format:
-        'Processing... |' +
-        _colors.green('{bar}') +
-        '| {percentage}% || {value}/{total} Folders',
-      barCompleteChar: '\u2588',
-      barIncompleteChar: '\u2591',
-      hideCursor: true
-    });
+    this.consoleProgressBar =
+      this.logger.level <= 4 &&
+      new cliProgress.Bar({
+        format:
+          'Processing... |' +
+          _colors.green('{bar}') +
+          '| {percentage}% || {value}/{total} Folders',
+        barCompleteChar: '\u2588',
+        barIncompleteChar: '\u2591',
+        hideCursor: true
+      });
     this.badType =
       'The inputFiles function takes an array only ["index.html", "...", "..."]';
     this.emptyList =
@@ -40,10 +42,16 @@ class Input {
    */
   async files(files = [], ignoreFiles = []) {
     if (!Array.isArray(files) || !files.length)
-      this.logger.error('❌  The "inputFiles" method expects an array of files.\n', true);
+      this.logger.error(
+        '❌  The "inputFiles" method expects an array of files.\n',
+        true
+      );
 
     if (!Array.isArray(ignoreFiles))
-      this.logger.error('❌  The "ignoreFiles" method expects an array of ignore files.\n', true);
+      this.logger.error(
+        '❌  The "ignoreFiles" method expects an array of ignore files.\n',
+        true
+      );
 
     this.logger.info('\n🚀  Parsing files\n');
     if (files.length === 0) {
@@ -68,10 +76,16 @@ class Input {
    */
   async folders(folders = [], ignoreFolders = [], ignoreFiles = []) {
     if (!Array.isArray(folders) || !folders.length)
-      this.logger.error('❌  The "inputFolders" method expects an array of folders.\n', true);
+      this.logger.error(
+        '❌  The "inputFolders" method expects an array of folders.\n',
+        true
+      );
 
     if (!Array.isArray(ignoreFolders))
-      this.logger.error('❌  The "ignoreFolders" method expects an array of ignore folders.\n', true);
+      this.logger.error(
+        '❌  The "ignoreFolders" method expects an array of ignore folders.\n',
+        true
+      );
 
     this.logger.info('🚀  Parsing folders\n');
 
@@ -165,15 +179,17 @@ class Input {
    */
   _getHtml(files) {
     const listTexts = [];
-    const proccess = this.logger.level <= 4 && new cliProgress.Bar({
-      format:
-        'Processing... |' +
-        _colors.green('{bar}') +
-        '| {percentage}% || {value}/{total} Sources',
-      barCompleteChar: '\u2588',
-      barIncompleteChar: '\u2591',
-      hideCursor: true
-    });
+    const proccess =
+      this.logger.level <= 4 &&
+      new cliProgress.Bar({
+        format:
+          'Processing... |' +
+          _colors.green('{bar}') +
+          '| {percentage}% || {value}/{total} Sources',
+        barCompleteChar: '\u2588',
+        barIncompleteChar: '\u2591',
+        hideCursor: true
+      });
 
     // Start the progress bar
     this.logger.level <= 4 && proccess.start(files.length, 0);
@@ -202,15 +218,17 @@ class Input {
    */
   getDom(list) {
     const doms = [];
-    const proccess = this.logger.level <= 4 && new cliProgress.Bar({
-      format:
-        'Handling html |' +
-        _colors.green('{bar}') +
-        '| {percentage}% || {value}/{total} Sources',
-      barCompleteChar: '\u2588',
-      barIncompleteChar: '\u2591',
-      hideCursor: true
-    });
+    const proccess =
+      this.logger.level <= 4 &&
+      new cliProgress.Bar({
+        format:
+          'Handling html |' +
+          _colors.green('{bar}') +
+          '| {percentage}% || {value}/{total} Sources',
+        barCompleteChar: '\u2588',
+        barIncompleteChar: '\u2591',
+        hideCursor: true
+      });
     this.logger.info('\n🚀  Getting DOM from HTML\n');
     this.logger.level <= 4 && proccess.start(list.length, 0);
     // NOTE: https://github.com/jsdom/jsdom/issues/2177#issuecomment-379212964
