@@ -6,7 +6,6 @@
   "module": "dist/seo-analyzer.mjs",
   "browser": "dist/seo-analyzer.min.js",
   "types": "dist/seo-analyzer.d.ts",
-  "type": "module",
   "repository": "https://github.com/maddevsio/seo-analyzer",
   "homepage": "https://github.com/maddevsio/seo-analyzer",
   "bugs": "https://github.com/maddevsio/seo-analyzer/issues",
@@ -26,7 +25,7 @@
     }
   ],
   "engines": {
-    "node": ">=14.0.0",
+    "node": ">=18.0.0",
     "npm": ">=7.0.0"
   },
   "license": "MIT",
