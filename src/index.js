@@ -69,10 +69,9 @@ class SeoAnalyzer {
    * @returns {Promise<SeoAnalyzer>}
    */
   inputFiles(files) {
-    if (this._inputData.length !== 0) return this;
     this.operations.push(async () => {
-      this._logger.printTextToConsole('SEO Analyzer');
-      this._inputData = await this._input.files(files, this._ignoreFiles);
+      const result = await this._input.files(files, this._ignoreFiles);
+      this._inputData = [...this._inputData, ...result];
     });
     return this;
   }
@@ -83,14 +82,13 @@ class SeoAnalyzer {
    * @returns {Promise<SeoAnalyzer>}
    */
   inputFolders(folders) {
-    if (this._inputData.length !== 0) return this;
     this.operations.push(async () => {
-      this._logger.printTextToConsole('SEO Analyzer');
-      this._inputData = await this._input.folders(
+      const result = await this._input.folders(
         folders,
         this._ignoreFolders,
         this._ignoreFiles
       );
+      this._inputData = [...this._inputData, ...result];
     });
     return this;
   }
@@ -103,10 +101,10 @@ class SeoAnalyzer {
   inputSpaFolder(folder, sitemap = 'sitemap.xml', port = 9999) {
     if (!this._inputData) return this;
     this.operations.push(async () => {
-      this._logger.printTextToConsole('SEO Analyzer');
       // Run server for spa
       startServer(folder, port);
-      this._inputData = await this._input.spa(port, this._ignoreUrls, sitemap);
+      const result = await this._input.spa(port, this._ignoreUrls, sitemap);
+      this._inputData = [...this._inputData, ...result];
     });
     return this;
   }
@@ -125,12 +123,12 @@ class SeoAnalyzer {
         this._nextServer = new NextServer(this._logger);
         await this._nextServer.setup();
       }
-      this._logger.printTextToConsole('SEO Analyzer');
-      this._inputData = await this._nextServer.inputSSR(
+      const result = await this._nextServer.inputSSR(
         port,
         this._ignoreUrls,
         sitemap
       );
+      this._inputData = [...this._inputData, ...result];
     });
     return this;
   }
@@ -142,7 +140,6 @@ class SeoAnalyzer {
    */
   inputHTMLStrings(inputHTMLs) {
     this.operations.push(async () => {
-      if (this._inputData.length !== 0) return this;
       if (
         !inputHTMLs ||
         !inputHTMLs.length ||
@@ -156,8 +153,8 @@ class SeoAnalyzer {
         this._logger.error(error);
         throw error;
       }
-      this._logger.printTextToConsole('SEO Analyzer');
-      this._inputData = this._input.getDom(inputHTMLs);
+      const result = this._input.getDom(inputHTMLs);
+      this._inputData = [...this._inputData, ...result];
     });
     return this;
   }
@@ -186,6 +183,22 @@ class SeoAnalyzer {
     return this;
   }
 
+  // --------- Runner --------- //
+  /**
+   * Runs all operations
+   * @returns {Promise<AnalyzerResult>}
+   */
+  async run() {
+    if (this.operations.length) {
+      this._logger.printTextToConsole('SEO Analyzer');
+      for (const operation of this.operations) {
+        await operation();
+      }
+      this.operations = [];
+      return this.product;
+    }
+  }
+
   // ------- Output methods ------- //
   /**
    * Logs object to console asynchronously and returns itself
@@ -196,6 +209,7 @@ class SeoAnalyzer {
       const json = await this._output.object(this._inputData, this._rules);
       this._logger.result(json, true);
     });
+    this.run();
     return this;
   }
 
@@ -209,6 +223,7 @@ class SeoAnalyzer {
       const json = await this._output.json(this._inputData, this._rules);
       callback(json);
     });
+    this.run();
     return this;
   }
 
@@ -220,6 +235,7 @@ class SeoAnalyzer {
     this.operations.push(async () => {
       this._output.json(this._inputData, this._rules);
     });
+    this.run();
     return this;
   }
 
@@ -233,6 +249,7 @@ class SeoAnalyzer {
       const obj = await this._output.object(this._inputData, this._rules);
       callback(obj);
     });
+    this.run();
     return this;
   }
 
@@ -244,18 +261,8 @@ class SeoAnalyzer {
     this.operations.push(async () => {
       this._output.object(this._inputData, this._rules);
     });
+    this.run();
     return this;
-  }
-
-  /**
-   * Runs all operations
-   * @returns {Promise<AnalyzerResult>}
-   */
-  async run() {
-    for (const operation of this.operations) {
-      await operation();
-    }
-    return this.product;
   }
 }
 

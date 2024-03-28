@@ -20,9 +20,9 @@ new SeoAnalyzer()
   .ignoreUrls(['/#/product/2'])
   // ------- Input methods -------- //
   .inputFolders(['example'])
-  // .inputFiles(['example/html/index.html']).then(analyzer => analyzer
-  // .inputSpaFolder('example/spa', 'sitemap.xml').then(analyzer => analyzer
-  // .inputNextJs().then(analyzer => analyzer
+  // .inputFiles(['example/html/index.html'])
+  // .inputSpaFolder('example/spa', 'sitemap.xml')
+  // .inputNextJs()
   .inputHTMLStrings([
     {
       source: '/myExamplePage',
@@ -60,5 +60,5 @@ new SeoAnalyzer()
   // .outputJson(json => console.log(json))
   // .outputObjectAsync().then(console.log) // this cannot be chained further
   // .outputJsonAsync().then(console.log) // this cannot be chained further
-  .outputConsole()
-  .run();
+  // .outputConsole()
+  .outputConsole();
