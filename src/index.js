@@ -110,30 +110,6 @@ class SeoAnalyzer {
   }
 
   /**
-   * Scan Next server
-   * @param {string} sitemap Path to sitemap in xml format
-   * @param {number} port Port Next server listens on
-   * @returns {Promise<SeoAnalyzer>}
-   */
-  inputNextJs(sitemap = 'sitemap.xml', port = 3000) {
-    if (!this._inputData) return this;
-    this.operations.push(async () => {
-      if (!this._nextServer) {
-        const { default: NextServer } = await import('./modules/next-server');
-        this._nextServer = new NextServer(this._logger);
-        await this._nextServer.setup();
-      }
-      const result = await this._nextServer.inputSSR(
-        port,
-        this._ignoreUrls,
-        sitemap
-      );
-      this._inputData = [...this._inputData, ...result];
-    });
-    return this;
-  }
-
-  /**
    * Input plain HTML strings in {text, source} format to analyze
    * @param {Array<{text: string, source: string}>} inputHTMLs `text` is the plain html, `source` is an identifier such a URI
    * @returns {SeoAnalyzer}

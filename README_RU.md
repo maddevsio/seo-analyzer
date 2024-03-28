@@ -119,13 +119,15 @@ new SeoAnalyzer()
   .run();
 ```
 
-#### Способ №6: анализ страниц для Next.js SSR приложения и вывод отчета в консоль
+#### Sixth way: Ввод HTML-строки напрямую и вывод отчета в консоль
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
-  .inputNextJs('sitemap-index.xml', 3000)
+  .inputHTMLString(
+    '<!DOCTYPE html><html><body><h1>title</h1><p>content</p></body></html>'
+  )
   .addRule('imgTagWithAltAttributeRule')
   .outputConsole()
   .run();
@@ -141,7 +143,7 @@ new SeoAnalyzer()
 | inputFiles | ['dist/index.html'] | Массив файлов, которые нужно анализировать. |
 | inputFolders | ['dist', 'src'] | Массив папкок с файлами, которые нужно анализировать. |
 | inputSpaFolder | '/dist', 'sitemap.xml', 3000 | Метод для запуска анализаторв для SPA приложений. Ожидает папку с финальными кодом приложения и порт на котором запустится анализатор. |
-| inputNextJs | 'sitemap.xml', 3000 | Метод для запуска анализаторв для Next.js SSR приложений. Ожидает порт для запуска Next.js сервера. |
+| inputHTMLString | ['<html>example</html>'] | Этот метод ожидает строку, содержащую HTML. |
 | addRule | function(dom) {} | Метод для добавления встроенных правил или собственных. |
 | outputObject | function(obj) {} | Метод для вывода результата. Вернёт js объект. |
 | outputJson | function(json) {} | Метод для вывода результата. Вернёт JSON. |
@@ -250,12 +252,11 @@ function customRule(dom) {
 ✅: добавлено\
 ❌: удалено
 
-| ✅ | ❌ | Rule | Description |
-| :-: | :-: | :-- | :-- |
-| ✅ |  | inputNextJs | Запуск анализатора для Next.js SSR приложений |
-|  | ❌ | hTagsRule | Только для HTML4 |
-|  | ❌ | noMoreThanOneH1TagRule | Только для HTML4 |
-|  | ❌ | noTooManyStrongTagsRule | Только для HTML4 |
+| ✅  | ❌  | Rule                    | Description      |
+| :-: | :-: | :---------------------- | :--------------- |
+|     | ❌  | hTagsRule               | Только для HTML4 |
+|     | ❌  | noMoreThanOneH1TagRule  | Только для HTML4 |
+|     | ❌  | noTooManyStrongTagsRule | Только для HTML4 |
 
 ## Пример вывода отчета в консоль.
 

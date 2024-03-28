@@ -118,19 +118,7 @@ new SeoAnalyzer()
   .run();
 ```
 
-#### Sixth way: file analysis for Next.js SSR application and log report to console
-
-```js
-const SeoAnalyzer = require('seo-analyzer');
-
-new SeoAnalyzer()
-  .inputNextJs()
-  .addRule('imgTagWithAltAttributeRule')\
-  .outputConsole()
-  .run();
-```
-
-#### Seventh way: Input an HTML string directly and log report to console
+#### Sixth way: Input an HTML string directly and log report to console
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -154,8 +142,7 @@ new SeoAnalyzer()
 | inputFiles | ['dist/index.html'] | This method expects an array of html files. |
 | inputFolders | ['dist', 'src'] | This method expects an array of folders with html files. |
 | inputSpaFolder | '/dist', 'sitemap.xml', 3000 | This method expects an string of folder with SPA builded files to production & port for run server. |
-| inputNextJs | 'sitemap.xml', 3000 | This method expects a port for run next.js server. |
-| inputHTMLString | ['<html>example</html>'] | This method expects a string containing HTML. It runs synchronously unlike the other input methods. |
+| inputHTMLString | ['<html>example</html>'] | This method expects a string containing HTML. |
 | addRule | function(dom) {} | This method adds a custom rule to check incoming HTML files. |
 | outputObject | function(obj) {} | This method will return the report as a javascript object. |
 | outputObjectAsync | function() {} | This method returns a promise that resolves to the report as a javascript object. |
@@ -266,12 +253,11 @@ One new rule was created and three obsolete rules were deleted.
 ✅: added\
 ❌: removed
 
-| ✅ | ❌ | Rule | Description |
-| :-: | :-: | :-- | :-- |
-| ✅ |  | inputNextJs | Running the seo-analyzer for Next.js SSR applications |
-|  | ❌ | hTagsRule | Only for HTML4 |
-|  | ❌ | noMoreThanOneH1TagRule | Only for HTML4 |
-|  | ❌ | noTooManyStrongTagsRule | Only for HTML4 |
+| ✅  | ❌  | Rule                    | Description    |
+| :-: | :-: | :---------------------- | :------------- |
+|     | ❌  | hTagsRule               | Only for HTML4 |
+|     | ❌  | noMoreThanOneH1TagRule  | Only for HTML4 |
+|     | ❌  | noTooManyStrongTagsRule | Only for HTML4 |
 
 ## Example of the output of all SEO defects in the console.
 

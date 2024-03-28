@@ -22,7 +22,6 @@ new SeoAnalyzer()
   .inputFolders(['example'])
   // .inputFiles(['example/html/index.html'])
   // .inputSpaFolder('example/spa', 'sitemap.xml')
-  // .inputNextJs()
   .inputHTMLStrings([
     {
       source: '/myExamplePage',
@@ -56,7 +55,7 @@ new SeoAnalyzer()
   // Custom rules
   .addRule(customRule)
   // ------- Output methods ------- //
-  // .outputObject(obj => console.log(obj))
+  .outputObject(obj => console.log(obj))
   // .outputJson(json => console.log(json))
   // .outputObjectAsync().then(console.log) // this cannot be chained further
   // .outputJsonAsync().then(console.log) // this cannot be chained further
