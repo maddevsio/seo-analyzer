@@ -1,7 +1,6 @@
 # SEO analyzer — library for searching SEO issues
 
-[![Developed by Mad Devs](https://maddevs.io/badge-dark.svg)](https://maddevs.io?utm_source=github&utm_medium=madboiler)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Developed by Mad Devs](https://maddevs.io/badge-dark.svg)](https://maddevs.io?utm_source=github&utm_medium=madboiler) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ![Preview](preview.jpg)
 
@@ -16,19 +15,19 @@ The library for analyze a HTML files to show all of the SEO defects.
 
 ## Advantages of this plugin
 
-* Easy setup.
-* Adding custom rules.
-* 6 ready-made rules.
-* Running the seo-analyzer for Next.js SSR applications.
-* Running the seo-analyzer for SPA applications.
-* Running the seo-analyzer in pipelines(github, gitlab, ...) or pre-push or anywhere else.
-* Multiple options for outputting the result.
+- Easy setup.
+- Adding custom rules.
+- 6 ready-made rules.
+- Running the seo-analyzer for Next.js SSR applications.
+- Running the seo-analyzer for SPA applications.
+- Running the seo-analyzer in pipelines(github, gitlab, ...) or pre-push or anywhere else.
+- Multiple options for outputting the result.
 
 ## Why you should use Seo Analyzer
 
-* **Saves time:** will save you from manually searching for seo problems.
-* **Seo Friendly:** will save your project from problems with search engines.
-* **It’s free:** we’re happy to share the results of our work.
+- **Saves time:** will save you from manually searching for seo problems.
+- **Seo Friendly:** will save your project from problems with search engines.
+- **It’s free:** we’re happy to share the results of our work.
 
 ## Installation
 
@@ -112,7 +111,7 @@ new SeoAnalyzer()
   .inputFolders(['dist', 'src'])
   .addRule('imgTagWithAltAttributeRule')
   .outputObject(obj => console.log(obj));
-``` 
+```
 
 #### Sixth way: file analysis for Next.js SSR application and log report to console
 
@@ -121,9 +120,8 @@ const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
   .inputNextJs()
-  .then(analyzer => analyzer
-    .addRule('imgTagWithAltAttributeRule')
-    .outputConsole()
+  .then(analyzer =>
+    analyzer.addRule('imgTagWithAltAttributeRule').outputConsole()
   );
 ```
 
@@ -133,29 +131,31 @@ new SeoAnalyzer()
 const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
-  .inputHTMLString('<!DOCTYPE html><html><body><h1>title</h1><p>content</p></body></html>')
+  .inputHTMLString(
+    '<!DOCTYPE html><html><body><h1>title</h1><p>content</p></body></html>'
+  )
   .addRule('imgTagWithAltAttributeRule')
   .outputConsole();
 ```
 
 ## Available methods:
 
-| Method            | Params                        | Description                                                                                                 |
-|-------------------|-------------------------------|-------------------------------------------------------------------------------------------------------------|
-| ignoreFiles       | ['dist/about.html']           | This method expects an array of files to ignore before analysis.                                            |
-| ignoreFolders     | ['dist/ignore']               | This method expects an array of folders to ignore before analysis.                                          |
-| ignoreUrls        | ['/404']                      | This method expects an array of urls to ignore before analysis.                                             |
-| inputFiles        | ['dist/index.html']           | This method expects an array of html files.                                                                 |
-| inputFolders      | ['dist', 'src']               | This method expects an array of folders with html files.                                                    |
-| inputSpaFolder    | '/dist', 'sitemap.xml', 3000  | This method expects an string of folder with SPA builded files to production & port for run server.         |
-| inputNextJs       | 'sitemap.xml', 3000           | This method expects a port for run next.js server.                                                          |
-| inputHTMLString   | ['<html>example</html>']      | This method expects a string containing HTML. It runs synchronously unlike the other input methods.         |
-| addRule           | function(dom) {}              | This method adds a custom rule to check incoming HTML files.                                                |
-| outputObject      | function(obj) {}              | This method will return the report as a javascript object.                                                  |
-| outputObjectAsync | function() {}                 | This method returns a promise that resolves to the report as a javascript object.                           |
-| outputJson        | function(json) {}             | This method will return the report in JSON format.                                                          |
-| outputJsonAsync   | function() {}                 | This method returns a promise that resolves to the report as a JSON string.                                 |
-| outputConsole     | null                          | This method must be used at the very end of the chain, because it completes the process in the console.     |
+| Method | Params | Description |
+| --- | --- | --- |
+| ignoreFiles | ['dist/about.html'] | This method expects an array of files to ignore before analysis. |
+| ignoreFolders | ['dist/ignore'] | This method expects an array of folders to ignore before analysis. |
+| ignoreUrls | ['/404'] | This method expects an array of urls to ignore before analysis. |
+| inputFiles | ['dist/index.html'] | This method expects an array of html files. |
+| inputFolders | ['dist', 'src'] | This method expects an array of folders with html files. |
+| inputSpaFolder | '/dist', 'sitemap.xml', 3000 | This method expects an string of folder with SPA builded files to production & port for run server. |
+| inputNextJs | 'sitemap.xml', 3000 | This method expects a port for run next.js server. |
+| inputHTMLString | ['<html>example</html>'] | This method expects a string containing HTML. It runs synchronously unlike the other input methods. |
+| addRule | function(dom) {} | This method adds a custom rule to check incoming HTML files. |
+| outputObject | function(obj) {} | This method will return the report as a javascript object. |
+| outputObjectAsync | function() {} | This method returns a promise that resolves to the report as a javascript object. |
+| outputJson | function(json) {} | This method will return the report in JSON format. |
+| outputJsonAsync | function() {} | This method returns a promise that resolves to the report as a JSON string. |
+| outputConsole | null | This method must be used at the very end of the chain, because it completes the process in the console. |
 
 ## List of rules that are available by default
 
@@ -164,9 +164,9 @@ Below are the rules that are executed for each file transferred to Seo Analyzer.
 ### Title Length Rule
 
 Checks the length of tag `<title>`. Two parameters are accepted:
- 
-* **min:** minimum length of the header
-* **max:** maximum length of the header 
+
+- **min:** minimum length of the header
+- **max:** maximum length of the header
 
 ```js
 .addRule('titleLengthRule', { min: 10, max: 50 })
@@ -192,7 +192,7 @@ Checks if all `<a>` tags have rel="" attribute.
 
 Checks if the specified **basic** meta tags are present on the page. Accepts one parameter:
 
-* **list:** list of required meta tags
+- **list:** list of required meta tags
 
 ```js
 .addRule('metaBaseRule', { list: ['description', 'viewport'] })
@@ -202,7 +202,7 @@ Checks if the specified **basic** meta tags are present on the page. Accepts one
 
 Checks if the specified **social** meta tags are present on the page. Accepts one parameter:
 
-* **properties:** list of required meta tags
+- **properties:** list of required meta tags
 
 ```js
 .addRule('metaSocialRule', {
@@ -220,7 +220,7 @@ Checks if the specified **social** meta tags are present on the page. Accepts on
     'twitter:description',
     'twitter:image:src',
     'twitter:url'
-  ], 
+  ],
 })
 ```
 
@@ -254,18 +254,18 @@ function customRule(dom) {
 ```
 
 ## What's new
+
 One new rule was created and three obsolete rules were deleted.
 
 ✅: added\
 ❌: removed
 
 | ✅ | ❌ | Rule | Description |
-| :---: | :---: | :--- | :--- |
-| ✅  |  | inputNextJs | Running the seo-analyzer for Next.js SSR applications |
-|    |❌ | hTagsRule | Only for HTML4 |
-|    |❌ | noMoreThanOneH1TagRule | Only for HTML4 |
-|    |❌ | noTooManyStrongTagsRule | Only for HTML4 |
-
+| :-: | :-: | :-- | :-- |
+| ✅ |  | inputNextJs | Running the seo-analyzer for Next.js SSR applications |
+|  | ❌ | hTagsRule | Only for HTML4 |
+|  | ❌ | noMoreThanOneH1TagRule | Only for HTML4 |
+|  | ❌ | noTooManyStrongTagsRule | Only for HTML4 |
 
 ## Example of the output of all SEO defects in the console.
 
@@ -328,22 +328,10 @@ or
 
 MIT License
 
-Copyright (c) 2021 Mad Devs
+Copyright (c) 2024 Mad Devs
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
