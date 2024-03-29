@@ -36,6 +36,14 @@ class Scanner {
   }
 
   /**
+   *
+   */
+  async urls(urls) {
+    const htmlDoms = await this._getHtmlDomFromLinks(urls);
+    return htmlDoms;
+  }
+
+  /**
    * Get the links from the sitemap
    * @returns {Array} - Array of links
    * @description - Scrapes the sitemap and returns the links

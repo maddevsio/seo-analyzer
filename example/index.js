@@ -19,15 +19,16 @@ new SeoAnalyzer()
   .ignoreFiles(['example/html/team.html'])
   .ignoreUrls(['/#/product/2'])
   // ------- Input methods -------- //
-  .inputFolders(['example'])
+  // .inputFolders(['example'])
+  .inputUrls(['https://denisoed.com'])
   // .inputFiles(['example/html/index.html'])
   // .inputSpaFolder('example/spa', 'sitemap.xml')
-  .inputHTMLStrings([
-    {
-      source: '/myExamplePage',
-      text: '<!DOCTYPE html><html><body><h1>title</h1><p>content</p></body></html>'
-    }
-  ])
+  // .inputHTMLStrings([
+  //   {
+  //     source: '/myExamplePage',
+  //     text: '<!DOCTYPE html><html><body><h1>title</h1><p>content</p></body></html>'
+  //   }
+  // ])
 
   // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })
@@ -55,7 +56,7 @@ new SeoAnalyzer()
   // Custom rules
   .addRule(customRule)
   // ------- Output methods ------- //
-  .outputObject(obj => console.log(obj))
+  // .outputObject(obj => console.log(obj))
   // .outputJson(json => console.log(json))
   .outputConsole()
   .run();

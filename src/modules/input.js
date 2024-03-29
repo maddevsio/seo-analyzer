@@ -112,6 +112,15 @@ class Input {
   }
 
   /**
+   *
+   */
+  async urls(urls) {
+    const listTexts = await this.scraper.urls(urls);
+    const htmlDoms = await this.getDom(listTexts);
+    return htmlDoms;
+  }
+
+  /**
    * Get all files from folders
    * @param {Array<string>} folders [<string>, <string>, ...]
    * @returns {Promise<Array<string>>} [<string>, <string>, ...]
