@@ -2,7 +2,6 @@ import CFonts from 'cfonts';
 import _colors from 'colors';
 
 class Logger {
-
   /**
    * @param {string} level
    * @returns {Logger}
