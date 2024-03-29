@@ -18,7 +18,7 @@ The library for analyze a HTML files to show all of the SEO defects.
 - Easy setup.
 - Adding custom rules.
 - 6 ready-made rules.
-- Running the seo-analyzer for Next.js SSR applications.
+- Running the seo-analyzer for SSR applications.
 - Running the seo-analyzer for SPA applications.
 - Running the seo-analyzer in pipelines(github, gitlab, ...) or pre-push or anywhere else.
 - Multiple options for outputting the result.

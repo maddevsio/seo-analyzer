@@ -13,7 +13,6 @@ declare class SeoAnalyzer {
   _logger: Logger;
   _input: Input;
   _output: Output;
-  _nextServer: import('./modules/next-server').default;
   _inputData: any[];
   _defaultRules: {
     titleLengthRule: typeof import('./rules/TitleLengthRule').default;

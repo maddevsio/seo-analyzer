@@ -20,7 +20,6 @@ class SeoAnalyzer {
     this._logger = new Logger(verbose ? 'default' : 'error');
     this._input = new Input(this._logger);
     this._output = new Output(this._logger);
-    this._nextServer = null;
     this._inputData = [];
     this._defaultRules = defaultRules;
     this._rules = [];
