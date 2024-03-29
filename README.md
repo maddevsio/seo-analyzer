@@ -29,7 +29,33 @@ The library for analyze a HTML files to show all of the SEO defects.
 - **Seo Friendly:** will save your project from problems with search engines.
 - **It’s free:** we’re happy to share the results of our work.
 
-## Installation
+## Global installation
+
+To use the CLI, you must install the package globally.
+
+```sh
+npm install -g seo-analyzer
+```
+
+### Usage
+
+```sh
+seo-analyzer -h
+```
+
+| Method        | Params                 | Description            |
+| ------------- | ---------------------- | ---------------------- |
+| -h, --help    | null                   | Show help.             |
+| -v, --version | null                   | Show version.          |
+| -u, --urls    | ['http://example.com'] | Multiple url analysis. |
+
+#### Example of using multiple url analysis
+
+```sh
+seo-analyzer -u http://example.com http://example.com/about
+```
+
+## Local installation
 
 Install with npm
 
