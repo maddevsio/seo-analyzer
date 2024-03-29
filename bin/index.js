@@ -6,8 +6,8 @@ const urls = require('./urls');
 const program = new Command();
 
 program
-  .option('-v, --version', 'show version', ver, '')
-  .option('-u, --urls <url...>', 'analyze urls')
+  .option('-v, --version', 'Show version', ver, '')
+  .option('-u, --urls <urls...>', 'Multiple url analysis')
   .parse(process.argv);
 
 const options = program.opts();
