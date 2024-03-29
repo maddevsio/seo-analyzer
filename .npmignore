@@ -14,7 +14,6 @@ yarn-error.log*
 .eslintignore
 .prettierrc
 preview.jpg
-rollup.config.js
 .babelrc
 node_modules/
 example/
@@ -22,3 +21,5 @@ src/
 tests/
 coverage
 .nyc_output
+rollup.config.mjs
+tsconfig.json

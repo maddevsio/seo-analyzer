@@ -1,6 +1,6 @@
 {
   "name": "seo-analyzer",
-  "version": "3.0.2",
+  "version": "3.0.7",
   "description": "A library for analyze a HTML files to show all of the SEO defects",
   "main": "dist/seo-analyzer.js",
   "module": "dist/seo-analyzer.mjs",
@@ -53,7 +53,6 @@
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
     "ava": "^3.15.0",
-    "commander": "^12.0.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -72,6 +71,7 @@
     "cfonts": "^2.10.0",
     "cli-progress": "^3.9.1",
     "colors": "^1.4.0",
+    "commander": "^12.0.0",
     "express": "^4.17.1",
     "i": "^0.3.7",
     "jsdom": "^16.5.3",
