@@ -56,7 +56,19 @@ new SeoAnalyzer()
 
 Next I will show you some examples.
 
-#### One way: file analysis for SPA application and log report to console
+#### One way: analyze the url list and output the report to the console
+
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .inputUrls(['https://example.com', 'https://example.com/about'])
+  .addRule('imgTagWithAltAttributeRule')
+  .outputConsole()
+  .run();
+```
+
+#### Two way: file analysis for SPA application and log report to console
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -69,7 +81,7 @@ new SeoAnalyzer()
   .run();
 ```
 
-#### Two way: read a list HTML files and log report to console
+#### Three way: read a list HTML files and log report to console
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -80,7 +92,7 @@ new SeoAnalyzer()
   .outputConsole();
 ```
 
-#### Three way: read a folders with HTML files and log report to console
+#### Fourth way: read a folders with HTML files and log report to console
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -92,7 +104,7 @@ new SeoAnalyzer()
   .run();
 ```
 
-#### Fourth way: read a folders with HTML files and return json
+#### Fifth way: read a folders with HTML files and return json
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -104,7 +116,7 @@ new SeoAnalyzer()
   .run();
 ```
 
-#### Fifth way: ignore subfolder "test" and 404.html in folder "src" and return js object
+#### Sixth way: ignore subfolder "test" and 404.html in folder "src" and return js object
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -118,7 +130,7 @@ new SeoAnalyzer()
   .run();
 ```
 
-#### Sixth way: Input an HTML string directly and log report to console
+#### Seventh way: Input an HTML string directly and log report to console
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -140,6 +152,7 @@ new SeoAnalyzer()
 | ignoreFolders | ['dist/ignore'] | This method expects an array of folders to ignore before analysis. |
 | ignoreUrls | ['/404'] | This method expects an array of urls to ignore before analysis. |
 | inputFiles | ['dist/index.html'] | This method expects an array of html files. |
+| inputUrls | ['http://example.com'] | This method expects an array of urls to analyze. |
 | inputFolders | ['dist', 'src'] | This method expects an array of folders with html files. |
 | inputSpaFolder | '/dist', 'sitemap.xml', 3000 | This method expects an string of folder with SPA builded files to production & port for run server. |
 | inputHTMLString | ['<html>example</html>'] | This method expects a string containing HTML. |

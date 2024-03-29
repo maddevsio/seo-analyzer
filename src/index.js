@@ -134,6 +134,25 @@ class SeoAnalyzer {
     return this;
   }
 
+  /**
+   * Input urls to analyze
+   * @param {string} host
+   * @param {Array<string>} urls
+   * @returns {SeoAnalyzer}
+   * @example inputUrls(['https://google.com', 'https://maddevs.io'])
+   */
+  inputUrls(urls) {
+    this.operations.push(async () => {
+      if (!urls || !urls.length) {
+        this._logger.error('Urls not found');
+        return this;
+      }
+      const result = await this._input.urls(urls);
+      this._inputData = [...this._inputData, ...result];
+    });
+    return this;
+  }
+
   // --------- Add Rule --------- //
   /**
    * Adds a rule to the SEO analyzer.

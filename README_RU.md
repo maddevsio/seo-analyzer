@@ -56,7 +56,19 @@ new SeoAnalyzer()
 
 Далее покажу несколько примеров.
 
-#### Способ №1: анализ страниц для SPA приложения и вывод отчета в консоль
+#### Способ №1: анализ url-адресов и вывод отчета в консоль
+
+```js
+const SeoAnalyzer = require('seo-analyzer');
+
+new SeoAnalyzer()
+  .inputUrls(['https://example.com', 'https://example.com/about'])
+  .addRule('imgTagWithAltAttributeRule')
+  .outputConsole()
+  .run();
+```
+
+#### Способ №2: анализ страниц для SPA приложения и вывод отчета в консоль
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -69,7 +81,7 @@ new SeoAnalyzer()
   .run();
 ```
 
-#### Способ №2: анализ список HTML-файлов и вывод отчета в консоль
+#### Способ №3: анализ список HTML-файлов и вывод отчета в консоль
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -81,7 +93,7 @@ new SeoAnalyzer()
   .run();
 ```
 
-#### Способ №3: анализ папок с HTML-файлами и вывод отчета в консоль
+#### Способ №4: анализ папок с HTML-файлами и вывод отчета в консоль
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -93,7 +105,7 @@ new SeoAnalyzer()
   .run();
 ```
 
-#### Способ №4: анализ папок с HTML-файлами и вывод отчета в виде JSON
+#### Способ №5: анализ папок с HTML-файлами и вывод отчета в виде JSON
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -105,7 +117,7 @@ new SeoAnalyzer()
   .run();
 ```
 
-#### Способ №5: игнорировать подпапку "test" и 404.html в папке "src" и вернуть объект js
+#### Способ №6: игнорировать подпапку "test" и 404.html в папке "src" и вернуть объект js
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -119,7 +131,7 @@ new SeoAnalyzer()
   .run();
 ```
 
-#### Способ №6: Ввод HTML-строки напрямую и вывод отчета в консоль
+#### Способ №7: Ввод HTML-строки напрямую и вывод отчета в консоль
 
 ```js
 const SeoAnalyzer = require('seo-analyzer');
@@ -141,6 +153,7 @@ new SeoAnalyzer()
 | ignoreFolders | ['dist/ignore'] | Массив папок с файлами, которые будут проигнорированны во время анализа. |
 | ignoreUrls | ['/404'] | Массив URL-адресов, которые будут проигнорированны во время анализа. |
 | inputFiles | ['dist/index.html'] | Массив файлов, которые нужно анализировать. |
+| inputUrls | ['http://example.com'] | Массив URL-адресов, которые нужно анализировать. |
 | inputFolders | ['dist', 'src'] | Массив папкок с файлами, которые нужно анализировать. |
 | inputSpaFolder | '/dist', 'sitemap.xml', 3000 | Метод для запуска анализаторв для SPA приложений. Ожидает папку с финальными кодом приложения и порт на котором запустится анализатор. |
 | inputHTMLString | ['<html>example</html>'] | Этот метод ожидает строку, содержащую HTML. |

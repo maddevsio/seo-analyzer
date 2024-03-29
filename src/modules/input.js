@@ -101,12 +101,23 @@ class Input {
 
   /**
    * Get the DOM from urls
-   * @returns {Promise<ListDom>} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @param port
    * @param ignoreUrls
+   * @returns {Promise<ListDom>} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    */
   async spa(port, ignoreUrls = [], sitemap) {
     const listTexts = await this.scraper.run(port, ignoreUrls, sitemap);
+    const htmlDoms = await this.getDom(listTexts);
+    return htmlDoms;
+  }
+
+  /**
+   * Get the DOM from urls
+   * @param {Array} urls - Array of urls
+   * @returns {Promise<ListDom>} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
+   */
+  async urls(urls) {
+    const listTexts = await this.scraper.urls(urls);
     const htmlDoms = await this.getDom(listTexts);
     return htmlDoms;
   }
