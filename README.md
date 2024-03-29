@@ -257,19 +257,6 @@ function customRule(dom) {
 ...
 ```
 
-## What's new
-
-One new rule was created and three obsolete rules were deleted.
-
-✅: added\
-❌: removed
-
-| ✅  | ❌  | Rule                    | Description    |
-| :-: | :-: | :---------------------- | :------------- |
-|     | ❌  | hTagsRule               | Only for HTML4 |
-|     | ❌  | noMoreThanOneH1TagRule  | Only for HTML4 |
-|     | ❌  | noTooManyStrongTagsRule | Only for HTML4 |
-
 ## Example of the output of all SEO defects in the console.
 
 ```bash

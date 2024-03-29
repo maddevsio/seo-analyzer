@@ -9,6 +9,9 @@
   "repository": "https://github.com/maddevsio/seo-analyzer",
   "homepage": "https://github.com/maddevsio/seo-analyzer",
   "bugs": "https://github.com/maddevsio/seo-analyzer/issues",
+  "bin": {
+    "seo-analyzer": "./bin/index.js"
+  },
   "author": {
     "name": "Denisoed",
     "email": "denisoed@gmail.com"
@@ -50,6 +53,7 @@
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
     "ava": "^3.15.0",
+    "commander": "^12.0.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
