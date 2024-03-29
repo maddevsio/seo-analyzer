@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { Command } = require('commander');
-const ver = require('../src/version');
+const ver = require('./version');
 
 const program = new Command();
 
