@@ -94,7 +94,7 @@ class SeoAnalyzer {
 
   /**
    * Spa folder to analyze
-   * @param {Array<string>} folder
+   * @param {Array<string>} folder - "dist" to analyze
    * @returns {Promise<SeoAnalyzer>}
    */
   inputSpaFolder(folder, sitemap = 'sitemap.xml', port = 9999) {
