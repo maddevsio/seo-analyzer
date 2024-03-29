@@ -20,7 +20,7 @@ new SeoAnalyzer()
   .ignoreUrls(['/#/product/2'])
   // ------- Input methods -------- //
   // .inputFolders(['example'])
-  .inputUrls(['https://denisoed.com'])
+  .inputUrls(['https://maddevs.io'])
   // .inputFiles(['example/html/index.html'])
   // .inputSpaFolder('example/spa', 'sitemap.xml')
   // .inputHTMLStrings([

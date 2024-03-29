@@ -139,6 +139,7 @@ class SeoAnalyzer {
    * @param {string} host
    * @param {Array<string>} urls
    * @returns {SeoAnalyzer}
+   * @example inputUrls(['https://google.com', 'https://maddevs.io'])
    */
   inputUrls(urls) {
     this.operations.push(async () => {
