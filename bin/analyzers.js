@@ -1,9 +1,28 @@
 const SeoAnalyzer = require('../dist/seo-analyzer.js');
 
-module.exports = urls => {
-  new SeoAnalyzer()
-    // ------- Input methods -------- //
-    .inputUrls(urls)
+function detectInputs(options) {
+  const INPUTS = {
+    files: 'inputFiles',
+    folders: 'inputFolders',
+    urls: 'inputUrls'
+  };
+  return Object.keys(INPUTS)
+    .filter(key => options[key])
+    .map(key => ({
+      input: INPUTS[key],
+      value: options[key]
+    }));
+}
+
+module.exports = options => {
+  const analyzer = new SeoAnalyzer();
+
+  const inputs = detectInputs(options);
+  for (const { input, value } of inputs) {
+    analyzer[input](value);
+  }
+
+  analyzer
     // ------ Default rules -------- //
     .addRule('titleLengthRule', { min: 10, max: 50 })
     .addRule('metaBaseRule', { names: ['description', 'viewport'] })
