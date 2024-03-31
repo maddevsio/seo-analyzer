@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   seo-analyzer:
-    uns-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
