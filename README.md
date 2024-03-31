@@ -59,6 +59,30 @@ seo-analyzer -h
 seo-analyzer -u https://maddevs.io https://maddevs.io/blog
 ```
 
+## Use as actions on github
+
+To use SEO analyzer as actions on github, you can create a workflow file in .github/workflows/analyzer.yml with the following content:
+
+```yml
+name: SEO analyzer
+
+on: [push]
+
+jobs:
+  seo-analyzer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm i -g seo-analyzer
+      - run: seo-analyzer -u https://maddevs.io
+```
+
+In the last step, you can specify the url you want to analyse.
+
 ## Installation to project
 
 Install with npm
