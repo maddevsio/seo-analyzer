@@ -1,6 +1,6 @@
 {
   "name": "seo-analyzer",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "A library for analyze a HTML files to show all of the SEO defects",
   "main": "dist/seo-analyzer.js",
   "module": "dist/seo-analyzer.mjs",
