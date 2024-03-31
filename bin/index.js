@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const { Command } = require('commander');
 const ver = require('./version');
-const analyzers = require('./analyzers');
+const analyzer = require('./analyzer');
 
 const program = new Command();
 
@@ -24,4 +24,6 @@ program
 
 const options = program.opts();
 
-analyzers(options);
+if (!options.version) {
+  analyzer(options);
+}

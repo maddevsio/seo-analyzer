@@ -12,4 +12,4 @@ jobs:
         with:
           node-version: '20.x'
       - run: npm i -g seo-analyzer
-      - run: seo-analyzer -v
+      - run: seo-analyzer -u https://maddevs.io
