@@ -44,14 +44,14 @@ seo-analyzer -h
 | Option | Args | Description |
 | --- | --- | --- |
 | -h, --help | null | Показать справку. |
-| -v, --version | null | Показать версию. |
-| -u, --urls | [array] | Список url для анализа. |
-| -f, --files | [array] | Список html файлов для анализа. |
-| -fl, --folder | [array] | Список папок для анализа. |
-| -iu, --ignoreUrls | [array] | Игнорируемые url. |
-| -if, --ignoreFiles | [array] | Игнорируемые html файлы. |
-| -ifl, --ignoreFolders | [array] | Игнорируемые папки. |
-| -r, --rules | [array] | Список правил для анализа. Поумолчанию запускаются все дефолтные правила. |
+| -v, --version | null | **Display Application Version:** Выводит информацию о текущей версии программы. |
+| -iu, --ignoreUrls | [array] | **Exclude Specific URLs from Analysis:** Исключает определенные URL из анализа для предотвращения обработки нежелательных веб-страниц. |
+| -if, --ignoreFiles | [array] | **Exclude Specific Files from Analysis:** Позволяет исключить из анализа определенные файлы, предотвращая их обработку. |
+| -ifl, --ignoreFolders | [array] | **Exclude Specific Folders from Analysis:** Исключает указанные папки из процесса анализа, игнорируя все файлы внутри этих папок. |
+| -u, --urls | [array] | **Perform SEO Analysis on Specified URLs:** Выполняет SEO-анализ для указанных URL-адресов, проверяя их на соответствие определенным SEO-критериям. |
+| -f, --files | [array] | **Perform SEO Analysis on Specified Files:** Производит анализ SEO для указанных файлов, обеспечивая их соответствие стандартам и правилам оптимизации. |
+| -fl, --folder | [array] | **Perform SEO Analysis on Specified Folders:** Анализирует все файлы в указанных папках на предмет соответствия SEO-правилам и рекомендациям. |
+| -r, --rules | [array] | **Apply Specific SEO Rules for Analysis:** Применяет определенные правила SEO при анализе, позволяя пользователю кастомизировать процесс проверки. Поумолчанию запускаются все дефолтные правила. |
 
 #### Пример использования с множеством url
 
