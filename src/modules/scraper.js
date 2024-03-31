@@ -125,7 +125,7 @@ class Scanner {
           .catch(error => {
             const err =
               (error && error.response && error.response.status) || 500;
-            this.logger.error(`Error: ${error} - ${link}`);
+            this.logger.error(`\n\n${error} - ${link}`);
             this.logger.error(
               `\n${_colors.yellow('==>')} ${_colors.white(link)} ${_colors.red(
                 err

@@ -10,11 +10,13 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+babel.config.js
+preview.png
 .eslintrc.js
 .eslintignore
 .prettierrc
-preview.jpg
 .babelrc
+.github/
 node_modules/
 example/
 src/

@@ -1,10 +1,8 @@
 {
   "name": "seo-analyzer",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "description": "A library for analyze a HTML files to show all of the SEO defects",
   "main": "dist/seo-analyzer.js",
-  "module": "dist/seo-analyzer.mjs",
-  "browser": "dist/seo-analyzer.min.js",
   "types": "dist/seo-analyzer.d.ts",
   "repository": "https://github.com/maddevsio/seo-analyzer",
   "homepage": "https://github.com/maddevsio/seo-analyzer",
