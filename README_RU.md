@@ -41,11 +41,17 @@ npm install -g seo-analyzer
 seo-analyzer -h
 ```
 
-| Method        | Params  | Description            |
-| ------------- | ------- | ---------------------- |
-| -h, --help    | null    | Show all options.      |
-| -v, --version | null    | Show version.          |
-| -u, --urls    | [array] | Multiple url analysis. |
+| Option | Args | Description |
+| --- | --- | --- |
+| -h, --help | null | Показать справку. |
+| -v, --version | null | Показать версию. |
+| -u, --urls | [array] | Список url для анализа. |
+| -f, --files | [array] | Список html файлов для анализа. |
+| -fl, --folder | [array] | Список папок для анализа. |
+| -iu, --ignoreUrls | [array] | Игнорируемые url. |
+| -if, --ignoreFiles | [array] | Игнорируемые html файлы. |
+| -ifl, --ignoreFolders | [array] | Игнорируемые папки. |
+| -r, --rules | [array] | Список правил для анализа. Поумолчанию запускаются все дефолтные правила. |
 
 #### Пример использования с множеством url
 

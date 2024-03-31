@@ -41,7 +41,7 @@ npm install -g seo-analyzer
 seo-analyzer -h
 ```
 
-| Method | Params | Description |
+| Option | Args | Description |
 | --- | --- | --- |
 | -h, --help | null | Show all options. |
 | -v, --version | null | Show version. |
