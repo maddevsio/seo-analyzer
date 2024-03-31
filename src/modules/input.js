@@ -10,6 +10,11 @@ import Scraper from './scraper';
  * @typedef {Array<JSDOM>} ListDom
  */
 
+const BAD_TYPE_MESSAGE =
+  'The inputFiles function takes an array only ["index.html", "...", "..."]';
+const EMPTY_LIST_MESSAGE =
+  'You need to pass an array to the inputFiles function ["index.html", "...", "..."]';
+
 class Input {
   constructor(logger) {
     this.logger = logger ?? new Logger();
@@ -25,10 +30,6 @@ class Input {
         barIncompleteChar: '\u2591',
         hideCursor: true
       });
-    this.badType =
-      'The inputFiles function takes an array only ["index.html", "...", "..."]';
-    this.emptyList =
-      'You need to pass an array to the inputFiles function ["index.html", "...", "..."]';
     this.ignoreFolders = [];
     this.ignoreFiles = [];
   }
@@ -55,14 +56,14 @@ class Input {
 
     this.logger.info('\n🚀  Parsing files\n');
     if (files.length === 0) {
-      this.logger.error(this.emptyList);
+      this.logger.error(EMPTY_LIST_MESSAGE);
     }
     if (!Array.isArray(files)) {
-      this.logger.error(this.badType);
+      this.logger.error(BAD_TYPE_MESSAGE);
     }
     this.ignoreFiles = ignoreFiles;
     const listTexts = await this._getHtml(files);
-    const listDOM = await this.getDom(listTexts);
+    const listDOM = await this._getDom(listTexts);
     return listDOM;
   }
 
@@ -107,7 +108,7 @@ class Input {
    */
   async spa(port, ignoreUrls = [], sitemap) {
     const listTexts = await this.scraper.run(port, ignoreUrls, sitemap);
-    const htmlDoms = await this.getDom(listTexts);
+    const htmlDoms = await this._getDom(listTexts);
     return htmlDoms;
   }
 
@@ -117,8 +118,10 @@ class Input {
    * @returns {Promise<ListDom>} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    */
   async urls(urls) {
-    const listTexts = await this.scraper.urls(urls);
-    const htmlDoms = await this.getDom(listTexts);
+    const rawDoms = await this.scraper.urls(urls);
+    if (!rawDoms.length)
+      this.logger.error('\n❌  Please check your urls.\n', true);
+    const htmlDoms = await this._getDom(rawDoms);
     return htmlDoms;
   }
 
@@ -227,7 +230,7 @@ class Input {
    * @returns {Promise<ListDom>} [{ window: {}, document: {}, ... }, { window: {}, document: {}, ... }, ...]
    * @private
    */
-  getDom(list) {
+  _getDom(list) {
     const doms = [];
     const proccess =
       this.logger.level <= 4 &&
