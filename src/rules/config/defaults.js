@@ -24,3 +24,8 @@ export const TITLE_LENGTH_RULE = {
   min: 30,
   max: 60
 };
+
+export const META_DESCRIPTION_LENGTH_RULE = {
+  min: 160,
+  max: 300
+};

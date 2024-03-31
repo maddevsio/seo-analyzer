@@ -1,6 +1,6 @@
 import { META_BASE_RULE } from './config/defaults';
 
-function metaBaseRule(dom, options = { list: [] }) {
+function metaBaseRule(dom, options = { names: [] }) {
   return new Promise(resolve => {
     const report = [];
     const list = options?.names || META_BASE_RULE.names;
