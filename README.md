@@ -2,11 +2,9 @@
 
 [![Developed by Mad Devs](https://maddevs.io/badge-dark.svg)](https://maddevs.io?utm_source=github&utm_medium=madboiler) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-![Preview](preview.jpg)
+![Preview](preview.png)
 
 The library for analyze a HTML files to show all of the SEO defects.
-
-**Link to article** https://maddevs.io/insights/blog/seo-analyzer/
 
 ## Translations of documentation
 
@@ -43,19 +41,25 @@ npm install -g seo-analyzer
 seo-analyzer -h
 ```
 
-| Method        | Params                 | Description            |
-| ------------- | ---------------------- | ---------------------- |
-| -h, --help    | null                   | Show help.             |
-| -v, --version | null                   | Show version.          |
-| -u, --urls    | ['http://example.com'] | Multiple url analysis. |
+| Option | Args | Description |
+| --- | --- | --- |
+| -h, --help | null | Show all options. |
+| -v, --version | null | Show version. |
+| -u, --urls | [array] | Multiple url analysis. |
+| -f, --files | [array] | Multiple file analysis. |
+| -fl, --folder | [array] | Multiple folder analysis. |
+| -iu, --ignoreUrls | [array] | Urls to ignore. |
+| -if, --ignoreFiles | [array] | Files to ignore. |
+| -ifl, --ignoreFolders | [array] | Folders to ignore. |
+| -r, --rules | [array] | Rules to run. By default run all default rules. |
 
 #### Example of using multiple url analysis
 
 ```sh
-seo-analyzer -u http://example.com http://example.com/about
+seo-analyzer -u https://maddevs.io https://maddevs.io/blog
 ```
 
-## Local installation
+## Installation to project
 
 Install with npm
 
@@ -88,7 +92,7 @@ Next I will show you some examples.
 const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
-  .inputUrls(['https://example.com', 'https://example.com/about'])
+  .inputUrls(['https://maddevs.io', 'https://maddevs.io/blog'])
   .addRule('imgTagWithAltAttributeRule')
   .outputConsole()
   .run();
@@ -178,7 +182,7 @@ new SeoAnalyzer()
 | ignoreFolders | ['dist/ignore'] | This method expects an array of folders to ignore before analysis. |
 | ignoreUrls | ['/404'] | This method expects an array of urls to ignore before analysis. |
 | inputFiles | ['dist/index.html'] | This method expects an array of html files. |
-| inputUrls | ['http://example.com'] | This method expects an array of urls to analyze. |
+| inputUrls | ['https://maddevs.io'] | This method expects an array of urls to analyze. |
 | inputFolders | ['dist', 'src'] | This method expects an array of folders with html files. |
 | inputSpaFolder | '/dist', 'sitemap.xml', 3000 | This method expects an string of folder with SPA builded files to production & port for run server. |
 | inputHTMLString | ['<html>example</html>'] | This method expects a string containing HTML. |
@@ -286,7 +290,6 @@ function customRule(dom) {
 ## Example of the output of all SEO defects in the console.
 
 ```bash
-
  ███████╗ ███████╗  ██████╗
  ██╔════╝ ██╔════╝ ██╔═══██╗
  ███████╗ █████╗   ██║   ██║
@@ -302,16 +305,22 @@ function customRule(dom) {
  ╚═╝  ╚═╝ ╚═╝  ╚═══╝ ╚═╝  ╚═╝ ╚══════╝    ╚═╝    ╚══════╝ ╚══════╝ ╚═╝  ╚═╝
 
 
+🚀  Parsing HTML
 
-🚀  Analysis of files
+Processing... |████████████████████████████████████████| 100% || 1/1 Pages
 
-==> Analysis example/index.html
-Handling files by rules |████████████████████████████████████████| 100% || 11/11 Rules
+🚀  Getting DOM from HTML
+
+Handling html |████████████████████████████████████████| 100% || 1/1 Sources
+
+==> Analysis https://google.com
+Running rules |████████████████████████████████████████| 100% || 6/6 Rules
 
 🚀  Issue report
 
-File: example/index.html
-<title> too short(1). The minimum length should be 10 characters.
+Source: https://google.com
+This HTML is missing a <meta name="description"> tag
+This HTML is missing a <meta name="viewport"> tag
 This HTML is missing a <meta property="og:url"> tag
 This HTML is missing a <meta property="og:type"> tag
 This HTML is missing a <meta property="og:site_name"> tag
@@ -326,9 +335,8 @@ This HTML is missing a <meta property="twitter:description"> tag
 This HTML is missing a <meta property="twitter:image:src"> tag
 This HTML is missing a <meta property="twitter:url"> tag
 There are 1 <img> tags without an alt attribute
-This HTML is msissing a <meta name="keywords"> tag
-There are 1 <a> tags without a rel attribute
-The canonical link is missing an href attribute
+There are 16 <a> tags without a rel attribute
+This HTML is missing a <link rel="canonical" href="..."> link
 
 -------- 🚀 Finished! --------
 Thanks for using Seo Analyzer!

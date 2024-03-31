@@ -2,11 +2,9 @@
 
 [![Developed by Mad Devs](https://maddevs.io/badge-dark.svg)](https://maddevs.io?utm_source=github&utm_medium=madboiler) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-![Preview](preview.jpg)
+![Preview](preview.png)
 
 SEO анализатор это инструмент, который поможет отлавливать SEO дефекты на разных стадиях разработки. Основная задача — анализ DOM дерева с целью обнаружения SEO дефектов.
-
-**Ссылка на статью** https://medium.com/maddevs-io/seo-analyzer-bfb0eea16801
 
 ## Переводы документации
 
@@ -29,7 +27,39 @@ SEO анализатор это инструмент, который помож�
 - **Seo Friendly:** держит ваш проект валидным и дружелюбным к поисковым роботам путём обнаружения дефектов на страницах вашего сайта.
 - **Это бесплатно:** мы рады поделиться результатами своей работы.
 
-## Установка
+## Глобальная установка
+
+Для использования SEO анализатора в консоли необходимо установить плагин глобально.
+
+```sh
+npm install -g seo-analyzer
+```
+
+### Информация о параметрах
+
+```sh
+seo-analyzer -h
+```
+
+| Option | Args | Description |
+| --- | --- | --- |
+| -h, --help | null | Показать справку. |
+| -v, --version | null | Показать версию. |
+| -u, --urls | [array] | Список url для анализа. |
+| -f, --files | [array] | Список html файлов для анализа. |
+| -fl, --folder | [array] | Список папок для анализа. |
+| -iu, --ignoreUrls | [array] | Игнорируемые url. |
+| -if, --ignoreFiles | [array] | Игнорируемые html файлы. |
+| -ifl, --ignoreFolders | [array] | Игнорируемые папки. |
+| -r, --rules | [array] | Список правил для анализа. Поумолчанию запускаются все дефолтные правила. |
+
+#### Пример использования с множеством url
+
+```sh
+seo-analyzer -u https://maddevs.io https://maddevs.io/blog
+```
+
+## Установка в проект
 
 Установка с помощью npm
 
@@ -62,7 +92,7 @@ new SeoAnalyzer()
 const SeoAnalyzer = require('seo-analyzer');
 
 new SeoAnalyzer()
-  .inputUrls(['https://example.com', 'https://example.com/about'])
+  .inputUrls(['https://maddevs.io', 'https://maddevs.io/blog'])
   .addRule('imgTagWithAltAttributeRule')
   .outputConsole()
   .run();
@@ -153,7 +183,7 @@ new SeoAnalyzer()
 | ignoreFolders | ['dist/ignore'] | Массив папок с файлами, которые будут проигнорированны во время анализа. |
 | ignoreUrls | ['/404'] | Массив URL-адресов, которые будут проигнорированны во время анализа. |
 | inputFiles | ['dist/index.html'] | Массив файлов, которые нужно анализировать. |
-| inputUrls | ['http://example.com'] | Массив URL-адресов, которые нужно анализировать. |
+| inputUrls | ['https://maddevs.io'] | Массив URL-адресов, которые нужно анализировать. |
 | inputFolders | ['dist', 'src'] | Массив папкок с файлами, которые нужно анализировать. |
 | inputSpaFolder | '/dist', 'sitemap.xml', 3000 | Метод для запуска анализаторв для SPA приложений. Ожидает папку с финальными кодом приложения и порт на котором запустится анализатор. |
 | inputHTMLString | ['<html>example</html>'] | Этот метод ожидает строку, содержащую HTML. |
@@ -261,7 +291,6 @@ function customRule(dom) {
 ## Пример вывода отчета в консоль.
 
 ```bash
-
  ███████╗ ███████╗  ██████╗
  ██╔════╝ ██╔════╝ ██╔═══██╗
  ███████╗ █████╗   ██║   ██║
@@ -277,16 +306,22 @@ function customRule(dom) {
  ╚═╝  ╚═╝ ╚═╝  ╚═══╝ ╚═╝  ╚═╝ ╚══════╝    ╚═╝    ╚══════╝ ╚══════╝ ╚═╝  ╚═╝
 
 
+🚀  Parsing HTML
 
-🚀  Analysis of files
+Processing... |████████████████████████████████████████| 100% || 1/1 Pages
 
-==> Analysis example/index.html
-Handling files by rules |████████████████████████████████████████| 100% || 11/11 Rules
+🚀  Getting DOM from HTML
+
+Handling html |████████████████████████████████████████| 100% || 1/1 Sources
+
+==> Analysis https://google.com
+Running rules |████████████████████████████████████████| 100% || 6/6 Rules
 
 🚀  Issue report
 
-File: example/index.html
-<title> too short(1). The minimum length should be 10 characters.
+Source: https://google.com
+This HTML is missing a <meta name="description"> tag
+This HTML is missing a <meta name="viewport"> tag
 This HTML is missing a <meta property="og:url"> tag
 This HTML is missing a <meta property="og:type"> tag
 This HTML is missing a <meta property="og:site_name"> tag
@@ -301,9 +336,8 @@ This HTML is missing a <meta property="twitter:description"> tag
 This HTML is missing a <meta property="twitter:image:src"> tag
 This HTML is missing a <meta property="twitter:url"> tag
 There are 1 <img> tags without an alt attribute
-This HTML is missing a <meta name="keywords"> tag
-There are 1 <a> tags without a rel attribute
-The canonical link is missing an href attribute
+There are 16 <a> tags without a rel attribute
+This HTML is missing a <link rel="canonical" href="..."> link
 
 -------- 🚀 Finished! --------
 Thanks for using Seo Analyzer!

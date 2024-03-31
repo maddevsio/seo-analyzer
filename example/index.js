@@ -19,8 +19,8 @@ new SeoAnalyzer()
   .ignoreFiles(['example/html/team.html'])
   .ignoreUrls(['/#/product/2'])
   // ------- Input methods -------- //
-  // .inputFolders(['example'])
-  .inputUrls(['https://maddevs.io'])
+  .inputFolders(['example'])
+  // .inputUrls(['https://maddevs.io'])
   // .inputFiles(['example/html/index.html'])
   // .inputSpaFolder('example/spa', 'sitemap.xml')
   // .inputHTMLStrings([
@@ -32,7 +32,7 @@ new SeoAnalyzer()
 
   // ------ Default rules -------- //
   .addRule('titleLengthRule', { min: 10, max: 50 })
-  .addRule('metaBaseRule', { names: ['description', 'viewport'] })
+  .addRule('metaBaseRule', { names: ['title', 'description'] })
   .addRule('metaSocialRule', {
     properties: [
       'og:url',
