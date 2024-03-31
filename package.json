@@ -36,7 +36,7 @@
     "watch": "rollup -c -w",
     "make": "rimraf dist && rollup -c && node ./example/index.js",
     "build": "rimraf dist && rollup -c",
-    "prepublish": "npm run build",
+    "prepublish": "npm run build && npm run test",
     "lint": "eslint src --ext .js",
     "format": "prettier \"src/**/*.js\" --write --config .prettierrc",
     "test": "nyc ava",

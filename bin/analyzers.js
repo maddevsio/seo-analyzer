@@ -1,6 +1,8 @@
 const colors = require('colors');
 const SeoAnalyzer = require('../dist/seo-analyzer.js');
 
+const INVALID_RULE_MESSAGE = `❌ Incorrect format of the rule value. The value must be in JSON format. \n❌ For example: -r metaSocialRule='{ "properties": ["og:url"] }'`;
+
 const IGNORES = {
   ignoreFiles: 'ignoreFiles',
   ignoreFolders: 'ignoreFolders',
@@ -19,8 +21,7 @@ function formatRuleParams(input) {
     const jsonObj = JSON.parse(input);
     return jsonObj;
   } catch {
-    const err = `❌ Invalid params format. Params must be in JSON format. For example: -r metaSocialRule='{ "properties": ["og:url"] }'`;
-    console.error(`${colors.red(err)}`);
+    console.error(`${colors.red(INVALID_RULE_MESSAGE)}`);
     process.exit(1);
   }
 }
@@ -56,8 +57,11 @@ module.exports = options => {
   }
 
   const rules = detectRules(options);
-  for (const { name, value } of rules) {
-    analyzer.addRule(name, value);
+  const resultRules = rules.length
+    ? rules
+    : Object.keys(analyzer.getDefaultRules());
+  for (const rule of resultRules) {
+    analyzer.addRule(rule?.name || rule, rule?.value);
   }
 
   analyzer.outputConsole().run();

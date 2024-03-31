@@ -175,6 +175,14 @@ class SeoAnalyzer {
     return this;
   }
 
+  /**
+   * Get default rules
+   * @returns {object}
+   */
+  getDefaultRules() {
+    return this._defaultRules;
+  }
+
   // ------- Output methods ------- //
   /**
    * Logs object to console asynchronously and returns itself
