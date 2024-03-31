@@ -12,6 +12,7 @@ program
   .option('-fl, --folders <folders...>', 'Multiple folders analysis')
   .option('-iu, --ignore-urls <ignoreUrls...>', 'Multiple ignore urls')
   .option('-if, --ignore-files <ignoreFiles...>', 'Multiple ignore files')
+  .option('-r, --rules <rules...>', 'Multiple rules')
   .option(
     '-ifl, --ignore-folders <ignoreFolders...>',
     'Multiple ignore folders'

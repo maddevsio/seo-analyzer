@@ -1,3 +1,4 @@
+const colors = require('colors');
 const SeoAnalyzer = require('../dist/seo-analyzer.js');
 
 const IGNORES = {
@@ -12,6 +13,18 @@ const INPUTS = {
   urls: 'inputUrls'
 };
 
+function formatRuleParams(input) {
+  if (!input) return null;
+  try {
+    const jsonObj = JSON.parse(input);
+    return jsonObj;
+  } catch {
+    const err = `❌ Invalid params format. Params must be in JSON format. For example: -r metaSocialRule='{ "properties": ["og:url"] }'`;
+    console.error(`${colors.red(err)}`);
+    process.exit(1);
+  }
+}
+
 function detectOptions(options, obj) {
   return Object.keys(obj)
     .filter(key => options[key])
@@ -19,6 +32,14 @@ function detectOptions(options, obj) {
       name: obj[key],
       value: options[key]
     }));
+}
+
+function detectRules(options) {
+  const rules = options.rules || [];
+  return rules.map(rule => ({
+    name: rule.split('=')[0],
+    value: formatRuleParams(rule.split('=')[1])
+  }));
 }
 
 module.exports = options => {
@@ -34,31 +55,10 @@ module.exports = options => {
     analyzer[name](value);
   }
 
-  analyzer
-    // ------ Default rules -------- //
-    .addRule('titleLengthRule', { min: 10, max: 50 })
-    .addRule('metaBaseRule', { names: ['description', 'viewport'] })
-    .addRule('metaSocialRule', {
-      properties: [
-        'og:url',
-        'og:type',
-        'og:site_name',
-        'og:title',
-        'og:description',
-        'og:image',
-        'og:image:width',
-        'og:image:height',
-        'twitter:card',
-        'twitter:text:title',
-        'twitter:description',
-        'twitter:image:src',
-        'twitter:url'
-      ]
-    })
-    .addRule('imgTagWithAltAttributeRule')
-    .addRule('aTagWithRelAttributeRule')
-    .addRule('canonicalLinkRule')
-    // ------- Output methods ------- //
-    .outputConsole()
-    .run();
+  const rules = detectRules(options);
+  for (const { name, value } of rules) {
+    analyzer.addRule(name, value);
+  }
+
+  analyzer.outputConsole().run();
 };
