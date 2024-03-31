@@ -114,23 +114,20 @@ class SeoAnalyzer {
    * @returns {SeoAnalyzer}
    */
   inputHTMLStrings(inputHTMLs) {
-    this.operations.push(async () => {
-      if (
-        !inputHTMLs ||
-        !inputHTMLs.length ||
-        inputHTMLs.some(
-          html =>
-            typeof html.text === 'undefined' ||
-            typeof html.source === 'undefined'
-        )
-      ) {
-        const error = `Invalid input ${inputHTMLs}`;
-        this._logger.error(error);
-        throw error;
-      }
-      const result = this._input.getDom(inputHTMLs);
-      this._inputData = [...this._inputData, ...result];
-    });
+    if (
+      !inputHTMLs ||
+      !inputHTMLs.length ||
+      inputHTMLs.some(
+        html =>
+          typeof html.text === 'undefined' || typeof html.source === 'undefined'
+      )
+    ) {
+      const error = `Invalid input ${inputHTMLs}`;
+      this._logger.error(error);
+      throw error;
+    }
+    const result = this._input.getDom(inputHTMLs);
+    this._inputData = [...this._inputData, ...result];
     return this;
   }
 
@@ -161,19 +158,20 @@ class SeoAnalyzer {
    * @returns {this} The SEO analyzer instance for method chaining.
    */
   addRule(rule, options = {}) {
-    this.operations.push(async () => {
-      if (typeof rule === 'string') {
-        if (rule in defaultRules) {
-          this._rules.push({ rule: defaultRules[rule], options });
-        } else {
-          this._logger.error(`\n\n❌  Rule "${rule}" not found\n`, 1);
-        }
-      } else if (typeof rule === 'function') {
-        this._rules.push({ rule, options });
+    if (typeof rule === 'string') {
+      if (rule in defaultRules) {
+        this._rules.push({ rule: defaultRules[rule], options });
       } else {
-        this._logger.error('\n\n❌  Rule must be a function or a string\n', 1);
+        this._logger.error(`\n\n❌  Rule "${rule}" not found\n`, false);
       }
-    });
+    } else if (typeof rule === 'function') {
+      this._rules.push({ rule, options });
+    } else {
+      this._logger.error(
+        '\n\n❌  Rule must be a function or a string\n',
+        false
+      );
+    }
     return this;
   }
 
@@ -219,7 +217,7 @@ class SeoAnalyzer {
   // --------- Runner --------- //
   /**
    * Runs all operations
-   * @returns {Promise<AnalyzerResult>}
+   * @returns {Promise<void>}
    */
   async run() {
     this._logger.printTextToConsole('SEO Analyzer');
