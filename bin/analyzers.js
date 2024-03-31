@@ -1,29 +1,22 @@
 const SeoAnalyzer = require('../dist/seo-analyzer.js');
 
-function detectInputs(options) {
-  const INPUTS = {
-    files: 'inputFiles',
-    folders: 'inputFolders',
-    urls: 'inputUrls'
-  };
-  return Object.keys(INPUTS)
-    .filter(key => options[key])
-    .map(key => ({
-      input: INPUTS[key],
-      value: options[key]
-    }));
-}
+const IGNORES = {
+  ignoreFiles: 'ignoreFiles',
+  ignoreFolders: 'ignoreFolders',
+  ignoreUrls: 'ignoreUrls'
+};
 
-function detectIgnores(options) {
-  const IGNORES = {
-    ignoreFiles: 'ignoreFiles',
-    ignoreFolders: 'ignoreFolders',
-    ignoreUrls: 'ignoreUrls'
-  };
-  return Object.keys(IGNORES)
+const INPUTS = {
+  files: 'inputFiles',
+  folders: 'inputFolders',
+  urls: 'inputUrls'
+};
+
+function detectOptions(options, obj) {
+  return Object.keys(obj)
     .filter(key => options[key])
     .map(key => ({
-      ignore: IGNORES[key],
+      name: obj[key],
       value: options[key]
     }));
 }
@@ -31,14 +24,14 @@ function detectIgnores(options) {
 module.exports = options => {
   const analyzer = new SeoAnalyzer();
 
-  const ignores = detectIgnores(options);
-  for (const { ignore, value } of ignores) {
-    analyzer[ignore](value);
+  const ignores = detectOptions(options, IGNORES);
+  for (const { name, value } of ignores) {
+    analyzer[name](value);
   }
 
-  const inputs = detectInputs(options);
-  for (const { input, value } of inputs) {
-    analyzer[input](value);
+  const inputs = detectOptions(options, INPUTS);
+  for (const { name, value } of inputs) {
+    analyzer[name](value);
   }
 
   analyzer
