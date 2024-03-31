@@ -44,20 +44,44 @@ seo-analyzer -h
 | Option | Args | Description |
 | --- | --- | --- |
 | -h, --help | null | Show all options. |
-| -v, --version | null | Show version. |
-| -u, --urls | [array] | Multiple url analysis. |
-| -f, --files | [array] | Multiple file analysis. |
-| -fl, --folder | [array] | Multiple folder analysis. |
-| -iu, --ignoreUrls | [array] | Urls to ignore. |
-| -if, --ignoreFiles | [array] | Files to ignore. |
-| -ifl, --ignoreFolders | [array] | Folders to ignore. |
-| -r, --rules | [array] | Rules to run. By default run all default rules. |
+| -v, --version | null | **Display Application Version:** Displays the current version of the application. |
+| -iu, --ignoreUrls | [array] | **Exclude Specific URLs from Analysis:** Excludes certain URLs from analysis to avoid processing unwanted web pages. |
+| -if, --ignoreFiles | [array] | **Exclude Specific Files from Analysis:** Allows excluding certain files from analysis, preventing their processing. |
+| -ifl, --ignoreFolders | [array] | **Exclude Specific Folders from Analysis:** Excludes specified folders from the analysis process, ignoring all files within those folders. |
+| -u, --urls | [array] | **Perform SEO Analysis on Specified URLs:** Conducts SEO analysis for specified URLs, checking their compliance with certain SEO criteria. |
+| -f, --files | [array] | **Perform SEO Analysis on Specified Files:** Performs SEO analysis on specified files, ensuring their adherence to optimization standards and rules. |
+| -fl, --folder | [array] | **Perform SEO Analysis on Specified Folders:** Analyzes all files within specified folders for compliance with SEO rules and recommendations. |
+| -r, --rules | [array] | **Apply Specific SEO Rules for Analysis:** Applies specific SEO rules during analysis, allowing the user to customize the inspection process. By default run all default rules. |
 
 #### Example of using multiple url analysis
 
 ```sh
 seo-analyzer -u https://maddevs.io https://maddevs.io/blog
 ```
+
+## Use as actions on github
+
+To use SEO analyzer as actions on github, you can create a workflow file in .github/workflows/analyzer.yml with the following content:
+
+```yml
+name: SEO analyzer
+
+on: [push]
+
+jobs:
+  seo-analyzer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm i -g seo-analyzer
+      - run: seo-analyzer -u https://maddevs.io
+```
+
+In the last step, you can specify the url you want to analyse.
 
 ## Installation to project
 
