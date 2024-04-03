@@ -27,7 +27,7 @@ The library for analyze a HTML files to show all of the SEO defects.
 - **Seo Friendly:** will save your project from problems with search engines.
 - **It’s free:** we’re happy to share the results of our work.
 
-## Global installation
+## How to use the CLI
 
 To use the CLI, you must install the package globally.
 
@@ -59,7 +59,15 @@ seo-analyzer -h
 seo-analyzer -u https://maddevs.io https://maddevs.io/blog
 ```
 
-## Use as actions on github
+#### Example of using rules
+
+```sh
+seo-analyzer -u https://maddevs.io -r titleLengthRule='{ "min": "500" }'
+```
+
+Use json format to pass parameters to the rule.
+
+## How to use as github action
 
 To use SEO analyzer as actions on github, you can create a workflow file in .github/workflows/analyzer.yml with the following content:
 
@@ -83,9 +91,9 @@ jobs:
 
 In the last step, you can specify the url you want to analyse.
 
-## Installation to project
+## How to use as API
 
-Install with npm
+Install to the project.
 
 ```sh
 npm install -D seo-analyzer
