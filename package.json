@@ -43,7 +43,7 @@
     "make": "rimraf dist && rollup -c && node ./example/index.js",
     "build": "rimraf dist && npm run build:types && rollup -c",
     "build:types": "tsc --emitDeclarationOnly",
-    "prepare": "husky install",
+    "prepare": "husky",
     "prepublish": "npm run build && npm run test",
     "format": "prettier \"src/**/*.ts\" --write --config .prettierrc",
     "test": "jest"
