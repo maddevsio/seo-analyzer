@@ -319,67 +319,6 @@ function customRule(dom) {
 ...
 ```
 
-## Example of the output of all SEO defects in the console.
-
-```bash
- ███████╗ ███████╗  ██████╗
- ██╔════╝ ██╔════╝ ██╔═══██╗
- ███████╗ █████╗   ██║   ██║
- ╚════██║ ██╔══╝   ██║   ██║
- ███████║ ███████╗ ╚██████╔╝
- ╚══════╝ ╚══════╝  ╚═════╝
-
-  █████╗  ███╗   ██╗  █████╗  ██╗      ██╗   ██╗ ███████╗ ███████╗ ██████╗
- ██╔══██╗ ████╗  ██║ ██╔══██╗ ██║      ╚██╗ ██╔╝ ╚══███╔╝ ██╔════╝ ██╔══██╗
- ███████║ ██╔██╗ ██║ ███████║ ██║       ╚████╔╝    ███╔╝  █████╗   ██████╔╝
- ██╔══██║ ██║╚██╗██║ ██╔══██║ ██║        ╚██╔╝    ███╔╝   ██╔══╝   ██╔══██╗
- ██║  ██║ ██║ ╚████║ ██║  ██║ ███████╗    ██║    ███████╗ ███████╗ ██║  ██║
- ╚═╝  ╚═╝ ╚═╝  ╚═══╝ ╚═╝  ╚═╝ ╚══════╝    ╚═╝    ╚══════╝ ╚══════╝ ╚═╝  ╚═╝
-
-
-🚀  Parsing HTML
-
-Processing... |████████████████████████████████████████| 100% || 1/1 Pages
-
-🚀  Getting DOM from HTML
-
-Handling html |████████████████████████████████████████| 100% || 1/1 Sources
-
-==> Analysis https://google.com
-Running rules |████████████████████████████████████████| 100% || 6/6 Rules
-
-🚀  Issue report
-
-Source: https://google.com
-This HTML is missing a <meta name="description"> tag
-This HTML is missing a <meta name="viewport"> tag
-This HTML is missing a <meta property="og:url"> tag
-This HTML is missing a <meta property="og:type"> tag
-This HTML is missing a <meta property="og:site_name"> tag
-This HTML is missing a <meta property="og:title"> tag
-This HTML is missing a <meta property="og:description"> tag
-This HTML is missing a <meta property="og:image"> tag
-This HTML is missing a <meta property="og:image:width"> tag
-This HTML is missing a <meta property="og:image:height"> tag
-This HTML is missing a <meta property="twitter:card"> tag
-This HTML is missing a <meta property="twitter:text:title"> tag
-This HTML is missing a <meta property="twitter:description"> tag
-This HTML is missing a <meta property="twitter:image:src"> tag
-This HTML is missing a <meta property="twitter:url"> tag
-There are 1 <img> tags without an alt attribute
-There are 16 <a> tags without a rel attribute
-This HTML is missing a <link rel="canonical" href="..."> link
-
--------- 🚀 Finished! --------
-Thanks for using Seo Analyzer!
-```
-
-or
-
-```bash
-👍 SEO defects were not detected.
-```
-
 ## Licensing
 
 MIT License
