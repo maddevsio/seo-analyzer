@@ -1,9 +1,21 @@
 {
-  "include": ["./src/index.js"],
   "compilerOptions": {
+    "target": "esnext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
-    "allowJs": true,
-    "lib": ["es2017"]
-  }
+    "declarationDir": "dist/types",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": ["src"]
 }

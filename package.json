@@ -1,18 +1,15 @@
 {
   "name": "seo-analyzer",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "A library for analyze a HTML files to show all of the SEO defects",
-  "main": "dist/seo-analyzer.js",
-  "types": "dist/seo-analyzer.d.ts",
+  "license": "MIT",
   "repository": "https://github.com/maddevsio/seo-analyzer",
   "homepage": "https://github.com/maddevsio/seo-analyzer",
   "bugs": "https://github.com/maddevsio/seo-analyzer/issues",
-  "bin": {
-    "seo-analyzer": "./bin/index.js"
-  },
   "author": {
     "name": "Denisoed",
-    "email": "denisoed@gmail.com"
+    "email": "denisoed@gmail.com",
+    "url": "https://denisoed.com"
   },
   "contributors": [
     {
@@ -25,59 +22,88 @@
       "email": "kristjanandri.gunnarsson@travelshift.com"
     }
   ],
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=7.0.0"
+  "exports": {
+    ".": {
+      "types": "./dist/types",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.js"
+    }
   },
-  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.es.js",
+  "browser": "./dist/index.umd.js",
+  "types": "./dist/types",
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "seo-analyzer": "./bin/index.js"
+  },
   "scripts": {
-    "watch": "rollup -c -w",
     "make": "rimraf dist && rollup -c && node ./example/index.js",
-    "build": "rimraf dist && rollup -c",
+    "build": "rimraf dist && npm run build:types && rollup -c",
+    "build:types": "tsc --emitDeclarationOnly",
+    "prepare": "husky install",
     "prepublish": "npm run build && npm run test",
-    "lint": "eslint src --ext .js",
-    "format": "prettier \"src/**/*.js\" --write --config .prettierrc",
-    "test": "nyc ava",
-    "test:coverage": "nyc report --reporter=html"
+    "format": "prettier \"src/**/*.ts\" --write --config .prettierrc",
+    "test": "jest"
   },
-  "scriptsInfo": {
-    "watch": "Watch for changes and rebuild",
-    "make": "Build files and run Seo Analyzer",
-    "build": "Remove dist and build files",
-    "prepublish": "Build files before publish",
-    "lint": "Lint files",
-    "format": "Format files"
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,md,yml}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.24.3",
     "@babel/preset-env": "^7.24.3",
     "@babel/preset-typescript": "^7.24.1",
     "@babel/register": "^7.23.7",
+    "@commitlint/cli": "19.2.1",
+    "@commitlint/config-conventional": "19.1.0",
+    "@rollup/plugin-babel": "6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
-    "ava": "^6.1.2",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.24.2",
-    "nyc": "^15.1.0",
-    "prettier": "^2.4.1",
-    "rimraf": "^3.0.0",
-    "rollup": "^3.29.4",
-    "rollup-plugin-dts": "^6.1.0",
-    "typescript": "^5.3.3"
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/commit-analyzer": "12.0.0",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/github": "10.0.2",
+    "@semantic-release/npm": "^12.0.0",
+    "@semantic-release/release-notes-generator": "13.0.0",
+    "@types/cli-progress": "^3.11.5",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/jsdom": "^21.1.6",
+    "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.13.2",
+    "semantic-release": "^23.0.6",
+    "sinon": "^17.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3"
   },
   "dependencies": {
-    "@types/jsdom": "^21.1.6",
-    "axios": "^0.21.4",
-    "cfonts": "^2.10.0",
-    "cli-progress": "^3.9.1",
+    "axios": "^1.6.8",
+    "cfonts": "^3.2.0",
+    "cli-progress": "^3.12.0",
     "colors": "^1.4.0",
     "commander": "^12.0.0",
-    "express": "^4.17.1",
+    "express": "^4.19.2",
     "i": "^0.3.7",
-    "jsdom": "^16.5.3",
-    "sinon": "^11.1.2",
+    "jsdom": "^24.0.0",
     "sitemap-stream-parser": "^1.7.0"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "es5",
@@ -94,10 +120,5 @@
     "analyzer",
     "html",
     "javascript"
-  ],
-  "ava": {
-    "require": [
-      "@babel/register"
-    ]
-  }
+  ]
 }

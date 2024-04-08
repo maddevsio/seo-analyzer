@@ -1,32 +1,59 @@
-import terser from '@rollup/plugin-terser';
+import { babel } from '@rollup/plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
+import json from '@rollup/plugin-json'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import terser from '@rollup/plugin-terser'
 import pkg from './package.json' assert { type: 'json' };
-import { dts } from 'rollup-plugin-dts';
 
-const name = 'seo-analyzer';
-const input = 'src/index.js';
-const external = ['fs', 'path', 'jsdom'];
+const extensions = ['.js', '.jsx', '.ts', '.tsx']
+const external = [
+  Object.keys(pkg.dependencies || {}),
+  Object.keys(pkg.peerDependencies || {}),
+].flat()
 const globals = {
   fs: 'fs',
   path: 'path',
-  jsdom: 'jsdom'
-};
+  jsdom: 'jsdom',
+  colors: 'colors',
+  cfonts: 'cfonts',
+  axios: 'axios',
+  express: 'express',
+  ['cli-progress']: 'cli-progress',
+  ['sitemap-stream-parser']: 'sitemap-stream-parser',
+}
+
+const plugins = [
+  json(),
+  nodeResolve({ extensions }),
+  commonjs(),
+  babel({
+    extensions,
+  }),
+  terser(),
+]
 
 export default [
   {
+    input: 'src/index.ts',
     external,
-    input,
-    output: {
-      file: pkg.main,
-      format: 'umd',
-      name,
-      globals,
-      inlineDynamicImports: true
-    },
-    plugins: [terser()]
+    output: [
+      {
+        file: pkg.module,
+        format: 'esm',
+        globals,
+      },
+      {
+        file: pkg.main,
+        format: 'cjs',
+        globals,
+      },
+      {
+        name: pkg.name,
+        file: pkg.browser,
+        format: 'umd',
+        globals,
+      },
+    ],
+    plugins,
   },
-  {
-    input: './src/index.d.ts',
-    output: [{ file: 'dist/seo-analyzer.d.ts', format: 'es' }],
-    plugins: [dts()]
-  }
-];
+]

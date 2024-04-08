@@ -1,4 +1,4 @@
-const SeoAnalyzer = require('../dist/seo-analyzer.js');
+const SeoAnalyzer = require('../dist/index.js');
 
 // --------- Custom rules ------------ //
 function customRule(dom) {
@@ -31,9 +31,9 @@ new SeoAnalyzer()
   // ])
 
   // ------ Default rules -------- //
-  .addRule('titleLengthRule', { min: 10, max: 50 })
-  .addRule('metaBaseRule', { names: ['title', 'description'] })
-  .addRule('metaSocialRule', {
+  .useRule('titleLengthRule', { min: 10, max: 50 })
+  .useRule('metaBaseRule', { names: ['title', 'description'] })
+  .useRule('metaSocialRule', {
     properties: [
       'og:url',
       'og:type',
@@ -50,9 +50,9 @@ new SeoAnalyzer()
       'twitter:url'
     ]
   })
-  .addRule('imgTagWithAltAttributeRule')
-  .addRule('aTagWithRelAttributeRule')
-  .addRule('canonicalLinkRule')
+  .useRule('imgTagWithAltAttributeRule')
+  .useRule('aTagWithRelAttributeRule')
+  .useRule('canonicalLinkRule')
   // Custom rules
   .addRule(customRule)
   // ------- Output methods ------- //

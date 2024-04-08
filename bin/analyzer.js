@@ -1,5 +1,5 @@
 const colors = require('colors');
-const SeoAnalyzer = require('../dist/seo-analyzer.js');
+const SeoAnalyzer = require('../dist/index.js');
 
 const INVALID_RULE_MESSAGE = `❌ Incorrect format of the rule value. The value must be in JSON format. \n❌ For example: -r metaSocialRule='{ "properties": ["og:url"] }'`;
 
