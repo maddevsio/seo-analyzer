@@ -12,11 +12,13 @@ yarn-error.log*
 *.sln
 babel.config.js
 preview.png
+.editorconfig
 .eslintrc.js
 .eslintignore
 .prettierrc
 .babelrc
 .github/
+.husky/
 node_modules/
 example/
 src/
@@ -25,3 +27,6 @@ coverage
 .nyc_output
 rollup.config.mjs
 tsconfig.json
+commitlint.config.js
+.releaserc.json
+jest.config.ts
