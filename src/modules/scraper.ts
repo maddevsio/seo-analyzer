@@ -70,13 +70,13 @@ class Scanner {
         (err: any) => {
           if (err) {
             this.logger.error('❌  Sitemap not found\n', true);
+            resolve([]);
+          } else if (!links.length) {
+            this.logger.error('❌  Links not found\n', true);
+            resolve([]);
           } else {
-            if (!links.length) {
-              this.logger.error('❌  Links not found\n', true);
-            } else {
-              this.logger.success('✅  Done\n');
-              resolve(links);
-            }
+            this.logger.success('✅  Done\n');
+            resolve(links);
           }
         }
       );
