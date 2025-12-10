@@ -3,7 +3,9 @@ import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
-import pkg from './package.json' assert { type: 'json' };
+import { readFileSync } from 'fs';
+
+const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
 const external = [
