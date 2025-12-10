@@ -10,7 +10,8 @@ import Input from './modules/input';
 import Output from './modules/output';
 import Logger from './modules/logger';
 
-import { startServer } from './server';
+import { startServer, stopServer } from './server';
+import { Server } from 'http';
 
 /**
  * @typedef {import('./modules/analyzer').AnalyzerResult} AnalyzerResult
@@ -33,6 +34,7 @@ class SeoAnalyzer {
   ignoreFilesList: string[];
   ignoreUrlsList: string[];
   operations: Function[];
+  server: Server | null;
   constructor(options: ISeoAnalyzerOptions = { verbose: true }) {
     this.options = options;
     this.logger = new Logger(options?.verbose ? 'default' : 'error');
@@ -45,6 +47,7 @@ class SeoAnalyzer {
     this.ignoreFilesList = [];
     this.ignoreUrlsList = [];
     this.operations = [];
+    this.server = null;
     return this;
   }
 
@@ -119,10 +122,9 @@ class SeoAnalyzer {
     if (!this.inputDataList) return this;
     this.operations.push(async () => {
       // Run server for spa
-      startServer(folder, port);
+      this.server = startServer(folder, port);
       const result = await this.input.spa(port, this.ignoreUrlsList, sitemap);
       this.inputDataList = [...this.inputDataList, ...result];
-      return this;
     });
     return this;
   }
@@ -259,8 +261,16 @@ class SeoAnalyzer {
    */
   public async run() {
     this.logger.printTextToConsole('SEO Analyzer');
-    for (const operation of this.operations) {
-      await operation();
+    try {
+      for (const operation of this.operations) {
+        await operation();
+      }
+    } finally {
+      // Always close the server if it was started
+      if (this.server) {
+        await stopServer(this.server);
+        this.server = null;
+      }
     }
   }
 }
