@@ -121,6 +121,59 @@ class Logger {
   }
 
   /**
+   * Print Web Vitals results to console
+   * @param {Array} results - Array of Web Vitals results
+   */
+  public printWebVitals(results: any[]) {
+    if (this.level > 2) {
+      return;
+    }
+    console.log(
+      '\n' + _colors.cyan('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
+    );
+    console.log(_colors.cyan('📊 CORE WEB VITALS'));
+    console.log(
+      _colors.cyan('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
+    );
+
+    for (const result of results) {
+      console.log(_colors.white(`\n🔗 ${result.url}`));
+
+      const getRatingColor = (rating: string) => {
+        if (rating === 'good') return _colors.green;
+        if (rating === 'needs-improvement') return _colors.yellow;
+        return _colors.red;
+      };
+
+      const getRatingEmoji = (rating: string) => {
+        if (rating === 'good') return '🟢';
+        if (rating === 'needs-improvement') return '🟡';
+        return '🔴';
+      };
+
+      const { metrics } = result;
+      console.log(
+        `   LCP: ${metrics.lcp.value.toFixed(0)}ms ${getRatingEmoji(metrics.lcp.rating)} ${getRatingColor(metrics.lcp.rating)(metrics.lcp.rating)}`
+      );
+      console.log(
+        `   FCP: ${metrics.fcp.value.toFixed(0)}ms ${getRatingEmoji(metrics.fcp.rating)} ${getRatingColor(metrics.fcp.rating)(metrics.fcp.rating)}`
+      );
+      console.log(
+        `   CLS: ${metrics.cls.value.toFixed(3)} ${getRatingEmoji(metrics.cls.rating)} ${getRatingColor(metrics.cls.rating)(metrics.cls.rating)}`
+      );
+      console.log(
+        `   TTFB: ${metrics.ttfb.value.toFixed(0)}ms ${getRatingEmoji(metrics.ttfb.rating)} ${getRatingColor(metrics.ttfb.rating)(metrics.ttfb.rating)}`
+      );
+      console.log(
+        `   Resources: ${result.resourceCount} | Transfer: ${(result.transferSize / 1024).toFixed(1)} KB`
+      );
+    }
+    console.log(
+      '\n' + _colors.cyan('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n')
+    );
+  }
+
+  /**
    * Print beautiful message to console
    * @param {String} - Result message
    * @returns {String} - Print CFonts message to console

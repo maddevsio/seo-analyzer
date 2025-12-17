@@ -9,6 +9,7 @@ import {
 import Input from './modules/input';
 import Output from './modules/output';
 import Logger from './modules/logger';
+import WebVitals from './modules/webVitals';
 
 import { startServer } from './server';
 
@@ -26,6 +27,7 @@ class SeoAnalyzer {
   logger: Logger;
   input: Input;
   output: Output;
+  webVitals: WebVitals;
   inputDataList: IInputData[];
   defaultRulesList: typeof defaultRules;
   rules: IRule[];
@@ -33,11 +35,14 @@ class SeoAnalyzer {
   ignoreFilesList: string[];
   ignoreUrlsList: string[];
   operations: Function[];
+  shouldMeasureWebVitals: boolean;
+  webVitalsResults: any[];
   constructor(options: ISeoAnalyzerOptions = { verbose: true }) {
     this.options = options;
     this.logger = new Logger(options?.verbose ? 'default' : 'error');
     this.input = new Input(this.logger);
     this.output = new Output(this.logger);
+    this.webVitals = new WebVitals(this.logger);
     this.inputDataList = [];
     this.defaultRulesList = defaultRules;
     this.rules = [];
@@ -45,6 +50,8 @@ class SeoAnalyzer {
     this.ignoreFilesList = [];
     this.ignoreUrlsList = [];
     this.operations = [];
+    this.shouldMeasureWebVitals = false;
+    this.webVitalsResults = [];
     return this;
   }
 
@@ -213,6 +220,33 @@ class SeoAnalyzer {
     return this.defaultRulesList;
   }
 
+  // ------- Web Vitals methods ------- //
+  /**
+   * Enable Web Vitals measurement for URLs
+   * @returns {SeoAnalyzer}
+   */
+  public measureWebVitals() {
+    this.operations.push(async () => {
+      // Extract URLs from inputDataList
+      const urls = this.inputDataList
+        .map(item => item.source)
+        .filter(
+          source =>
+            source.startsWith('http://') || source.startsWith('https://')
+        );
+
+      if (urls.length > 0) {
+        this.webVitalsResults = await this.webVitals.measureMultiple(urls);
+        this.shouldMeasureWebVitals = true;
+      } else {
+        this.logger.info(
+          '\n⚠️  Web Vitals measurement skipped: No URLs found in input data\n'
+        );
+      }
+    });
+    return this;
+  }
+
   // ------- Output methods ------- //
   /**
    * Logs object to console asynchronously and returns itself
@@ -221,6 +255,10 @@ class SeoAnalyzer {
   public outputConsole() {
     this.operations.push(async () => {
       const json = await this.output.object(this.inputDataList, this.rules);
+      // Print Web Vitals first (before SEO results which may call process.exit)
+      if (this.shouldMeasureWebVitals && this.webVitalsResults.length > 0) {
+        this.logger.printWebVitals(this.webVitalsResults);
+      }
       this.logger.result(json, true);
     });
     return this;
@@ -233,8 +271,21 @@ class SeoAnalyzer {
    */
   public outputJson(callback: Function) {
     this.operations.push(async () => {
-      const json = await this.output.json(this.inputDataList, this.rules);
-      callback(json);
+      let result;
+      if (this.shouldMeasureWebVitals && this.webVitalsResults.length > 0) {
+        const seoResults = await this.output.object(
+          this.inputDataList,
+          this.rules
+        );
+        result = JSON.stringify(
+          { seoResults, webVitals: this.webVitalsResults },
+          null,
+          2
+        );
+      } else {
+        result = await this.output.json(this.inputDataList, this.rules);
+      }
+      callback(result);
     });
     return this;
   }
@@ -247,7 +298,11 @@ class SeoAnalyzer {
   public outputObject(callback: Function) {
     this.operations.push(async () => {
       const obj = await this.output.object(this.inputDataList, this.rules);
-      callback(obj);
+      if (this.shouldMeasureWebVitals && this.webVitalsResults.length > 0) {
+        callback({ seoResults: obj, webVitals: this.webVitalsResults });
+      } else {
+        callback(obj);
+      }
     });
     return this;
   }

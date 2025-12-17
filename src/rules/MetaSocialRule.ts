@@ -9,14 +9,17 @@ function metaSocialRule(
     const report: string[] = [];
     const list = options?.properties || META_SOCIAL_RULE.properties;
     list.forEach(property => {
+      // Twitter uses name attribute, Open Graph uses property attribute
+      const isTwitter = property.startsWith('twitter:');
+      const attr = isTwitter ? 'name' : 'property';
       const element: HTMLMetaElement | null = dom.window.document.querySelector(
-        `head > meta[property="${property}"]`
+        `head > meta[${attr}="${property}"]`
       );
       if (!element) {
-        report.push(`This HTML is missing a <meta property="${property}"> tag`);
+        report.push(`This HTML is missing a <meta ${attr}="${property}"> tag`);
       } else if (!element.content) {
         report.push(
-          `The content attribute for the <meta property="${property}" content=""> tag is empty`
+          `The content attribute for the <meta ${attr}="${property}" content=""> tag is empty`
         );
       }
     });

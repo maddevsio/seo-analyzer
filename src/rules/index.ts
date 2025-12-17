@@ -6,6 +6,11 @@ import canonicalLinkRule from './CanonicalLinkRule';
 import metaBaseRule from './MetaBaseRule';
 import metaSocialRule from './MetaSocialRule';
 import headingsStructureRule from './HeadingsStructureRule';
+import singleH1Rule from './SingleH1Rule';
+import faviconRule from './FaviconRule';
+import httpsRule from './HttpsRule';
+import imageOptimizationRule from './ImageOptimizationRule';
+import jsonLdRule from './JsonLdRule';
 
 const defaultRules = {
   titleLengthRule,
@@ -15,7 +20,12 @@ const defaultRules = {
   canonicalLinkRule,
   metaBaseRule,
   metaSocialRule,
-  headingsStructureRule
+  headingsStructureRule,
+  singleH1Rule,
+  faviconRule,
+  httpsRule,
+  imageOptimizationRule,
+  jsonLdRule
 };
 
 export default defaultRules;
